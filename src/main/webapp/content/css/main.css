@@ -1,0 +1,730 @@
+/*
+body {
+    background: #fafafa;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+}
+*/
+
+body {
+	background: #00132D;
+	line-height: 1.42857143;
+	color: #333;	
+}
+
+.btn-primary,
+.btn-default {
+	background: #002e5f;
+	border-radius: 6px;
+}
+
+.main-content {
+	background: #FFF;
+	margin-top: 70px;
+}
+
+.main-content h2 {
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    font-family: 'Georgia', Times, Times New Roman, serif;
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #002e5f;
+    border-bottom: 8px solid #c2c2c2;
+}
+
+.main-content h4 {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1.2em;
+	margin-bottom: 5px;
+	color: #002e5f;
+}
+
+#main-menu {
+	background: #ffb60f;
+    -webkit-box-shadow: 0 1px 12px rgba(0,0,0,0.7);
+    -moz-box-shadow: 0 1px 12px rgba(0,0,0,0.7);
+    box-shadow: 0px 1px 12px rgba(0,0,0,0.7);
+	min-height: 50px;
+	border-radius: 0;
+}
+#main-menu a {
+	color: #002e5f !important;
+	font-family: "Lucida Bright", Times, Times New Roman, serif;
+	font-size: 13px;
+    text-transform: uppercase;
+	font-weight: 700;
+	line-height: 14px;	
+}
+#main-menu a:hover,
+#main-menu .active a {
+    color: #002e5f;
+    background: #ffcb4f;	
+}
+
+#main-menu .navbar-nav > li > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  line-height: 21px;
+}
+
+#logo {
+  margin: 0 auto;
+  width: 223px;
+  height: 100px;
+}
+@media (min-width: 768px) {
+  #logo {
+    position: absolute;
+    top: -1px;
+    left: -6px;
+    margin: 0;
+    padding: 0;
+    z-index: 20;
+  }
+}
+#logo a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-indent: -9999px;
+  background: url('../images/header.png') bottom center no-repeat;
+}
+
+.well {
+	background: transparent;
+}
+
+h5 {
+    color: #c87f0a;
+    font-weight: 800;
+    padding-bottom: 10px;
+    margin-top: 20px;
+}
+
+ol + h5 {
+    margin-top: 40px;
+}
+
+.vcenter {
+    vertical-align: middle !important;
+}
+
+.stripped-list li {
+    padding: 10px 5px;
+}
+
+.stripped-list li:nth-child(odd) {
+    background-color: #ccc;
+}
+
+.radio-label {
+    margin-right: 10px;
+    font-weight: 400;
+}
+
+.form-group.separated,
+.form-inline.separated {
+  margin-bottom: 25px;
+}
+
+.general-data .form-group {
+    padding-bottom: 0;
+}
+
+.general-data .control-label {
+    text-align: left;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.next {
+    margin: 20px auto;
+    display: inline-block;
+}
+
+.container {
+    margin-bottom: 25px;
+}
+
+.navbar .container {
+    margin-bottom: 0;
+}
+
+.text-danger {
+    font-weight: 700;
+}
+
+/* Cuestionarios
+----------------------------- */
+
+.questionarie header,
+.instruction {
+    font-size: 18px;
+    border-bottom: 2px solid #dce4ec;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+.questionarie header .example {
+    border: 5px solid #c6c6c6;
+    padding: 20px;
+    width: 80%;
+    margin: 15px auto;
+}
+
+.questionarie header h4 em {
+    color: #c87f0a;
+    font-weight: bold;
+}
+
+.questionarie header .example h5 {
+    padding-bottom: 10px;
+}
+
+.questionarie footer {
+    text-align: center;
+}
+
+.questionarie ul,
+.questionarie ol,
+.no-numbers {
+    list-style-type: none;    
+}
+
+
+
+/* Encabezados
+----------------------------- */
+
+.notice {
+    width: 60%;
+    margin: 40px auto;
+    font-size: 20px;
+}
+
+.calificacion {
+    font-size: 16px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.calificacion.type-a td {
+    width: 25%;
+}
+
+.calificacion.type-c td {
+    width: 33.33%;
+}
+
+.calificacion.type-a .calif-1,
+.calificacion.type-a .calif-2,
+.calificacion.type-a .calif-3,
+.calificacion.type-a .calif-4,
+.calificacion.type-c .calif-1,
+.calificacion.type-c .calif-2,
+.calificacion.type-c .calif-3 {
+    border-bottom-width: 10px;
+}
+
+.calificacion.type-a .calif-1,
+.calificacion.type-c .calif-1 {
+    border-bottom-color: #f73413;
+}
+
+.calificacion.type-a .calif-2,
+.calificacion.type-c .calif-2 {
+    border-bottom-color: #f9b711;
+}
+
+.calificacion.type-a .calif-3 {
+    border-bottom-color: #f0f10f;
+}
+
+.calificacion.type-a .calif-4,
+.calificacion.type-c .calif-3 {
+    border-bottom-color: #5af10f;
+}
+
+.calificacion.type-b .calif-1,
+.calificacion.type-b .calif-7 {
+    background: #ffc000;
+}
+.calificacion.type-b .calif-2,
+.calificacion.type-b .calif-6 {
+    background: #ffd966;
+}
+.calificacion.type-b .calif-3,
+.calificacion.type-b .calif-5 {
+    background: #ffe599;
+}
+.calificacion.type-b .calif-4 {
+    background: #fff2cc;
+}
+
+
+
+
+/* Opciones
+----------------------------- */
+
+.opciones-menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;   
+    line-height: 1.42857143;
+    background: #002e5f;
+    border-color: #002e5f;
+    border-radius: 4px;
+
+}
+.opciones-menu > li {
+    display: inline-block;
+}
+
+.opciones-menu > li a.dropdown-toggle {
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    padding: 10px 15px;
+    line-height: 1.42857143;
+}
+
+.opciones-menu > li ul {
+    font-size: 13px;   
+}
+
+.opciones-menu > li > ul > li {
+	border-bottom: 1px solid #C2C2C2;
+}
+
+.opciones-menu > li ul li:last-child {
+	border-bottom: 0;
+}
+
+
+.opciones-menu .dropdown-menu li a:hover {
+	background: #002e5f;
+}
+
+.opciones-menu .inner-menu h6 {
+	color: #999;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 0 20px 3px;
+	margin-bottom: 0;	
+}
+
+.opciones-menu .inner-menu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.opciones-menu .inner-menu ul li a {
+	display: block;
+	padding: 3px 20px;
+	clear: both;
+	font-weight: normal;
+	line-height: 1.42857143;
+	color: #7b8a8b;
+	white-space: nowrap;
+}
+
+/* .opciones-menu .btn,
+.opciones-menu .dropdown-submenu,
+.opciones-menu li,
+.opciones-menu .dropdown-submenu .dropdown-menu {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+} */
+
+
+
+/* ==========================================================================
+Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
+========================================================================== */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+/* ==========================================================================
+Developement Ribbon
+========================================================================== */
+.ribbon {
+    background-color: #a00;
+    box-shadow: 0 0 10px #888;
+    left: -3.5em;
+    moz-box-shadow: 0 0 10px #888;
+    moz-transform: rotate(-45deg);
+    ms-transform: rotate(-45deg);
+    o-transform: rotate(-45deg);
+    overflow: hidden;
+    position: absolute;
+    top: 40px;
+    transform: rotate(-45deg);
+    webkit-box-shadow: 0 0 10px #888;
+    webkit-transform: rotate(-45deg);
+    white-space: nowrap;
+    width: 15em;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.ribbon a {
+    border: 1px solid #faa;
+    color: #fff;
+    display: block;
+    font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 1px 0;
+    padding: 10px 50px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 0 5px #444;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+Version number in navbar
+========================================================================== */
+.navbar-version {
+    font-size: 10px;
+    color: #ccc
+}
+
+/* ==========================================================================
+Browser Upgrade Prompt
+========================================================================== */
+.browserupgrade {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* ==========================================================================
+Logo styles
+========================================================================== */
+.navbar-brand.logo {
+    padding: 5px 15px;
+}
+
+.logo .logo-img {
+    height: 45px;
+    display: inline-block;
+}
+
+/* ==========================================================================
+Main page styles
+========================================================================== */
+.hero-unit {
+    margin: 50px auto 0 auto;
+    width: 300px;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 30px;
+    background-color: #eee;
+    border-radius: 6px;
+    padding: 60px;
+}
+
+.hero-unit h1 {
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.hipster {
+    display: inline-block;
+    width: 347px;
+    height: 497px;
+    background: url("../images/hipster.png") no-repeat center top;
+    background-size: contain;
+}
+
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+    .hipster {
+        background: url("../images/hipster2x.png") no-repeat center top;
+        background-size: contain;
+    }
+}
+
+/* ==========================================================================
+Generic styles
+========================================================================== */
+.error {
+    color: white;
+    background-color: red;
+}
+
+.pad {
+    padding: 10px;
+}
+
+.break {
+    white-space: normal;
+    word-break:break-all;
+}
+
+.voffset  { margin-top: 2px; }
+.voffset1 { margin-top: 5px; }
+.voffset2 { margin-top: 10px; }
+.voffset3 { margin-top: 15px; }
+.voffset4 { margin-top: 30px; }
+.voffset5 { margin-top: 40px; }
+.voffset6 { margin-top: 60px; }
+.voffset7 { margin-top: 80px; }
+.voffset8 { margin-top: 100px; }
+.voffset9 { margin-top: 150px; }
+
+.readonly {
+    background-color: #eee;
+    opacity: 1;
+}
+
+/* ==========================================================================
+make sure browsers use the pointer cursor for anchors, even with no href
+========================================================================== */
+a:hover {
+  cursor: pointer;
+}
+
+.hand {
+    cursor: pointer;
+}
+
+/* ==========================================================================
+Metrics and Health styles
+========================================================================== */
+#threadDump .popover, #healthCheck .popover {
+    top: inherit;
+    display: block;
+    font-size: 10px;
+    max-width: 1024px;
+}
+
+#healthCheck .popover {
+    margin-left: -50px;
+}
+
+.health-details {
+    min-width: 400px;
+}
+
+/* ==========================================================================
+start Password strength bar style
+========================================================================== */
+ul#strengthBar {
+    display:inline;
+    list-style:none;
+    margin:0;
+    margin-left:15px;
+    padding:0;
+    vertical-align:2px;
+}
+
+.point:last {
+    margin:0 !important;
+}
+.point {
+    background:#DDD;
+    border-radius:2px;
+    display:inline-block;
+    height:5px;
+    margin-right:1px;
+    width:20px;
+}
+
+/* ==========================================================================
+Custom alerts for notification
+========================================================================== */
+.alerts .alert{
+    text-overflow: ellipsis;
+}
+.alert pre{
+    background: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+.alert .popover pre {
+    font-size: 10px;
+}
+
+.alerts .toast {
+    position: fixed;
+    width: 100%;
+}
+
+.alerts .toast.left {
+    left: 5px;
+}
+
+.alerts .toast.right {
+    right: 5px;
+}
+
+.alerts .toast.top {
+    top: 55px;
+}
+
+.alerts .toast.bottom {
+    bottom: 55px;
+}
+
+@media screen and (min-width: 480px) {
+    .alerts .toast {
+        width: 50%;
+    }
+}
+
+/* ==========================================================================
+entity tables helpers
+========================================================================== */
+/* Remove Bootstrap padding from the element
+   http://stackoverflow.com/questions/19562903/remove-padding-from-columns-in-bootstrap-3 */
+.no-padding-left { padding-left: 0 !important; }
+.no-padding-right { padding-right: 0 !important; }
+.no-padding-top { padding-top: 0 !important; }
+.no-padding-bottom { padding-bottom: 0 !important; }
+.no-padding { padding: 0 !important; }
+
+/* bootstrap 3 input-group 100% width
+   http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
+.width-min { width: 1% !important; }
+
+/* Makes toolbar not wrap on smaller screens
+ http://www.sketchingwithcss.com/samplechapter/cheatsheet.html#right */
+.flex-btn-group-container {
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+   -webkit-justify-content: flex-end;
+   justify-content: flex-end;
+}
+
+.jh-table > tbody > tr > td {
+    /* Align text in td verifically (top aligned by Bootstrap) */
+    vertical-align: middle;
+}
+
+.jh-table > thead > tr > th > .glyphicon-sort, .jh-table > thead > tr > th > .glyphicon-sort-by-attributes, .jh-table > thead > tr > th > .glyphicon-sort-by-attributes-alt {
+    /* less visible sorting icons */
+    opacity: 0.5;
+}
+
+.jh-table > thead > tr > th > .glyphicon-sort:hover, .jh-table > thead > tr > th > .glyphicon-sort-by-attributes:hover, .jh-table > thead > tr > th > .glyphicon-sort-by-attributes-alt:hover {
+    /* full visible sorting icons and pointer when mouse is over them */
+    opacity: 1;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+entity detail page css
+========================================================================== */
+.dl-horizontal.jh-entity-details > dd {
+    margin-bottom: 15px;
+}
+
+@media screen and (min-width: 768px) {
+    .dl-horizontal.jh-entity-details > dt {
+        margin-bottom: 15px;
+    }
+
+    .dl-horizontal.jh-entity-details > dd {
+        border-bottom: 1px solid #eee;
+        padding-left: 180px;
+        margin-left: 0;
+    }
+}
+
+/* ==========================================================================
+ui bootstrap tweaks
+========================================================================== */
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+.datetime-picker-dropdown > li.date-picker-menu div > table .btn-default,
+.uib-datepicker-popup  > li > div.uib-datepicker > table .btn-default {
+    border: 0;
+}
+
+.datetime-picker-dropdown > li.date-picker-menu div > table:focus,
+.uib-datepicker-popup  > li > div.uib-datepicker > table:focus {
+    outline: none;
+}
+
+
+
+/* jhipster-needle-css-add-main JHipster will add new css style */

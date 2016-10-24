@@ -1,0 +1,161 @@
+<div>
+   <!--  <h2>Mis Asignaturas</h2> -->
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <!-- <button class="btn btn-primary" ui-sref="usuario.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Usuario
+                    </span>
+                </button> -->
+            </div>
+        </div>
+    </div>
+    <br/>
+<!--     <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="login"><span>Mefi</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="password"><span>Password</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="activo"><span>Activo</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="usuario in vm.usuarios track by usuario.id">
+                    <td><a ui-sref="usuario-detail({id:usuario.id})">{{usuario.id}}</a></td>
+                    <td>{{usuario.id}}</td>
+                    <td>{{usuario.mefi}}</td>
+                    <td>{{usuario.asignaturaBase.nombre}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="usuario-detail({id:usuario.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="usuario.edit({id:usuario.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="usuario.delete({id:usuario.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+   <!--  <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+    </div>
+    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager> -->
+    
+     <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-11">
+                <div class="page-header">
+                    <h1 id="navbar">Mis asignaturas</h1>
+                </div>
+
+                <form class="form-horizontal">
+                  <div class="form-group separated">
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" placeholder="Buscar por asignatura o institución">
+                    </div>
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                  </div>
+                </form>
+
+                <table class="table table-striped table-hover ">
+                <!--
+                <thead>
+                  <tr>
+                    <th>Asignatura</th>
+                    <th>Opciones</th>
+                  </tr>
+                </thead>
+                -->
+                <tbody>
+                
+                     <tr ng-repeat="usuario in vm.usuarios track by usuario.id">
+                    <td><h4>{{usuario.asignaturaBase.nombre}}</h4><h6>{{usuario.institucion.nombre}}</h6></td>
+
+                    <td class="vcenter">
+                    <div class="btn-group opciones-menu">
+
+                        <!-- INICIA OBSERVACIONES -->
+                        <div class="dropdown btn-group">
+                            <a href="#" class="btn btn-primary">Observaciones</a>
+                            <a role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="#"><span class="caret"></span></a>
+
+                            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                              <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Observacion 1</a>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#">Ver registro de la sesión a evaluar</a></li>
+                                  <li><a href="inst-2.html">Llenar autoevaluación</a></li>
+                                  <li><a href="#">Ver reporte de la sesión observada</a></li>
+                                </ul>
+                              </li>
+
+                              <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Observacion 2</a>
+                                <ul class="dropdown-menu">
+                                 <li><a href="#">Ver registro de la sesión a evaluar</a></li>
+                                  <li><a href="inst-2.html">Llenar autoevaluación</a></li>
+                                  <li><a href="#">Ver reporte de la sesión observada</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                        </div>
+                        <!-- TERMINA OBSERVACIONES -->
+
+                        <!-- INICIA EVALUACIONES -->
+                        <div class="dropdown btn-group">
+                            <a href="#" class="btn btn-primary">Evaluaciones</a>
+                            <a role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="#"><span class="caret"></span></a>
+
+                            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                              <li><a href="profesor-lib-1.html">Llenar autoevaluación</a></li>
+                              <li><a href="#">Ver reporte</a></li>
+
+                            </ul>
+                        </div>
+                        <!-- TERMINA EVALUACIONES -->
+
+                        <a href="#" class="btn btn-primary">Evidencias</a>
+                        
+                    </div>
+                    </td>
+
+                  </tr>
+                
+               
+               
+               
+
+                </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+    
+</div>

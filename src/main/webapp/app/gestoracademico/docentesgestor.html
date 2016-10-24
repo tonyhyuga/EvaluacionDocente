@@ -1,0 +1,133 @@
+<div>
+   <!--  <h2>Mis Asignaturas</h2> -->
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <!-- <button class="btn btn-primary" ui-sref="usuario.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Usuario
+                    </span>
+                </button> -->
+            </div>
+        </div>
+    </div>
+    <br/>
+
+    
+     <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-11">
+                <div class="page-header">
+                    <h2 id="navbar">Lista de profesores</h2>
+                </div>
+
+                <form class="form-horizontal">
+                  <div class="form-group separated">
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" placeholder="Buscar por asignatura o institución">
+                    </div>
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                  </div>
+                </form>
+
+                <table class="table table-striped table-hover ">
+                <!--
+                <thead>
+                  <tr>
+                    <th>Asignatura</th>
+                    <th>Opciones</th>
+                  </tr>
+                </thead>
+                -->
+                <tbody>
+                
+                     <tr ng-repeat="usuario in vm.usuarios track by usuario.id">
+                    <td><h4>{{usuario.clase.asignaturaBase.nombre}}</h4><h6>{{usuario.nombreCompletoAAN}}</h6></td>
+
+                    <td class="vcenter">
+                     <ul class="btn-group opciones-menu">
+
+                        <li uib-dropdown class="dropdown pointer">
+                            <a class="dropdown-toggle" uib-dropdown-toggle href="" id="obs-menu">
+                                Observaciones 
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu multi-level" uib-dropdown-menu id="obs-menu">
+                                <li class="inner-menu">
+                                    <h6>Observación 1</h6>
+		                            <ul>
+		                                <li>
+		                                    <a>Registro de la sesión observada</a>
+		                                </li>
+		                                <li>
+		                                    <a>Ver reporte de la sesión observada</a>
+		                                </li>                                
+		                            </ul>                                    
+                                </li>
+                                <li>
+                                    <a>Agregar observación +</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li uib-dropdown class="dropdown pointer" ng-switch="usuario.evaluacion.id == null">
+                            <a class="dropdown-toggle" uib-dropdown-toggle href="" id="eval-menu" >
+                                Evaluaciones 
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu multi-level" uib-dropdown-menu id="eval-menu">
+                                <li ng-switch-when="true">
+                                    <a ui-sref="gestor.ambito({id:usuario.clase.id,idp:usuario.profesor.persona.id})" >Registrar Evaluación</a>
+                                </li>
+                                 <li ng-switch-when="false">
+                                    <a  >Forma de evaluacion: "{{usuario.evaluacion.formaDeEvaluar}}"</a>
+                                </li>
+                                <li>
+                                    <a >Ver autoevaluación del profesor</a>
+                                </li>
+                                <li>
+                                    <a>Generar reporte</a>
+                                </li>                                
+                            </ul>
+                        </li>
+                        <li uib-dropdown class="dropdown pointer">
+                            <a class="dropdown-toggle" uib-dropdown-toggle href="" id="obs-menu">
+                                Evidencias 
+                                <!-- <b class="caret"></b> -->
+                            </a>
+<!--
+                             <ul class="dropdown-menu multi-level" uib-dropdown-menu id="obs-menu">
+                                <li>
+                                    <a>Agregar observación +</a>
+                                </li>
+                            </ul> 
+-->
+                        </li>
+                        
+                    </ul>
+                    </td>
+
+                  </tr>
+                
+               
+               
+               
+
+                </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+    </div>
+    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
+</div>

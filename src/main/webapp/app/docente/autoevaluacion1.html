@@ -1,0 +1,53 @@
+<div>
+        <div class="row">
+            <div class="col-lg-12">
+            
+            <section id="part-0" class="questionarie notice center-block" ng-show="vm.show==0">
+                <p>Estimado Profesor: </p>
+                <p>Por favor dedique unos minutos para responder este instrumento. El objetivo de este proceso de evaluación es promover la práctica reflexiva sobre su desempeño y la calidad de la enseñanza, así como la mejora continua de su práctica docente. Le pedimos que realice un análisis ético y reflexivo sobre su práctica en este semestre que finaliza.</p>
+                <p>Agradecemos tu colaboración.</p>
+
+                <footer>
+                    <p>Atentamente</p>
+                    <p>Dirección General de Desarrollo Académico</p>
+                    <p>LUZ, CIENCIA Y VERDAD</p>
+                    
+                    
+                    
+                    <a class="btn btn-default next" ng-click="vm.show = 1">Siguiente</a>
+                </footer>
+            </section>
+            
+
+			<form ng-submit="vm.save()">
+            <section  class="questionarie">  
+
+
+    <ol class="stripped-list container-fluid">
+	    <li class="form-group">
+	    	<!-- INICIA: Pregunta tipo RADIOBUTTON -->
+	    	<div class="row">
+		        <div class="question col-sm-9">
+		        {{ vm.resuelto.cuestionarioResuelto.respuestasPregunta[0].opcion }}
+		          
+		        </div>
+		        <div class="col-sm-3 ">
+		            <span>
+                         <label class="radio-label"><input type="radio" ng-model="vm.resuelto.cuestionarioResuelto.respuestasPregunta[0].opcion" name="{{vm.resuelto.cuestionarioResuelto.respuestasPregunta[0].id}}" ng-value="1"> {{vm.resuelto.cuestionarioResuelto.respuestasPregunta[0].opcion}}</label>
+		            </span>
+		            {{vm.resuelto.cuestionarioResuelto.respuestasPregunta[0].opcion}}
+		        </div>
+	        </div>
+	    	<!-- TERMINA: Pregunta tipo RADIOBUTTON -->
+	        
+    <footer>
+		<button type="submit"  class="btn btn-default next">Guardar</button>
+    </footer>
+    
+    
+			    </section>
+				</form>
+            </div>
+        </div>
+        <!-- /.row -->
+</div>
