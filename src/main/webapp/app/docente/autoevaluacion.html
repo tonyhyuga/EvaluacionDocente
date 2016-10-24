@@ -11,10 +11,8 @@
                     <p>Atentamente</p>
                     <p>Dirección General de Desarrollo Académico</p>
                     <p>LUZ, CIENCIA Y VERDAD</p>
-                    
-                    
-                    
-                    <a class="btn btn-default next" ng-click="vm.show = 1">Siguiente</a>
+
+                    <a class="btn btn-primary next" ng-click="vm.show = 1">Siguiente</a>
                 </footer>
             </section>
             
@@ -137,10 +135,9 @@
     </ol>
 
     <footer>
-		<a class="btn btn-default next" ng-click="vm.show = $index">Anterior</a>
-		<a class="btn btn-default next" ng-click="vm.show = $index + 2" ng-if="!$last">Siguiente</a>
-		<!-- <a class="btn btn-default next" ng-if="$last">Guardar</a> -->
-		<button type="submit"  class="btn btn-default next" ng-if="$last">Guardar</button>
+		<a class="btn btn-primary next" ng-click="vm.show = $index">Anterior</a>
+		<a class="btn btn-primary next" ng-click="vm.show = $index + 2" ng-if="!$last">Siguiente</a>
+		<button type="submit"  class="btn btn-primary next" ng-if="$last">Guardar</button>
     </footer>
     
     
