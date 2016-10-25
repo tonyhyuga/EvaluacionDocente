@@ -202,6 +202,14 @@ public class EvaluacionDocenteService {
 		
 			Ambito ambitoObservaciones=ambitoRepository.getAmbito(clase.getId(), sinodo.getPersona().getId(),"Observaciones");
 			Ambito ambitoEvaluacion=ambitoRepository.getAmbito(clase.getId(), sinodo.getPersona().getId(),"Evaluaciones");
+			if(ambitoEvaluacion==null)
+			{
+				wraper.setHayevaluaciones(false);
+			}
+			else
+			{
+				wraper.setHayevaluaciones(true);
+			}
 			Ambito ambitoEvidencias=ambitoRepository.getAmbito(clase.getId(), sinodo.getPersona().getId(),"Evidencias");;
 			wraper.setObservaciones(ambitoObservaciones);
 			wraper.setEvaluacion(ambitoEvaluacion);

@@ -12,6 +12,7 @@ public class ClaseUADYDocenteWrapper {
 	
 	private Ambito observaciones;
 	private Ambito evaluacion;
+	private boolean hayevaluaciones;
 	private Ambito evidencias;
 	
 	public ClaseUADYDocenteWrapper(){
@@ -52,6 +53,14 @@ public class ClaseUADYDocenteWrapper {
 	public void setEvaluacion(Ambito evaluacion) {
 		this.evaluacion = evaluacion;
 	}
+	
+	public boolean getHayevaluaciones() {
+		return hayevaluaciones;
+	}
+	public void setHayevaluaciones(boolean hayevaluaciones) {
+		this.hayevaluaciones = hayevaluaciones;
+	}
+	
 	public Ambito getEvidencias() {
 		return evidencias;
 	}
