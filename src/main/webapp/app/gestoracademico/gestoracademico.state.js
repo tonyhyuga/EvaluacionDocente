@@ -142,7 +142,7 @@
 //            }
 //       })
         .state('gestor.ambito', {
-            parent: 'app',
+            parent: 'gestor',
             url: '/gestoracademico/{id}/{idp}',
             data: {
             	authorities: ['GESTOR_ACADEMICO']

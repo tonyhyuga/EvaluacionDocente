@@ -81,6 +81,19 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 //			+ "join inst.empleados empl "
 //			+ "where prof.id = empl.id and inst.id=:id and clase.mefi='T'  "
 //			+ "and pc.periodoLectivoIni <= :fecha and pc.periodoLectivoFin >= :fecha")
+//	@Query("select  distinct clase,prof from ClaseUADY clase "
+//			+ "join clase.movimientosInscripcionGrupo grupo  "
+//			+ "join grupo.planDeEstudios pl "
+//			+ "join pl.programaEducativo pr "
+//			+ "join pr.tipoNivel nivel "
+//			+ "join clase.periodoCurso pc "
+//			+ "join clase.sinodo prof "
+//			+ "join clase.institucion inst "
+//			+ "join inst.empleados empl "
+//			+ "where prof.id = empl.id and inst.id=:id and clase.mefi='T' and nivel.id=2 "
+//			+ "and pc.periodoLectivoIni <= :fecha and pc.periodoLectivoFin >= :fecha")
+//	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") int id,@Param("fecha") Calendar fecha);
+
 	@Query("select  distinct clase,prof from ClaseUADY clase "
 			+ "join clase.movimientosInscripcionGrupo grupo  "
 			+ "join grupo.planDeEstudios pl "
@@ -89,11 +102,11 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 			+ "join clase.periodoCurso pc "
 			+ "join clase.sinodo prof "
 			+ "join clase.institucion inst "
-			+ "join inst.empleados empl "
-			+ "where prof.id = empl.id and inst.id=:id and clase.mefi='T' and nivel.id=2 "
-			+ "and pc.periodoLectivoIni <= :fecha and pc.periodoLectivoFin >= :fecha")
-	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") int id,@Param("fecha") Calendar fecha);
+			+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 "
+			+ "and pc.calendarInicio <= :fecha and pc.calendarFin >= :fecha")
+	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") List<Integer> id,@Param("fecha") Calendar fecha);
 
+	
 	
 	/////////////////////////////////////////////////////////////////////
 	@Query("select distinct cu, titular from ClaseUADY cu " +

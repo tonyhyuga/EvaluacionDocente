@@ -183,11 +183,11 @@ public class EvaluacionDocenteService {
 		return result;
 
 	}
-	public Page<ClaseUADYDocenteWrapper> findDocentesByInstitucion(Pageable pageable, int id) {
+	public Page<ClaseUADYDocenteWrapper> findDocentesByInstitucion(Pageable pageable, List<Integer> ids) {
 		log.debug("Request to get all emeplados con paginacion");
 		
 		Calendar fecha = Calendar.getInstance();
-		Page<Object[]> clasest= claseRepository.getClasesUADYPorInstitucion(pageable,id,fecha);
+		Page<Object[]> clasest= claseRepository.getClasesUADYPorInstitucion(pageable,ids,fecha);
 
 		System.out.println("clases total sin sinodos: "+clasest.getTotalElements());
 

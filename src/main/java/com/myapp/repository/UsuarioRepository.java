@@ -34,4 +34,12 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 			+ "join pf.rol r "
 			+ "where r.rol=:rol and emp.persona.id=:idpersona ")
 	List<Institucion> getInstitucionByRol(@Param("idpersona") Integer idpersona,@Param("rol") String rol);
+	
+	@Query("Select  distinct inst.id from UsuarioEmpleado user "
+			+ "join user.perfiles pf "
+			+ "join pf.institucion inst "
+			+ "join user.empleado emp "
+			+ "join pf.rol r "
+			+ "where r.rol=:rol and emp.persona.id=:idpersona ")
+	List<Integer> getInstitucionesByRol(@Param("idpersona") Integer idpersona,@Param("rol") String rol);
 }
