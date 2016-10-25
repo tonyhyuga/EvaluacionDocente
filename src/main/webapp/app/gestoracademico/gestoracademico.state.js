@@ -156,11 +156,8 @@
                     size: 'lg',
                     resolve: {
                         entity: ['GestorAcademico', function(GestorAcademico) {
-                        	var a=GestorAcademico.obtener({id : $stateParams.id , idp : $stateParams.idp}).$promise
-                           if(a==null)
-                        	   a={tipoAmbito: null
-                           			}
-                        	return a;
+                        	return GestorAcademico.obtener({id : $stateParams.id , idp : $stateParams.idp}).$promise;
+                
                         }]
                     }
                 }).result.then(function() {
