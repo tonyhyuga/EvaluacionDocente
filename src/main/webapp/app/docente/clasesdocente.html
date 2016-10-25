@@ -21,7 +21,7 @@
                 <tbody>
                 
                      <tr ng-repeat="clase in vm.clases track by clase.id">
-                    <td><h4>{{clase.clase.asignaturaBase.nombre}}</h4><h6>{{ clase.clase.institucion.nombre }}</h6></td>
+                    <td><h4>{{clase.clase.asignaturaBase.nombre}}</h4><h6>{{ clase.clase.institucion.nombre }} - {{ clase.clase.grupo.grupo }}</h6></td>
 
                     <td class="vcenter">
                     <ul class="btn-group opciones-menu">
