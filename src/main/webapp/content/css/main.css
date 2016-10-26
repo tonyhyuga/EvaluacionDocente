@@ -166,6 +166,19 @@ ol + h5 {
 	margin-bottom: 0;
 }
 
+.pager {
+	width: 50%;
+	margin: 0 auto 20px;
+}
+
+.pager li a {
+	background: #4C9ED9;
+	color: #FFF;
+	font-size: 26px;
+	border-radius: 3px;
+	font-weight: bold;
+}
+
 /* Cuestionarios
 ----------------------------- */
 

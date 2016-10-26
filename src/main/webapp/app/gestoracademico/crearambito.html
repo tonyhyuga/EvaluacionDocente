@@ -10,7 +10,7 @@
 					<label><input type="radio" ng-model="vm.ambito.formaDeEvaluar" name="tipo" value="Libre" required> Libre</label><br/>
 	</div>
     <div class="modal-footer" ng-switch="vm.isSaving">
-          			<button type="submit" ng-disabled="vm.isSaving" class="btn btn-primary">Registrar</button>
-          			<div  ng-switch-when="true">Generando evaluaciones, esto puede tardar unos minutos...</div>
+          <div class="alert alert-info" ng-switch-when="true">Generando evaluaciones, esto puede tardar unos minutos...</div>
+          <button type="submit" ng-disabled="vm.isSaving" class="btn btn-primary">Registrar</button>
     </div>
 	</form>
