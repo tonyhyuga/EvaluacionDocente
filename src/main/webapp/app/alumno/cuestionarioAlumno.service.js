@@ -32,11 +32,9 @@
             'save': {
                 method: 'POST',
                 transformResponse: function (data) {
-                	alert(data);
                     if (data) {
                         data = angular.fromJson(data);
                     }
-                    alert(data);
                     return data;
                 }
             },

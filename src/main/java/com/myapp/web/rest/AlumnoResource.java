@@ -1,5 +1,6 @@
 package com.myapp.web.rest;
 
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,10 +27,12 @@ import com.myapp.domain.AlumnoUADYMatriculado;
 import com.myapp.domain.ClaseUADY;
 import com.myapp.domain.PeriodoCurso;
 import com.myapp.domain.PlanDeEstudios;
+import com.myapp.domain.encuestas.CuestionarioResuelto;
 import com.myapp.domain.wrapper.ClaseUADYDocenteWrapper;
 import com.myapp.domain.wrapper.CuestionarioResueltoWrapper;
 import com.myapp.service.EvaluacionDocenteService;
 import com.myapp.service.PeridoCursoService;
+import com.myapp.web.rest.util.HeaderUtil;
 import com.myapp.web.rest.util.PaginationUtil;
 
 @RestController
@@ -80,4 +84,28 @@ public class AlumnoResource {
               HttpStatus.OK))
           .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
+	
+	 @RequestMapping(value = "/evaluacion",
+			  method = RequestMethod.POST,
+			  produces = MediaType.APPLICATION_JSON_VALUE)
+			@Timed
+			public ResponseEntity<CuestionarioResuelto> createUsuario(@RequestBody CuestionarioResuelto wraper) throws URISyntaxException {
+			  log.debug("REST request to save Ambito : {}", wraper);
+			  //evaDoceService.getC
+			  CuestionarioResuelto cuestionario = wraper;
+//			  if (cuestionario.getId() != null) {
+//			      return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("ambito", "idexists", "A new ambito cannot already have an ID")).body(null);
+//			  }
+//			  Set<RespuestaPregunta> respuestas = cuestionario.getRespuestasPregunta();
+//			  Iterator<RespuestaPregunta> respues = respuestas.iterator();
+//			  while(respues.hasNext()){
+//				  RespuestaPregunta r = respues.next();
+//				  System.out.println("->"+r.getOpcion()+" id: "+r.getId());
+//			  }
+			  
+			  CuestionarioResuelto result = evaDoceService.actualizar(cuestionario);
+			  return ResponseEntity.created(new URI("/apo/gestoracademico/" + result.getId()))
+			      .headers(HeaderUtil.createEntityCreationAlert("Cuestionario Resuelto", result.getId().toString()))
+			      .body(result);
+			}
 }

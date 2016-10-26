@@ -98,8 +98,9 @@
 		        </div>
 		        <div class="col-sm-3 ">
 		            <span ng-repeat="opcion in preguntaw.respuestasForUI">
-                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuestaPregunta.opcion" name="{{preguntaw.respuestaPregunta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required> {{ opcion.respuestaString }}</label>
+                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuesta.respuestaSeleccionada" name="{{preguntaw.respuesta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required> {{ opcion.respuestaString }}</label>
 		            </span>
+		             {{preguntaw.respuesta.respuestaSeleccionada}}
 		        </div>
 	        </div>
 	    	<!-- TERMINA: Pregunta tipo RADIOBUTTON -->
@@ -110,8 +111,10 @@
                 	<tr>
                     	<td width="20%">{{ preguntaw.pregunta.preguntaString.split('#@')[0] }}</td>
                     	<td ng-repeat="opcion in preguntaw.respuestasForUI" class="calif-{{$index + 1}}">
-                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuestaPregunta.opcion" name="{{preguntaw.respuestaPregunta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required> {{ opcion.respuestaString }}</label>
+                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuesta.respuestaSeleccionada" name="{{preguntaw.respuesta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required> {{ opcion.respuestaString }}</label>
+                    	
                     	</td>
+                    	 {{preguntaw.respuesta.respuestaSeleccionada}}
                     	<td width="20%">{{ preguntaw.pregunta.preguntaString.split('#@')[1] }}</td>
                     </tr>	    	
 	    		</table>	    	
@@ -122,7 +125,8 @@
 	    	<div class="row" ng-switch-when="TextArea">	    	
 		        <div class="question col-sm-12"><label>{{ preguntaw.pregunta.preguntaString }}</label></div>
 		        <div class="col-sm-12">
-		            <textarea rows="4" cols="50" class="form-control"  name="{{preguntaw.respuestaPregunta.id}}" maxlength="1000" ng-model="preguntaw.respuestaPregunta.respuestaSeleccionada" tabindex="-1" required></textarea>
+		            <textarea rows="4" cols="50" class="form-control"  name="{{preguntaw.respuesta.id}}" maxlength="1000" ng-model="preguntaw.respuesta.respuestaSeleccionada" tabindex="-1" required></textarea>
+		       {{preguntaw.respuesta.respuestaSeleccionada}}
 		        </div>
 		    </div>
 	        <!-- TERMINA: Pregunta tipo TEXTAREA --> 	

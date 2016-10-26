@@ -51,7 +51,10 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 	+ "join grupos.alumnoUADYMatriculado alumno "
 	+ "join clase.periodoCurso pc "
 	+ "join clase.sinodo prof "
-	+ "where alumno.id =:idAlumno and pc.id=:idPC and resuelto.completado = true")
+	+ "where alumno.id =:idAlumno and pc.id=:idPC "
+//	+ "and resuelto.completado = false "
+	+ "and alumno.persona.id = resuelto.personaEncuestada.id"
+	+ "")
 	Page<Object[]> getClasesConCuestionariosNoResueltosByAlumno(Pageable pageable, @Param("idAlumno") Integer idAlumno,@Param("idPC")Integer idPeridocurso);
 	
 	@Query("select clase from ClaseUADY clase join clase.periodoCurso pc "
@@ -104,6 +107,7 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 
 	@Query("select  distinct clase,prof from ClaseUADY clase "
 			+ "join clase.movimientosInscripcionGrupo grupo  "
+			+ "join clase.asignaturaBase asig "
 			+ "join grupo.planDeEstudios pl "
 			+ "join pl.programaEducativo pr "
 			+ "join pr.tipoNivel nivel "
@@ -111,7 +115,7 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 			+ "join clase.sinodo prof "
 			+ "join clase.institucion inst "
 			+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 "
-			+ "and pc.calendarInicio <= :fecha and pc.calendarFin >= :fecha")
+			+ "and pc.calendarInicio <= :fecha and pc.calendarFin >= :fecha order by asig.nombre " )
 	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") List<Integer> id,@Param("fecha") Calendar fecha);
 
 	

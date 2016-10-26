@@ -158,6 +158,14 @@ ol + h5 {
     font-weight: 700;
 }
 
+.form-search {
+	margin-bottom: 25px;
+}
+
+.form-search .form-group {
+	margin-bottom: 0;
+}
+
 /* Cuestionarios
 ----------------------------- */
 

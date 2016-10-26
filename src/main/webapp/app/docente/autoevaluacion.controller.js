@@ -37,13 +37,13 @@
         			for(var h=0;h<cuestionario.respuestasPregunta.length;h++){
         				if(cuestionario.respuestasPregunta[h].pregunta.id==grupo[i].preguntasWrapperForUI[j].pregunta.id){
         					if(grupo[i].preguntasWrapper[j].pregunta.tipoPregunta.tipoPregunta=='RadioButton'){
-        						cuestionario.respuestasPregunta[h].opcion =grupo[i].preguntasWrapperForUI[j].respuesta.opcion;
+        						cuestionario.respuestasPregunta[h].respuestaSeleccionada =grupo[i].preguntasWrapperForUI[j].respuesta.respuestaSeleccionada;
             				}
         					if(grupo[i].preguntasWrapperForUI[j].pregunta.tipoPregunta.tipoPregunta=='TextArea'){
         						cuestionario.respuestasPregunta[h].respuestaSeleccionada=grupo[i].preguntasWrapperForUI[j].respuesta.respuestaSeleccionada;
             				}
         					if(grupo[i].preguntasWrapperForUI[j].pregunta.tipoPregunta.tipoPregunta=='Escala'){
-        						cuestionario.respuestasPregunta[h].opcion=grupo[i].preguntasWrapperForUI[j].respuesta.opcion;
+        						cuestionario.respuestasPregunta[h].respuestaSeleccionada=grupo[i].preguntasWrapperForUI[j].respuesta.respuestaSeleccionada;
             				}
         				}
         				k++;

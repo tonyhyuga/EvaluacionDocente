@@ -8,14 +8,18 @@
                     <h2 id="navbar">Lista de profesores</h2>
                 </div>
 
-                <form class="form-horizontal">
-                  <div class="form-group separated">
-                    <div class="col-sm-4">
-                        Buscar <input type="text" ng-model="busquedagestor" class="form-control" placeholder="Buscar por asignatura o profesor">
-                        Por evaluar <input type="checkbox" ng-model="busquedagestornoevaluados" ng-true-value=false ng-false-value="" >
-                    </div>
-                    <!-- button type="submit" class="btn btn-default">Buscar</button -->
+                <form class="form-horizontal form-search">
+                  <div class="form-group">                  	
+                   	<div class="col-sm-5">
+                        <input type="text" ng-model="busquedagestor" class="form-control" placeholder="Buscar por asignatura o profesor">
+                  	</div>
+				  <!-- button type="submit" class="btn btn-default">Buscar</button -->
                   </div>
+				  <div class="checkbox">
+				    <label>
+						<input type="checkbox" ng-model="busquedagestornoevaluados" ng-true-value=false ng-false-value="" > Por evaluar    
+					</label>
+				  </div>
                 </form>
 
                 <table class="table table-striped table-hover ">
