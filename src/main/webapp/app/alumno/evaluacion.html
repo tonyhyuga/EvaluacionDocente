@@ -100,6 +100,8 @@
 		            <span ng-repeat="opcion in preguntaw.respuestasForUI">
                         <label class="radio-label"><input type="radio" ng-model="preguntaw.respuesta.respuestaSeleccionada" name="{{preguntaw.respuesta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required> {{ opcion.respuestaString }}</label>
 		            </span>
+		            id: {{preguntaw.respuesta.id}}
+		             {{preguntaw.respuesta.respuestaSeleccionada}}
 		        </div>
 	        </div>
 	    	<!-- TERMINA: Pregunta tipo RADIOBUTTON -->
@@ -114,6 +116,8 @@
                     	
                     	</td>
                     	<td width="20%">{{ preguntaw.pregunta.preguntaString.split('#@')[1] }}</td>
+                    	 id: {{preguntaw.respuesta.id}}
+                    	 {{preguntaw.respuesta.respuestaSeleccionada}}
                     </tr>	    	
 	    		</table>	    	
 	        </div>
@@ -125,6 +129,8 @@
 		        <div class="col-sm-12">
 		            <textarea rows="4" cols="50" class="form-control"  name="{{preguntaw.respuesta.id}}" maxlength="1000" ng-model="preguntaw.respuesta.respuestaSeleccionada" tabindex="-1" required></textarea>
 		        </div>
+		         id: {{preguntaw.respuesta.id}}
+		        {{preguntaw.respuesta.respuestaSeleccionada}}
 		    </div>
 	        <!-- TERMINA: Pregunta tipo TEXTAREA --> 	
 	    </li>

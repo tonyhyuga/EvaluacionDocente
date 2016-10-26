@@ -128,7 +128,7 @@ public class EvaluacionDocenteService {
 				Iterator<RespuestaPregunta> resultados = respuestas.iterator();
 				while(resultados.hasNext()){
 					RespuestaPregunta respuesta = resultados.next();
-					if(respuesta.getPregunta().getId()==pregunta.getId()){
+					if(respuesta.getPregunta().getId().intValue()==pregunta.getId().intValue()){
 						preWrap.setRespuesta(respuesta);
 						break;
 					}
@@ -355,7 +355,7 @@ public class EvaluacionDocenteService {
 			while(respuestasView.hasNext()){
 				 RespuestaPregunta respuestaView = respuestasView.next();
 				 if(respuesta.getPregunta().getId().intValue()==respuestaView.getPregunta().getId().intValue()){
-					 respuesta.setOpcion(respuestaView.getOpcion());
+					// respuesta.setOpcion(respuestaView.getOpcion());
 					 respuesta.setRespuestaSeleccionada(respuestaView.getRespuestaSeleccionada());
 					 break;
 				 }
