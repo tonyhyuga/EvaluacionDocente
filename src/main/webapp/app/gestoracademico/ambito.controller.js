@@ -11,7 +11,6 @@
         var vm = this;
 
         vm.ambito = entity;
-      //  vm.isNew = isNew;
         vm.clear = clear;
         vm.save = save;
         vm.cancel = cancel;
@@ -25,14 +24,12 @@
         }
 
         function save () {
-        	//alert("salvado!!"+vm.ambito.formaDeEvaluar);
             vm.isSaving = true;
             if (vm.ambito.id !== null) {
             	GestorAcademico.update(vm.ambito, onSaveSuccess, onSaveError);
             } else {
             	GestorAcademico.save(vm.ambito, onSaveSuccess, onSaveError);
             }
-        	$uibModalInstance.dismiss('cancel');///esto debe cambiar
         }
 
         function onSaveSuccess (result) {
@@ -46,23 +43,8 @@
         }
         
         function cancel () {
-//            vm.credentials = {
-//                username: null,
-//                password: null,
-//                rememberMe: true
-//            };
-//            vm.authenticationError = false;
             $uibModalInstance.dismiss('cancel');
         }
-        
-//        function isNew(){
-//        	//alert(vm.ambito.id ==null)
-//        	if( vm.ambito == null ||vm.ambito.id ==null )
-//        		return true;
-//        	else
-//        		return false;
-//        }
-
 
     }
 })();

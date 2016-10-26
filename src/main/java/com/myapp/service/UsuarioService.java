@@ -95,12 +95,9 @@ public class UsuarioService {
         usuarioRepository.delete(id);
     }
     
-    public Institucion getInstitucionByRol(Integer idpersona,String rol){
+    public List<Integer> getInstitucionByRol(Integer idpersona,String rol){
     	 log.debug("Request to get Intitucion con rol: {}",idpersona, rol);
-    	 List<Institucion> insituciones=usuarioRepository.getInstitucionByRol(idpersona,rol);
-    	 if(insituciones.size()>0)
-    		 return insituciones.get(0);
-    	 else
-    		 return null;
+    	 List<Integer> instituciones=usuarioRepository.getInstitucionesByRol(idpersona,rol);
+    	return instituciones;
     }
 }

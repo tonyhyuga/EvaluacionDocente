@@ -145,10 +145,9 @@ public class EvaluacionDocenteService {
 	@Transactional(readOnly = true) 	
 	public Page<ClaseUADYDocenteWrapper> findClasesByAlumno(Pageable pageable, int idAlumno,int idPeriodocurso) {
 		log.debug("Request to get all clases con paginacion");
-//		return claseRepository.getClaseUADYByAlumno(pageable,idAlumno, idPeriodocurso);
 
 		Calendar fecha = Calendar.getInstance();
-		Page<Object[]> clasest= claseRepository.getClasesUADYByAlumno(pageable,idAlumno, idPeriodocurso);
+		Page<Object[]> clasest= claseRepository.getClasesConCuestionariosNoResueltosByAlumno(pageable,idAlumno, idPeriodocurso);
 
 		System.out.println("clases total sin sinodos: "+clasest.getTotalElements());
 
@@ -183,11 +182,11 @@ public class EvaluacionDocenteService {
 		return result;
 
 	}
-	public Page<ClaseUADYDocenteWrapper> findDocentesByInstitucion(Pageable pageable, int id) {
+	public Page<ClaseUADYDocenteWrapper> findDocentesByInstitucion(Pageable pageable, List<Integer> ids) {
 		log.debug("Request to get all emeplados con paginacion");
 		
 		Calendar fecha = Calendar.getInstance();
-		Page<Object[]> clasest= claseRepository.getClasesUADYPorInstitucion(pageable,id,fecha);
+		Page<Object[]> clasest= claseRepository.getClasesUADYPorInstitucion(pageable,ids,fecha);
 
 		System.out.println("clases total sin sinodos: "+clasest.getTotalElements());
 
@@ -252,13 +251,13 @@ public class EvaluacionDocenteService {
 		Set<CuestionarioResuelto> cuestionariosAlumno= new HashSet<CuestionarioResuelto>();
 		/**se crea la hoja de respuestas del instrumento del profesor*/
 		CuestionarioResuelto cuestionarioProf= new CuestionarioResuelto();
-		//cuestionarioProf.setAmbito(ambito);
+		cuestionarioProf.setAmbito(ambito);
 		cuestionarioProf.setPersonaEncuestada(ambito.getPersona());
 		cuestionarioProf.setCompletado(false);
 		cuestionarioProf.setCuestionario(instrumentoDoce);
 		
 		Set<RespuestaPregunta> lista = generarRespuetasOfPreguntas(instrumentoDoce,ambito,ambito.getPersona(),cuestionarioProf);
-		//cuestionarioProf.setRespuestasPregunta(lista);
+		cuestionarioProf.setRespuestasPregunta(lista);
 		cuestionariosAlumno.add(cuestionarioProf);
 		/**se crean las hojas de respuesta por cada alumno que intrega la clase */
 		Ambito newAmbito = ambitoRepository.save(ambito);
@@ -272,7 +271,7 @@ public class EvaluacionDocenteService {
 			Set<RespuestaPregunta> respuestas = generarRespuetasOfPreguntas(instrumentoAlumno,ambito,
 					alumnmo.getPersona(),cuestionario);
 			cuestionario.setCuestionario(instrumentoAlumno);
-			//cuestionario.setRespuestasPregunta(respuestas);
+			cuestionario.setRespuestasPregunta(respuestas);
 			cuestionarioResueltoRepository.save(cuestionario);
 			cuestionariosAlumno.add(cuestionario);
 		}
@@ -292,8 +291,8 @@ public class EvaluacionDocenteService {
 			 while(iterator.hasNext()){
 				 Pregunta pregunta=iterator.next();
 				 RespuestaPregunta respuesta= new RespuestaPregunta();
-				// respuesta.setAmbito(ambito);
-				// respuesta.setCuestionarioResuelto(cuestionario);
+				 respuesta.setAmbito(ambito);
+				 respuesta.setCuestionarioResuelto(cuestionario);
 				 respuesta.setPersonaEncuestada(evaluador);
 				 respuesta.setPregunta(pregunta);
 				 PreguntaHecha preguntaHecha=new PreguntaHecha();

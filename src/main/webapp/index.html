@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>DIIE</title>
+    <title>Evaluación Docente</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -23,13 +23,7 @@
     <![endif]-->
 	<!-- <page-ribbon></page-ribbon> -->
     <div ui-view="navbar" ng-cloak></div>
-    <div class="container main-content">
-        <div class="well" ui-view="content">
-            <!-- Angular views -->
-        </div>
-
-        <div class="footer" ng-cloak>
-        </div>
+    <div class="container main-content" ui-view="content">
     </div>
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
@@ -109,9 +103,6 @@
     <script src="app/docente/clasedocente.service.js"></script>
     <script src="app/docente/clasedocente.controller.js"></script>
     <script src="app/docente/autoevaluacion.controller.js"></script>
-<!--     <script src="app/diie/clasedocente.state.js"></script>
-    <script src="app/diie/clasedocente.service.js"></script>
-    <script src="app/diie/clasedocente.controller.js"></script> -->
     <script src="app/components/util/truncate-words.filter.js"></script>
     <script src="app/components/util/truncate-characters.filter.js"></script>
     <script src="app/components/util/sort-by.directive.js"></script>

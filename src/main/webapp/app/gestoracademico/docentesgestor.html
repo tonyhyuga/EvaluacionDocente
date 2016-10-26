@@ -1,21 +1,4 @@
 <div>
-   <!--  <h2>Mis Asignaturas</h2> -->
-    <jhi-alert></jhi-alert>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4 no-padding-left">
-                <!-- <button class="btn btn-primary" ui-sref="usuario.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span >
-                        Create new Usuario
-                    </span>
-                </button> -->
-            </div>
-        </div>
-    </div>
-    <br/>
-
-    
      <!-- Page Content -->
     <div class="container">
 
@@ -56,28 +39,14 @@
                         <li uib-dropdown class="dropdown pointer">
                             <a class="dropdown-toggle" uib-dropdown-toggle href="" id="obs-menu">
                                 Observaciones 
-                                <b class="caret"></b>
+                                <!-- <b class="caret"></b> -->
                             </a>
-                            <ul class="dropdown-menu multi-level" uib-dropdown-menu id="obs-menu">
-                                <li class="inner-menu">
-                                    <h6>Observación 1</h6>
-		                            <ul>
-		                                <li>
-		                                    <a>Registro de la sesión observada</a>
-		                                </li>
-		                                <li>
-		                                    <a>Ver reporte de la sesión observada</a>
-		                                </li>                                
-		                            </ul>                                    
-                                </li>
-                                <li>
-                                    <a>Agregar observación +</a>
-                                </li>
-                            </ul>
                         </li>
                         
                         <li uib-dropdown class="dropdown pointer" ng-switch="usuario.evaluacion.id == null">
+	                        
                             <a class="dropdown-toggle" uib-dropdown-toggle href="" id="eval-menu" >
+	                            <span ng-switch-when="false" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 Evaluaciones 
                                 <b class="caret"></b>
                             </a>
@@ -88,12 +57,9 @@
                                  <li ng-switch-when="false">
                                     <a  >Forma de evaluacion: "{{usuario.evaluacion.formaDeEvaluar}}"</a>
                                 </li>
-                                <li>
+                                <li ng-switch-when="false">
                                     <a >Ver autoevaluación del profesor</a>
                                 </li>
-                                <li>
-                                    <a>Generar reporte</a>
-                                </li>                                
                             </ul>
                         </li>
                         <li uib-dropdown class="dropdown pointer">
@@ -101,24 +67,12 @@
                                 Evidencias 
                                 <!-- <b class="caret"></b> -->
                             </a>
-<!--
-                             <ul class="dropdown-menu multi-level" uib-dropdown-menu id="obs-menu">
-                                <li>
-                                    <a>Agregar observación +</a>
-                                </li>
-                            </ul> 
--->
                         </li>
                         
                     </ul>
                     </td>
-
                   </tr>
                 
-               
-               
-               
-
                 </tbody>
                 </table>
 

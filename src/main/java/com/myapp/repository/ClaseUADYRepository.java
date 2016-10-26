@@ -43,8 +43,16 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 			+ "join clase.sinodo prof "
 			+ "where alumno.id =:idAlumno and pc.id=:idPC ")
 	Page<Object[]> getClasesUADYByAlumno(Pageable pageable, @Param("idAlumno") Integer idAlumno,@Param("idPC")Integer idPeridocurso);
-	
-		
+			
+	@Query("select distinct clase, prof from CuestionarioResuelto resuelto "
+	+ "join resuelto.ambito a "
+	+ "join a.claseUady clase "
+	+ "join clase.movimientosInscripcionGrupo grupos "
+	+ "join grupos.alumnoUADYMatriculado alumno "
+	+ "join clase.periodoCurso pc "
+	+ "join clase.sinodo prof "
+	+ "where alumno.id =:idAlumno and pc.id=:idPC and resuelto.completado = true")
+	Page<Object[]> getClasesConCuestionariosNoResueltosByAlumno(Pageable pageable, @Param("idAlumno") Integer idAlumno,@Param("idPC")Integer idPeridocurso);
 	
 	@Query("select clase from ClaseUADY clase join clase.periodoCurso pc "
 			+ "join pc.anioEscolar anio "
@@ -81,6 +89,19 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 //			+ "join inst.empleados empl "
 //			+ "where prof.id = empl.id and inst.id=:id and clase.mefi='T'  "
 //			+ "and pc.periodoLectivoIni <= :fecha and pc.periodoLectivoFin >= :fecha")
+//	@Query("select  distinct clase,prof from ClaseUADY clase "
+//			+ "join clase.movimientosInscripcionGrupo grupo  "
+//			+ "join grupo.planDeEstudios pl "
+//			+ "join pl.programaEducativo pr "
+//			+ "join pr.tipoNivel nivel "
+//			+ "join clase.periodoCurso pc "
+//			+ "join clase.sinodo prof "
+//			+ "join clase.institucion inst "
+//			+ "join inst.empleados empl "
+//			+ "where prof.id = empl.id and inst.id=:id and clase.mefi='T' and nivel.id=2 "
+//			+ "and pc.periodoLectivoIni <= :fecha and pc.periodoLectivoFin >= :fecha")
+//	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") int id,@Param("fecha") Calendar fecha);
+
 	@Query("select  distinct clase,prof from ClaseUADY clase "
 			+ "join clase.movimientosInscripcionGrupo grupo  "
 			+ "join grupo.planDeEstudios pl "
@@ -89,11 +110,11 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 			+ "join clase.periodoCurso pc "
 			+ "join clase.sinodo prof "
 			+ "join clase.institucion inst "
-			+ "join inst.empleados empl "
-			+ "where prof.id = empl.id and inst.id=:id and clase.mefi='T' and nivel.id=2 "
-			+ "and pc.periodoLectivoIni <= :fecha and pc.periodoLectivoFin >= :fecha")
-	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") int id,@Param("fecha") Calendar fecha);
+			+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 "
+			+ "and pc.calendarInicio <= :fecha and pc.calendarFin >= :fecha")
+	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") List<Integer> id,@Param("fecha") Calendar fecha);
 
+	
 	
 	/////////////////////////////////////////////////////////////////////
 	@Query("select distinct cu, titular from ClaseUADY cu " +
