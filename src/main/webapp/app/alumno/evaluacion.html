@@ -91,6 +91,7 @@
 
     <ol class="stripped-list container-fluid">
 	    <li class="form-group" ng-repeat="preguntaw in grupo.preguntasWrapperForUI" ng-switch="preguntaw.pregunta.tipoPregunta.tipoPregunta">
+
 	    	<!-- INICIA: Pregunta tipo RADIOBUTTON -->
 	    	<div class="row" ng-switch-when="RadioButton">
 		        <div class="question col-sm-9">
@@ -129,9 +130,8 @@
 	        <!-- TERMINA: Pregunta tipo TEXTAREA --> 	
 	    </li>
     </ol>
-
+	<div class="alert alert-danger text-center" ng-if="$last" ng-show="cuestionario.$invalid"><strong>No has llenado todos los campos.</strong></div>
     <footer>
-		<div class="alert alert-warning" ng-if="$last" ng-show="cuestionario.$invalid">No ha llenado todos los campos.</div>    
 		<a class="btn btn-primary next" ng-click="vm.show = $index">Anterior</a>
 		<a class="btn btn-primary next" ng-click="vm.show = $index + 2" ng-if="!$last">Siguiente</a>
 		<button type="submit"  class="btn btn-primary next" ng-if="$last">Guardar</button>

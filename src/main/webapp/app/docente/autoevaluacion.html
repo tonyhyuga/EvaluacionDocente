@@ -119,7 +119,7 @@
                         <label class="radio-label"><input type="radio" ng-model="preguntaw.respuesta.respuestaSeleccionada" name="{{preguntaw.respuesta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required></label>
                     	</td>
                     	<td width="20%">{{ preguntaw.pregunta.preguntaString.split('#@')[1] }}</td>
-                    </tr>	    	
+                    </tr>
 	    		</table>	    	
 	        </div>
 	    	<!-- TERMINA: Pregunta tipo ESCALA -->
@@ -134,9 +134,8 @@
 	        <!-- TERMINA: Pregunta tipo TEXTAREA --> 	
 	    </li>
     </ol>
-
+	<div class="alert alert-danger text-center" ng-if="$last" ng-show="cuestionario.$invalid"><strong>No has llenado todos los campos.</strong></div>
     <footer>		
-		<div class="alert alert-warning" ng-if="$last" ng-show="cuestionario.$invalid">No ha llenado todos los campos.</div>
 		<a class="btn btn-primary next" ng-click="vm.show = $index">Anterior</a>
 		<a class="btn btn-primary next" ng-click="vm.show = $index + 2" ng-if="!$last">Siguiente</a>
 		<button type="submit" class="btn btn-primary next" ng-if="$last" ng-disabled="cuestionario.$invalid">Guardar</button>
