@@ -1,5 +1,6 @@
 package com.myapp.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -44,6 +45,8 @@ import com.myapp.repository.ClaseUADYRepository;
 import com.myapp.repository.CuestionarioRepository;
 import com.myapp.repository.CuestionarioResueltoRepository;
 import com.myapp.repository.EmpleadoRepository;
+import com.myapp.web.reportes.GeneradorReporteCuestionariosResueltos;
+import com.myapp.web.reportes.WrapperAlumnosCuestionariosResueltos;
 
 @Service
 @Transactional
@@ -361,6 +364,37 @@ public class EvaluacionDocenteService {
 				 }
 			}
 		}
+	}
+	
+	@Transactional(readOnly = true) 
+	public File getRelacionAlumnoAmbitosParaReporte(int ambito) {
+		List<Object[]> objects=claseRepository.getRelacionAlumnoAmbitosParaReporte(ambito);
+		
+		ArrayList<WrapperAlumnosCuestionariosResueltos> wrapperAlumnos = new ArrayList<WrapperAlumnosCuestionariosResueltos>();
+	
+		for(int index=0; index<objects.size(); index++){
+			WrapperAlumnosCuestionariosResueltos wrapper= new WrapperAlumnosCuestionariosResueltos();
+			wrapper.setAlumnoUsady((AlumnoUADYMatriculado)objects.get(index)[1]);
+			Persona per =((AlumnoUADYMatriculado)objects.get(index)[1]).getPersona();
+			wrapper.setPersona(per);
+			
+			Set<CuestionarioResuelto> cuestionarios = ((Ambito)objects.get(index)[0]).getCuestionariosResueltos();
+			
+			Iterator  cuestionariosIt = cuestionarios.iterator();
+			while(cuestionariosIt.hasNext()){
+				CuestionarioResuelto cuestionario= (CuestionarioResuelto)cuestionariosIt.next();
+				if(cuestionario.getPersonaEncuestada().getId().intValue()==per.getId().intValue()){
+					wrapper.setRespondio(cuestionario.getCompletado());
+				
+					break;
+					}
+			}
+			wrapperAlumnos.add(wrapper);
+			
+			
+		}
+		GeneradorReporteCuestionariosResueltos generador = new GeneradorReporteCuestionariosResueltos();
+		return generador.createExcelFile(wrapperAlumnos);
 	}
 	
 	

@@ -130,5 +130,12 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 			+ "join grupo.alumnoUADYMatriculado alumno "+
 			"where clase.id=:id ")
 	List<AlumnoUADYMatriculado> getMovimientosInscripcionClase(@Param("id") int id);
+	
+	@Query("select a,alu from Ambito a, AlumnoUADYMatriculado alu " +
+			"join a.cuestionariosResueltos cu "
+			+ "join cu.personaEncuestada per "+
+			"where a.id=:idAmbito "+
+			"and per.id=alu.persona.id ")
+	List<Object[]> getRelacionAlumnoAmbitosParaReporte(@Param("idAmbito") int idAmbito);
 
 }
