@@ -145,10 +145,9 @@ public class EvaluacionDocenteService {
 	@Transactional(readOnly = true) 	
 	public Page<ClaseUADYDocenteWrapper> findClasesByAlumno(Pageable pageable, int idAlumno,int idPeriodocurso) {
 		log.debug("Request to get all clases con paginacion");
-//		return claseRepository.getClaseUADYByAlumno(pageable,idAlumno, idPeriodocurso);
 
 		Calendar fecha = Calendar.getInstance();
-		Page<Object[]> clasest= claseRepository.getClasesUADYByAlumno(pageable,idAlumno, idPeriodocurso);
+		Page<Object[]> clasest= claseRepository.getClasesConCuestionariosNoResueltosByAlumno(pageable,idAlumno, idPeriodocurso);
 
 		System.out.println("clases total sin sinodos: "+clasest.getTotalElements());
 

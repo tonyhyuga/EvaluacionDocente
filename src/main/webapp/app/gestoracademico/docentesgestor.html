@@ -11,7 +11,7 @@
                 <form class="form-horizontal">
                   <div class="form-group separated">
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" placeholder="Buscar por asignatura o institución">
+                        <input type="text" class="form-control" placeholder="Buscar por asignatura o dependencia">
                     </div>
                     <button type="submit" class="btn btn-primary">Buscar</button>
                   </div>
@@ -29,7 +29,7 @@
                 <tbody>
                 
                   <tr ng-repeat="usuario in vm.usuarios track by usuario.id">
-                    <td><h4>{{usuario.clase.asignaturaBase.nombre}}</h4><h6>{{usuario.nombreCompletoAAN}}</h6></td>
+                    <td><h4>{{usuario.clase.asignaturaBase.nombre}}</h4><h6>{{ clase.clase.institucion.nombre }} - {{usuario.nombreCompletoAAN}} - {{ clase.clase.grupo.grupo }}</h6></td>
 
                     <td class="vcenter">
                      <ul class="btn-group opciones-menu">

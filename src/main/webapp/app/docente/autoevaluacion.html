@@ -17,13 +17,13 @@
             </section>
             
 
-			<form ng-submit="vm.save()">
+			<form ng-submit="vm.save()" name="cuestionario">
             <section ng-repeat="grupo in vm.resuelto.grupoPreguntasWrapper" id="part-{{ $index + 1 }}" class="questionarie" ng-switch="grupo.grupoPreguntas.cabecera" ng-show="vm.show==$index + 1">  
-                <header>
-                <!--  
-                    <h4>Asignatura: <em>Nombre de Asignatura</em></h4>
-                    <h4>Semestre: <em>Semestre</em></h4>
-				-->
+	                <header>
+	                <!--  
+	                    <h4>Asignatura: <em>Nombre de Asignatura</em></h4>
+	                    <h4>Semestre: <em>Semestre</em></h4>
+					-->
                     <p><strong>{{ grupo.grupoPreguntas.instrucciones }}</strong></p>
 
 					<!-- INICIA: Escala multicolor 4 -->
@@ -95,6 +95,7 @@
 
     <ol class="stripped-list container-fluid">
 	    <li class="form-group" ng-repeat="preguntaw in grupo.preguntasWrapperForUI" ng-switch="preguntaw.pregunta.tipoPregunta.tipoPregunta">
+
 	    	<!-- INICIA: Pregunta tipo RADIOBUTTON -->
 	    	<div class="row" ng-switch-when="RadioButton">
 		        <div class="question col-sm-9">
@@ -102,10 +103,11 @@
 		        </div>
 		        <div class="col-sm-3 ">
 		            <span ng-repeat="opcion in preguntaw.respuestasForUI">
-                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuesta.opcion" name="{{preguntaw.respuesta.id}}" ng-value="opcion.respuestaString"> {{ opcion.respuestaString }}</label>
+                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuesta.opcion" name="{{preguntaw.respuesta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required> {{ opcion.respuestaString }}</label>
 		            </span>
-		            {{preguntaw.respuesta.opcion}}
+		            <div class="alert alert-warning" ng-if="!cuestionario.{{preguntaw.respuesta.id}}.$valid">No has seleccionado una opcion.</div>
 		        </div>
+		        		        
 	        </div>
 	    	<!-- TERMINA: Pregunta tipo RADIOBUTTON -->
 	        
@@ -115,7 +117,7 @@
                 	<tr>
                     	<td width="20%">{{ preguntaw.pregunta.preguntaString.split('#@')[0] }}</td>
                     	<td ng-repeat="opcion in preguntaw.respuestasForUI" class="calif-{{$index + 1}}">
-                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuesta.opcion" name="{{preguntaw.respuesta.id}}" ng-value="opcion.respuestaString"> {{ opcion.respuestaString }}</label>
+                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuesta.opcion" name="{{preguntaw.respuesta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required> {{ opcion.respuestaString }}</label>
                     	</td>
                     	<td width="20%">{{ preguntaw.pregunta.preguntaString.split('#@')[1] }}</td>
                     </tr>	    	
@@ -127,17 +129,18 @@
 	    	<div class="row" ng-switch-when="TextArea">	    	
 		        <div class="question col-sm-12"><label>{{ preguntaw.pregunta.preguntaString }}</label></div>
 		        <div class="col-sm-12">
-		            <textarea rows="4" cols="50" class="form-control"  name="{{preguntaw.respuesta.id}}" maxlength="1000" ng-model="preguntaw.respuesta.respuestaSeleccionada" ></textarea>
-		        </div>
+		            <textarea rows="4" cols="50" class="form-control"  name="{{preguntaw.respuesta.id}}" maxlength="1000" ng-model="preguntaw.respuesta.respuestaSeleccionada" tabindex="-1" required></textarea>
+ 		        </div>
 		    </div>
 	        <!-- TERMINA: Pregunta tipo TEXTAREA --> 	
 	    </li>
     </ol>
 
-    <footer>
+    <footer>		
+		<div class="alert alert-warning" ng-if="$last" ng-show="cuestionario.$invalid">No ha llenado todos los campos.</div>
 		<a class="btn btn-primary next" ng-click="vm.show = $index">Anterior</a>
 		<a class="btn btn-primary next" ng-click="vm.show = $index + 2" ng-if="!$last">Siguiente</a>
-		<button type="submit"  class="btn btn-primary next" ng-if="$last">Guardar</button>
+		<button type="submit" class="btn btn-primary next" ng-if="$last" ng-disabled="cuestionario.$invalid">Guardar</button>
     </footer>
     
     

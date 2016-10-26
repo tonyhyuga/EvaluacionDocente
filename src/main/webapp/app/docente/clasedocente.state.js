@@ -65,67 +65,6 @@
             	profesor: '$stateParams.profesor'
             }
         })
-        .state('docente-oo2', {
-            parent: 'docente',
-            url: '/docente-oo2?page&sort&search',
-            data: {
-            	authorities: ['PROFESOR'],
-                pageTitle: 'Portal Gestor Academico'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/docente/profesor-oo-2.html',
-                    controller: 'DocenteController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('docente-oo3', {
-            parent: 'docente',
-            url: '/docente-oo3?page&sort&search',
-            data: {
-            	authorities: ['PROFESOR'],
-                pageTitle: 'Portal Gestor Academico'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/docente/profesor-oo-3.html',
-                    controller: 'DocenteController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('docente-oo4', {
-            parent: 'docente',
-            url: '/docente-oo4?page&sort&search',
-            data: {
-            	authorities: ['PROFESOR'],
-                pageTitle: 'Portal Gestor Academico'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/docente/profesor-oo-4.html',
-                    controller: 'DocenteController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('docente-oo5', {
-            parent: 'docente',
-            url: '/docente-oo5?page&sort&search',
-            data: {
-            	authorities: ['PROFESOR'],
-                pageTitle: 'Portal Gestor Academico'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/docente/profesor-oo-5.html',
-                    controller: 'DocenteController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-
     }
 
 })();

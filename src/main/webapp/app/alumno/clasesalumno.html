@@ -4,15 +4,19 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-11">
+            <div class="col-lg-11" ng-switch="vm.clases.length == 0">
                 <div class="page-header">
                     <h2 id="navbar">Mis asignaturas</h2>
                 </div>
-
-                <table class="table table-striped table-hover ">
+				
+				<div class="alert alert-info" role="alert" ng-switch-when="true">
+					<h3 class="text-center" >No tiene clases para evaluar.</h3>				
+				</div>
+				
+                <table class="table table-striped table-hover" ng-switch-when="false">
                 <tbody>
                 
-                     <tr ng-repeat="clase in vm.clases track by clase.id">
+                  <tr ng-repeat="clase in vm.clases track by clase.id">
                     <td><h4>{{clase.clase.asignaturaBase.nombre}}</h4><h6>{{clase.clase.institucion.nombre}} - {{clase.nombreCompletoNAA}}</h6></td>
 
                     <td class="vcenter">
@@ -22,11 +26,6 @@
                     </td>
 
                   </tr>
-                
-               
-               
-               
-
                 </tbody>
                 </table>
 
