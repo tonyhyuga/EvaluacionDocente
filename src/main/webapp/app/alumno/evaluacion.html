@@ -4,7 +4,7 @@
             
             <section id="part-0" class="questionarie notice center-block" ng-show="vm.show==0">
                 <p>Estimado Estudiante: </p>
-                <p>Por favor dedique unos minutos para responder este instrumento. El objetivo de este proceso de evaluación es promover la práctica reflexiva sobre su desempeño y la calidad de la enseñanza, así como la mejora continua de su práctica docente. Le pedimos que realice un análisis ético y reflexivo sobre su práctica en este semestre que finaliza.</p>
+                <p>Por favor, dedica unos minutos para responder este instrumento. El objetivo de este proceso es promover la mejora continua de los profesores de la UADY y con ello garantizar la calidad en tu proceso de formación, por tanto te solicitamos contestes con la mayor sinceridad posible. </p>
                 <p>Agradecemos tu colaboración.</p>
 
                 <footer>
@@ -17,7 +17,7 @@
             </section>
             
 
-			<form ng-submit="vm.save()">
+			<form ng-submit="vm.save()" name="cuestionario">
             <section ng-repeat="grupo in vm.resuelto.grupoPreguntasWrapper" id="part-{{ $index + 1 }}" class="questionarie" ng-switch="grupo.grupoPreguntas.cabecera" ng-show="vm.show==$index + 1">  
                 <header>
                     <p><strong>{{ grupo.grupoPreguntas.instrucciones }}</strong></p>
@@ -98,7 +98,7 @@
 		        </div>
 		        <div class="col-sm-3 ">
 		            <span ng-repeat="opcion in preguntaw.respuestasForUI">
-                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuestaPregunta.opcion" name="{{preguntaw.respuestaPregunta.id}}" ng-value="opcion.respuestaString"> {{ opcion.respuestaString }}</label>
+                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuestaPregunta.opcion" name="{{preguntaw.respuestaPregunta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required> {{ opcion.respuestaString }}</label>
 		            </span>
 		        </div>
 	        </div>
@@ -110,7 +110,7 @@
                 	<tr>
                     	<td width="20%">{{ preguntaw.pregunta.preguntaString.split('#@')[0] }}</td>
                     	<td ng-repeat="opcion in preguntaw.respuestasForUI" class="calif-{{$index + 1}}">
-                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuestaPregunta.opcion" name="{{preguntaw.respuestaPregunta.id}}" ng-value="opcion.respuestaString"> {{ opcion.respuestaString }}</label>
+                        <label class="radio-label"><input type="radio" ng-model="preguntaw.respuestaPregunta.opcion" name="{{preguntaw.respuestaPregunta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required> {{ opcion.respuestaString }}</label>
                     	</td>
                     	<td width="20%">{{ preguntaw.pregunta.preguntaString.split('#@')[1] }}</td>
                     </tr>	    	
@@ -122,7 +122,7 @@
 	    	<div class="row" ng-switch-when="TextArea">	    	
 		        <div class="question col-sm-12"><label>{{ preguntaw.pregunta.preguntaString }}</label></div>
 		        <div class="col-sm-12">
-		            <textarea rows="4" cols="50" class="form-control"  name="{{preguntaw.respuestaPregunta.id}}" maxlength="1000" ng-model="preguntaw.respuestaPregunta.respuestaSeleccionada" ></textarea>
+		            <textarea rows="4" cols="50" class="form-control"  name="{{preguntaw.respuestaPregunta.id}}" maxlength="1000" ng-model="preguntaw.respuestaPregunta.respuestaSeleccionada" tabindex="-1" required></textarea>
 		        </div>
 		    </div>
 	        <!-- TERMINA: Pregunta tipo TEXTAREA --> 	
