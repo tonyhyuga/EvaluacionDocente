@@ -18,8 +18,8 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/docente/clasesdocente.html',
-                    controller: 'DocenteController',
+                    templateUrl: 'app/diie/diieportal.html',
+                    controller: 'DiieController',
                     controllerAs: 'vm'
                 }
             },

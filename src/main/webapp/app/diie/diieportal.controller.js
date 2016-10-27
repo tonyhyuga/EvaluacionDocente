@@ -3,11 +3,11 @@
 
     angular
         .module('campoApp')
-        .controller('DocenteController', DocenteController);
+        .controller('DiieController', DiieController);
 
-    DocenteController.$inject = ['$scope', '$state', 'Docente', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    DiieController.$inject = ['$scope', '$state', 'Docente', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function DocenteController ($scope, $state, Docente, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function DiieController ($scope, $state, Docente, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
         
         vm.loadPage = loadPage;
