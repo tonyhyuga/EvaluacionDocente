@@ -51,11 +51,11 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 	+ "join grupos.alumnoUADYMatriculado alumno "
 	+ "join clase.periodoCurso pc "
 	+ "join clase.sinodo prof "
-	+ "where alumno.id =:idAlumno and pc.id=:idPC "
+	+ "where alumno.id =:idAlumno "
 	+ "and resuelto.completado = false "
 	+ "and alumno.persona.id = resuelto.personaEncuestada.id"
 	+ "")
-	Page<Object[]> getClasesConCuestionariosNoResueltosByAlumno(Pageable pageable, @Param("idAlumno") Integer idAlumno,@Param("idPC")Integer idPeridocurso);
+	Page<Object[]> getClasesConCuestionariosNoResueltosByAlumno(Pageable pageable, @Param("idAlumno") Integer idAlumno);
 	
 	@Query("select clase from ClaseUADY clase join clase.periodoCurso pc "
 			+ "join pc.anioEscolar anio "

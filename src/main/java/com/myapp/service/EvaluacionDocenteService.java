@@ -147,7 +147,7 @@ public class EvaluacionDocenteService {
 		log.debug("Request to get all clases con paginacion");
 
 		Calendar fecha = Calendar.getInstance();
-		Page<Object[]> clasest= claseRepository.getClasesConCuestionariosNoResueltosByAlumno(pageable,idAlumno, idPeriodocurso);
+		Page<Object[]> clasest= claseRepository.getClasesConCuestionariosNoResueltosByAlumno(pageable,idAlumno);
 
 		System.out.println("clases total sin sinodos: "+clasest.getTotalElements());
 
