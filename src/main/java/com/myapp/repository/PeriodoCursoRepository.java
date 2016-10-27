@@ -10,10 +10,11 @@ import com.myapp.domain.PeriodoCurso;
 
 public interface PeriodoCursoRepository extends JpaRepository<PeriodoCurso,Long> {
 	
-	@Query("select pc from PlanDeEstudios pl, PeriodoCurso pc "
-			+ "join pl.programaEducativo pr "
-			+ "where pc.institucion = pr.centroDocente and pl.id=:idPlan "
-			+ "and pc.periodoLectivoIni <= :fecha and :fecha <= pc.periodoLectivoFin ")
+	@Query("select pc from ActividadesDePeriodoCurso acp "
+			+ "join acp.planDeEstudios pl "
+			+ "join acp.periodoCurso pc "
+			+ "where pl.id=:idPlan "
+			+ "and pc.calendarInicio <= :fecha and :fecha <= pc.calendarFin ")
 	PeriodoCurso getPeridoCursoActual( @Param("idPlan") Integer idPlan,@Param("fecha") Calendar fecha);
 
 }
