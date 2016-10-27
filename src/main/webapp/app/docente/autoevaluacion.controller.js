@@ -36,7 +36,7 @@
         		for(var j=0;j<grupo[i].preguntasWrapperForUI.length;j++){
         			for(var h=0;h<cuestionario.respuestasPregunta.length;h++){
         				if(cuestionario.respuestasPregunta[h].pregunta.id==grupo[i].preguntasWrapperForUI[j].pregunta.id){
-        					if(grupo[i].preguntasWrapperUI[j].pregunta.tipoPregunta.tipoPregunta=='RadioButton'){
+        					if(grupo[i].preguntasWrapperForUI[j].pregunta.tipoPregunta.tipoPregunta=='RadioButton'){
         						cuestionario.respuestasPregunta[h].respuestaSeleccionada =grupo[i].preguntasWrapperForUI[j].respuesta.respuestaSeleccionada;
             				}
         					if(grupo[i].preguntasWrapperForUI[j].pregunta.tipoPregunta.tipoPregunta=='TextArea'){
