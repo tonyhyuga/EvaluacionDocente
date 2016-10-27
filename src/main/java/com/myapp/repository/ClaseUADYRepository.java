@@ -52,7 +52,7 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 	+ "join clase.periodoCurso pc "
 	+ "join clase.sinodo prof "
 	+ "where alumno.id =:idAlumno and pc.id=:idPC "
-//	+ "and resuelto.completado = false "
+	+ "and resuelto.completado = false "
 	+ "and alumno.persona.id = resuelto.personaEncuestada.id"
 	+ "")
 	Page<Object[]> getClasesConCuestionariosNoResueltosByAlumno(Pageable pageable, @Param("idAlumno") Integer idAlumno,@Param("idPC")Integer idPeridocurso);
