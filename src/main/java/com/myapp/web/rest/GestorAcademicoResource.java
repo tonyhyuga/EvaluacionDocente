@@ -54,7 +54,7 @@ public class GestorAcademicoResource {
 			throws URISyntaxException {
 		log.debug("REST request to get a page of Asignaturas de la institucion");
 		Empleado empleado = (Empleado)httpsession.getAttribute("Empleado");
-		List<Integer> inst=usuarioService.getInstitucionByRol(empleado.getPersona().getId(),"GESTOR_ACADEMICO");
+		List<Integer> inst=usuarioService.getInstitucionByRol(empleado.getPersona().getId(),"GESTOR ACADEMICO");
 		Page<ClaseUADYDocenteWrapper> page = evaDoceService.findDocentesByInstitucion(pageable,inst);
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/apo/docentesgestor");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

@@ -300,7 +300,7 @@ public class EvaluacionDocenteService {
 				 preguntaHecha.setClave(pregunta.getClave());
 				 respuesta.setPreguntaHecha(preguntaHecha);
 				 respuesta.setOpcion(0);
-				 respuesta.setOpcionrespuesta(1);
+				// respuesta.setOpcionrespuesta(1);
 				 respuestas.add(respuesta);
 				 
 			 }

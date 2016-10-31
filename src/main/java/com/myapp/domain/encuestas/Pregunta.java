@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -68,7 +69,7 @@ public class Pregunta {
 	private Pregunta preguntaActivador;
 	
 
-	@OneToMany
+	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name="idpregunta")
 	private Set<OpcionPregunta> respuestas;
 	

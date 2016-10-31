@@ -26,7 +26,7 @@
         }
         
         function save() {
-        	var grupo=vm.resuelto.grupoPreguntasWrapper;
+        	var grupo=vm.resuelto.grupoPreguntasForUI;
         	var cuestionario=vm.resuelto.cuestionarioResuelto;
 
         	var newRespuestas =[];

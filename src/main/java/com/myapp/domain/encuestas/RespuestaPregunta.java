@@ -30,8 +30,8 @@ public class RespuestaPregunta implements Serializable{
 	@Column(name="opcion")
 	private int opcion;
 	
-	@Column(name="idopcionpregunta")
-	private int opcionrespuesta;
+//	@Column(name="idopcionpregunta")
+//	private int opcionrespuesta;
 	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn (name = "idpregunta") 
@@ -112,12 +112,12 @@ public class RespuestaPregunta implements Serializable{
 	public void setPreguntaHecha(PreguntaHecha preguntaHecha) {
 		this.preguntaHecha = preguntaHecha;
 	}
-	public int getOpcionrespuesta() {
-		return opcionrespuesta;
-	}
-	public void setOpcionrespuesta(int opcionrespuesta) {
-		this.opcionrespuesta = opcionrespuesta;
-	}
+//	public int getOpcionrespuesta() {
+//		return opcionrespuesta;
+//	}
+//	public void setOpcionrespuesta(int opcionrespuesta) {
+//		this.opcionrespuesta = opcionrespuesta;
+//	}
 
 	public String toString(){
 		return "RespuestaPregunta{" +

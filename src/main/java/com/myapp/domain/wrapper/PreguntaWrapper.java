@@ -33,7 +33,7 @@ public class PreguntaWrapper {
 	Collections.sort(gs, new Comparator<OpcionPregunta>() {
 
 		public int compare(OpcionPregunta o1, OpcionPregunta o2) {
-			return o1.getRespuestaString().compareTo(o2.getRespuestaString());
+			return o1.getOrden().compareTo(o2.getOrden());
 		}
 	});
 	

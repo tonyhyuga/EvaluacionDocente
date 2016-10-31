@@ -38,7 +38,7 @@ public class GrupoPreguntasWrapper {
 
 			@Override
 			public int compare(PreguntaWrapper o1, PreguntaWrapper o2) {
-				return o1.pregunta.getPreguntaString().compareTo(o2.pregunta.getPreguntaString());
+				return o1.pregunta.getIndiceOrden().compareTo(o2.pregunta.getIndiceOrden());
 			}
 		});
 		

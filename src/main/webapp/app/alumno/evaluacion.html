@@ -18,7 +18,7 @@
             
 
 			<form ng-submit="vm.save()" name="cuestionario">
-            <section ng-repeat="grupo in vm.resuelto.grupoPreguntasWrapper" id="part-{{ $index + 1 }}" class="questionarie" ng-switch="grupo.grupoPreguntas.cabecera" ng-show="vm.show==$index + 1">  
+            <section ng-repeat="grupo in vm.resuelto.grupoPreguntasForUI" id="part-{{ $index + 1 }}" class="questionarie" ng-switch="grupo.grupoPreguntas.cabecera" ng-show="vm.show==$index + 1">  
                 <header>
                     <p><strong>{{ grupo.grupoPreguntas.instrucciones }}</strong></p>
 
