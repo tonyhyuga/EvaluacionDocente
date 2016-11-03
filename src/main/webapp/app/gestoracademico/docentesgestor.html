@@ -30,7 +30,8 @@
                 </thead>
                 -->
                 <tbody>
-                	<tr ng-repeat="usuario in vm.usuarios | filter: {hayevaluaciones:busquedagestornoevaluados}| filter: busquedagestor:{nombreCompletoAAN,clase:{ asignaturaBase:{ nombre}}} track by usuario.id">
+                	<tr ng-repeat="usuario in vm.usuarios | filter: {hayevaluaciones:busquedagestornoevaluados}| filter: busquedagestor track by usuario.id">
+                	<!-- tr ng-repeat="usuario in vm.usuarios | filter: {hayevaluaciones:busquedagestornoevaluados}| filter: busquedagestor:{nombreCompletoAAN,clase:{ asignaturaBase:{ nombre}}} track by usuario.id"-->
                      <!-- tr ng-repeat="usuario in vm.usuarios | filter: {hayevaluaciones:busquedagestornoevaluados}| filter: {clase:{ asignaturaBase:{ nombre:busquedagestor}}} track by usuario.id"-->
                     <!-- tr ng-repeat="usuario in vm.usuarios | filter: {hayevaluaciones:busquedagestornoevaluados} track by usuario.id" -->
                     <td><h4>{{usuario.clase.asignaturaBase.nombre}}</h4><h6>{{usuario.nombreCompletoAAN}} - {{ usuario.clase.grupo.grupo }}</h6></td>
