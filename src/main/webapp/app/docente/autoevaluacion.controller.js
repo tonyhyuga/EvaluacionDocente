@@ -53,16 +53,17 @@
         
         	}
             CuestionarioService.save(cuestionario, onSaveSuccess, onSaveError);
-        	$state.go('docente');
+        	
         }
         
         function onSaveSuccess (result) {
             $scope.$emit('campoApp:usuarioUpdate', result);
-            $state.go('docente');
+            $state.go('docente',{}, {reload: true});
         }
         
         function onSaveError(error) {
             AlertService.error(error.data.message);
+            $state.go('docente',{}, {reload: true});
         }
     }
 })();
