@@ -27,8 +27,8 @@
                 </thead>
                 -->
                 <tbody>
-                
-                     <tr ng-repeat="clase in vm.clases | filter: busquedaalumno:{clase:{ institucion:{ nombre}},clase:{ asignaturaBase:{ nombre}}} track by clase.id">
+                	<tr ng-repeat="clase in vm.clases | filter: busquedaalumno track by clase.id">
+                     <!-- tr ng-repeat="clase in vm.clases | filter: busquedaalumno:{clase:{ institucion:{ nombre}},clase:{ asignaturaBase:{ nombre}}} track by clase.id" -->
                     <td><h4>{{clase.clase.asignaturaBase.nombre}}</h4><h6>{{clase.clase.institucion.nombre}}</h6></td>
 
                     <td class="vcenter">
