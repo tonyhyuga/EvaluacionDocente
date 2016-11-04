@@ -60,7 +60,7 @@ public class AlumnoResource {
 		PlanDeEstudios plan = (PlanDeEstudios)session.getAttribute("PlanDeEstudios");
 		if(alumno!=null && plan!=null){
 			PeriodoCurso pc = pcService.getPeriodoCursoActualPlanDeEstudios(plan.getId());
-			Page<ClaseUADYDocenteWrapper> page = evaDoceService.findClasesByAlumno(pageable,alumno.getId(),pc.getId());
+			Page<ClaseUADYDocenteWrapper> page = evaDoceService.findClasesByAlumno(pageable,alumno.getPersona().getId(),pc.getId());
 			HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/apo/clasesalumno");
 			return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 		}else{
