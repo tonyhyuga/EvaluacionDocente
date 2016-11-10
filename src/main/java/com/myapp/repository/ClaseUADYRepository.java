@@ -106,7 +106,7 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 //			+ "and pc.periodoLectivoIni <= :fecha and pc.periodoLectivoFin >= :fecha")
 //	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") int id,@Param("fecha") Calendar fecha);
 
-	@Query("select  distinct clase,prof from ClaseUADY clase "
+	@Query(value="select  distinct clase, prof from ClaseUADY clase "
 			+ "join clase.movimientosInscripcionGrupo grupo  "
 			+ "join clase.asignaturaBase asig "
 			+ "join grupo.planDeEstudios pl "
@@ -116,7 +116,18 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 			+ "join clase.sinodo prof "
 			+ "join clase.institucion inst "
 			+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 "
-			+ "and pc.calendarInicio <= :fecha and pc.calendarFin >= :fecha order by asig.nombre " )
+			+ "and pc.calendarInicio <= :fecha and :fecha <= pc.calendarFin  order by asig.nombre ", countQuery=
+			"select count(clase.id) from ClaseUADY clase "
+					+ "join clase.movimientosInscripcionGrupo grupo "
+					+ "join clase.asignaturaBase asig "
+					+ "join grupo.planDeEstudios pl "
+					+ "join pl.programaEducativo pr "
+					+ "join pr.tipoNivel nivel "
+					+ "join clase.periodoCurso pc "
+					+ "join clase.sinodo prof "
+					+ "join clase.institucion inst "
+					+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 "
+					+ "and pc.calendarInicio <= :fecha and :fecha  <= pc.calendarFin  group by clase.id,prof.id order by asig.nombre" )
 	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") List<Integer> id,@Param("fecha") Calendar fecha);
 
 	
@@ -126,7 +137,7 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 				"join cu.sinodo titular "+
 				"join cu.periodoCurso pc " +
 				"join cu.institucion inst " +				
-				"where titular.id = :idTitular " +
+				"where titular.persona.id = :idTitular " +
 				"and ( :fechaBD between pc.calendarInicio and pc.calendarFin)")
 	Page<Object[]> getClasesUADYOfDocente(Pageable pageable,@Param("idTitular") int id,@Param("fechaBD") Calendar fechaBD);
 	
