@@ -29,8 +29,8 @@
 
         function login (credentials) {
             var data = 'j_username=' + encodeURIComponent(credentials.username) +
-               // '&j_password=' + encodeURIComponent(credentials.password) +
-                '&j_password=' +credentials.password +
+               '&j_password=' + encodeURIComponent(credentials.password) +
+                //'&j_password=' +credentials.password +
                 '&remember-me=' + credentials.rememberMe + '&submit=Login';
 
             return $http.post('api/authentication', data, {
