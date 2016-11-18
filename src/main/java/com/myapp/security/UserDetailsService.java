@@ -44,10 +44,10 @@ public class UserDetailsService implements org.springframework.security.core.use
             if (!user.getActivo().equals("T")) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
             }
-            if(user instanceof UsuarioEmpleado && !((UsuarioEmpleado) user).getEmpleado().isActivo()){ 
-                throw new UserNotActivatedException("Employee " + lowercaseLogin + " was not activated");
-            }
-            List<GrantedAuthority> grantedAuthorities = user.getPerfiles().stream()
+//            if(user instanceof UsuarioEmpleado && !((UsuarioEmpleado) user).getEmpleado().isActivo()){ 
+//                throw new UserNotActivatedException("Employee " + lowercaseLogin + " was not activated");
+//            }
+            List<GrantedAuthority> grantedAuthorities = user.getPerfilesActivos().stream()
                     .map(authority -> new SimpleGrantedAuthority(authority.getRol().getRol()))
                 .collect(Collectors.toList());
             return new org.springframework.security.core.userdetails.User(lowercaseLogin,

@@ -201,7 +201,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public User getUserWithAuthorities(Long id) {
         User user = userRepository.findOne(id);
-        user.getAuthorities().size(); // eagerly load the association
+        user.getAuthorities().size(); // eagerly load the association es necesario
         return user;
     }
 
@@ -209,7 +209,8 @@ public class UserService {
     public Usuario getUserWithAuthorities() {
        // User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
     	Usuario user =usuarioRepository.getUsuarioByLogin(SecurityUtils.getCurrentUserLogin());
-        user.getPerfiles().size(); // eagerly load the association
+        user.getPerfiles().size(); // eagerly load the association, es necesario
+        user.getPerfilesActivos().size(); // eagerly load the association, es necesario
         return user;
     }
 
