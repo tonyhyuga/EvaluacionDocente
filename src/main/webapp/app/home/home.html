@@ -13,11 +13,15 @@
                 <div class="alert alert-success" ng-switch-when="true">
                 	Estás logueado como "{{vm.account.login}}".
                 </div>
-
+                {{vm.account}}
                 <div class="" ng-switch-when="false">
                 	Bienvenido al Sistema Institucional de Evaluación del Desempeño Docente 
                 </div>
-
+				<div 
+				ng-switch-when="true" class="alert alert-info text-center" 
+				ng-show="vm.hasRol()==false">
+				No tienes Perfiles Activos.
+				</div>
             </div>
 
         </div>
