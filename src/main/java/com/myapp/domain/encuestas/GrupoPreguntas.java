@@ -45,6 +45,9 @@ public class GrupoPreguntas {
 	@Column(name="estilovisual")
 	 private String estiloVisual;
 	
+	@Column(name="indiceorden")
+	 private Integer orden;
+	
 	@Column(name="cabecera")
 	 private String cabecera;
 	
@@ -127,5 +130,15 @@ public class GrupoPreguntas {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	public Integer getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Integer orden) {
+		this.orden = orden;
+	}
+	
+	
 
 }

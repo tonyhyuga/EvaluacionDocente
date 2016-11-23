@@ -2,11 +2,11 @@
     'use strict';
     angular
         .module('campoApp')
-        .factory('Docente', Docente);
+        .factory('Diie', Diie);
 
-    Docente.$inject = ['$resource'];
+    Diie.$inject = ['$resource'];
 
-    function Docente ($resource) {
+    function Diie ($resource) {
         var resourceUrl =  'apo/clasesdocente/:id';
 
         return $resource(resourceUrl, {}, {

@@ -131,7 +131,7 @@ public class EvaluacionDocenteService {
 				Iterator<RespuestaPregunta> resultados = respuestas.iterator();
 				while(resultados.hasNext()){
 					RespuestaPregunta respuesta = resultados.next();
-					if(respuesta.getPregunta().getId()==pregunta.getId()){
+					if(respuesta.getPregunta().getId().intValue()==pregunta.getId().intValue()){
 						preWrap.setRespuesta(respuesta);
 						break;
 					}
@@ -149,8 +149,7 @@ public class EvaluacionDocenteService {
 	public Page<ClaseUADYDocenteWrapper> findClasesByAlumno(Pageable pageable, int idAlumno,int idPeriodocurso) {
 		log.debug("Request to get all clases con paginacion");
 
-		Calendar fecha = Calendar.getInstance();
-		Page<Object[]> clasest= claseRepository.getClasesConCuestionariosNoResueltosByAlumno(pageable,idAlumno, idPeriodocurso);
+		Page<Object[]> clasest= claseRepository.getClasesConCuestionariosNoResueltosByAlumno(pageable,idAlumno);
 
 		System.out.println("clases total sin sinodos: "+clasest.getTotalElements());
 
@@ -304,7 +303,7 @@ public class EvaluacionDocenteService {
 				 preguntaHecha.setClave(pregunta.getClave());
 				 respuesta.setPreguntaHecha(preguntaHecha);
 				 respuesta.setOpcion(0);
-				 respuesta.setOpcionrespuesta(1);
+				// respuesta.setOpcionrespuesta(1);
 				 respuestas.add(respuesta);
 				 
 			 }
@@ -358,7 +357,7 @@ public class EvaluacionDocenteService {
 			while(respuestasView.hasNext()){
 				 RespuestaPregunta respuestaView = respuestasView.next();
 				 if(respuesta.getPregunta().getId().intValue()==respuestaView.getPregunta().getId().intValue()){
-					 respuesta.setOpcion(respuestaView.getOpcion());
+					// respuesta.setOpcion(respuestaView.getOpcion());
 					 respuesta.setRespuestaSeleccionada(respuestaView.getRespuestaSeleccionada());
 					 break;
 				 }

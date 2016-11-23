@@ -31,6 +31,9 @@ public class OpcionPregunta {
 	@Column(name="ponderacion")
 	private int ponderacion;
 	
+	@Column(name="indiceorden")
+	 private Integer orden;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -55,4 +58,12 @@ public class OpcionPregunta {
 	public void setPonderacion(int ponderacion) {
 		this.ponderacion = ponderacion;
 	}
+	public Integer getOrden() {
+		return orden;
+	}
+	public void setOrden(Integer orden) {
+		this.orden = orden;
+	}
+	
+	
 }

@@ -65,7 +65,7 @@ public class DocenteResource {
 		log.debug("REST request to get a page of Usuarios");
 		int id=89774;
 		Empleado docente = (Empleado)session.getAttribute("Empleado");
-		Page<ClaseUADYDocenteWrapper> page = evaDoceService.findClasesByDocente(pageable,docente.getId());
+		Page<ClaseUADYDocenteWrapper> page = evaDoceService.findClasesByDocente(pageable,docente.getPersona().getId());
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/apo/clasesdocente");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}

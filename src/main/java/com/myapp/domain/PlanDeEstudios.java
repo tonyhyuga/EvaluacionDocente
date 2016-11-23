@@ -1,10 +1,12 @@
 package com.myapp.domain;
 
 import java.util.Calendar;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -39,8 +41,9 @@ public class PlanDeEstudios extends PuntoDeAcreditacion{
 	private ProgramaEducativo programaEducativo;
 
 
-
-	//private Set actividadesDePeriodosCurso;
+	@OneToMany
+	@JoinColumn (name = "idplandeestudios")
+	private Set<ActividadesDePeriodoCurso> actividadesDePeriodosCurso;
 
 
 	/**
@@ -121,5 +124,15 @@ public class PlanDeEstudios extends PuntoDeAcreditacion{
 	public void setMefi(boolean mefi) {
 		this.mefi = mefi;
 	}
+
+	public Set<ActividadesDePeriodoCurso> getActividadesDePeriodosCurso() {
+		return actividadesDePeriodosCurso;
+	}
+
+	public void setActividadesDePeriodosCurso(Set<ActividadesDePeriodoCurso> actividadesDePeriodosCurso) {
+		this.actividadesDePeriodosCurso = actividadesDePeriodosCurso;
+	}
+	
+	
 	
 }

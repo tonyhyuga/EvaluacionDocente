@@ -2,6 +2,7 @@ package com.myapp.security;
 
 import com.myapp.domain.User;
 import com.myapp.domain.Usuario;
+import com.myapp.domain.UsuarioEmpleado;
 import com.myapp.repository.UserRepository;
 import com.myapp.repository.UsuarioRepository;
 
@@ -38,14 +39,15 @@ public class UserDetailsService implements org.springframework.security.core.use
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
-        //Optional<User> userFromDatabase = userRepository.findOneByLogin(lowercaseLogin);
         Optional<Usuario> userFromDatabase = usuarioRepository.findUsuarioByLogin(lowercaseLogin);
         return userFromDatabase.map(user -> {
-            //if (!user.getActivated()) {
             if (!user.getActivo().equals("T")) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
             }
-            List<GrantedAuthority> grantedAuthorities = user.getPerfiles().stream()
+//            if(user instanceof UsuarioEmpleado && !((UsuarioEmpleado) user).getEmpleado().isActivo()){ 
+//                throw new UserNotActivatedException("Employee " + lowercaseLogin + " was not activated");
+//            }
+            List<GrantedAuthority> grantedAuthorities = user.getPerfilesActivos().stream()
                     .map(authority -> new SimpleGrantedAuthority(authority.getRol().getRol()))
                 .collect(Collectors.toList());
             return new org.springframework.security.core.userdetails.User(lowercaseLogin,
