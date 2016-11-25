@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,7 @@ import com.myapp.domain.encuestas.Pregunta;
 import com.myapp.domain.encuestas.PreguntaHecha;
 import com.myapp.domain.encuestas.RespuestaPregunta;
 import com.myapp.domain.encuestas.TipoAmbito;
+import com.myapp.domain.wrapper.AlumnoCuestionarioContestadoWrapper;
 import com.myapp.domain.wrapper.ClaseUADYDocenteWrapper;
 import com.myapp.domain.wrapper.CuestionarioResueltoWrapper;
 import com.myapp.domain.wrapper.GrupoPreguntasWrapper;
@@ -364,6 +366,40 @@ public class EvaluacionDocenteService {
 			}
 		}
 	}
+	
+	
+	public List<AlumnoCuestionarioContestadoWrapper> getWrappersForDownloadPage(int ambito){
+		
+		List<Object[]> objects=claseRepository.getRelacionAlumnoAmbitosParaReporte(ambito);
+		ArrayList<AlumnoCuestionarioContestadoWrapper> wrapperAlumnos = new ArrayList<AlumnoCuestionarioContestadoWrapper>();
+		for(int index=0; index<objects.size(); index++){
+			AlumnoCuestionarioContestadoWrapper wrapper= new AlumnoCuestionarioContestadoWrapper();
+			wrapper.setMatriculaParteInvariable(((AlumnoUADYMatriculado)objects.get(index)[1]).getMatriculaParteInvariable());
+			Persona per =((AlumnoUADYMatriculado)objects.get(index)[1]).getPersona();
+			wrapper.setNombreAlumno(per.getNombres()+" "+per.getApellidoPaterno()+" "+per.getApellidoMaterno());
+			
+			Set<CuestionarioResuelto> cuestionarios = ((Ambito)objects.get(index)[0]).getCuestionariosResueltos();
+			
+			Iterator  cuestionariosIt = cuestionarios.iterator();
+			while(cuestionariosIt.hasNext()){
+				CuestionarioResuelto cuestionario= (CuestionarioResuelto)cuestionariosIt.next();
+				if(cuestionario.getPersonaEncuestada().getId().intValue()==per.getId().intValue()){
+					if(cuestionario.getCompletado()){
+						wrapper.setCuestionarioContestado("Si");	
+					}else{
+						wrapper.setCuestionarioContestado("No");
+					}
+					break;
+					}
+			}
+			wrapperAlumnos.add(wrapper);
+			
+			
+		}
+		
+		return wrapperAlumnos;
+	}
+	
 	
 	@Transactional(readOnly = true) 
 	public File getRelacionAlumnoAmbitosParaReporte(int ambito) {
