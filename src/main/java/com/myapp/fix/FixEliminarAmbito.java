@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.myapp.domain.Actividad;
+import com.myapp.domain.ActividadesDePeriodoCurso;
 import com.myapp.domain.AlumnoUADYMatriculado;
 import com.myapp.domain.AnioEscolar;
 import com.myapp.domain.AsignaturaBase;
@@ -59,7 +60,7 @@ public class FixEliminarAmbito {
 	static {
 		try {
 			Properties prop= new Properties();
-			prop.setProperty("hibernate.connection.url", "jdbc:mysql://148.209.12.14:3306/base_soporte?useOldAliasMetadataBehavior=true");
+			prop.setProperty("hibernate.connection.url", "jdbc:mysql://148.209.12.14:3306/dev2_evaluaciondocente?useOldAliasMetadataBehavior=true");
 			prop.setProperty("hibernate.connection.username", "ileon");
 			prop.setProperty("hibernate.connection.password", "w36b3c4r10");
 			prop.setProperty("dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
@@ -118,6 +119,7 @@ public class FixEliminarAmbito {
 			confi.addAnnotatedClass(AnioEscolar.class);
 			confi.addAnnotatedClass(AlumnoUADYMatriculado.class);
 			confi.addAnnotatedClass(Actividad.class);
+			confi.addAnnotatedClass(ActividadesDePeriodoCurso.class);
 
 			
 			
@@ -156,7 +158,7 @@ public class FixEliminarAmbito {
 	
 	public static void main(String[] args){
 		FixEliminarAmbito fix = new FixEliminarAmbito();
-		Ambito a =	fix.getAmbito(4);
+		Ambito a =	fix.getAmbito(1);
 		fix.eliminarAmbito(a);
 	}
 	
