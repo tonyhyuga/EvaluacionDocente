@@ -3,11 +3,11 @@
 
     angular
         .module('campoApp')
-        .controller('UsuarioController', UsuarioController);
+        .controller('UsuariosAdminEvaluacionController', UsuariosAdminEvaluacionController);
 
-    UsuarioController.$inject = ['$scope', '$state', 'Usuario', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    UsuariosAdminEvaluacionController.$inject = ['$scope', '$state', 'UsuariosATI', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function UsuarioController ($scope, $state, Usuario, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function UsuariosAdminEvaluacionController ($scope, $state, UsuariosATI, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
         
         vm.loadPage = loadPage;
@@ -19,10 +19,11 @@
         loadAll();
 
         function loadAll () {
-            Usuario.query({
+        	UsuariosATI.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
-                sort: sort()
+                sort: sort(),
+                tipo: 70
             }, onSuccess, onError);
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];

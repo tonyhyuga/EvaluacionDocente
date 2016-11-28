@@ -3,11 +3,11 @@
 
     angular
         .module('campoApp')
-        .controller('UsuarioDeleteController',UsuarioDeleteController);
+        .controller('PerfilDeleteController',PerfilDeleteController);
 
-    UsuarioDeleteController.$inject = ['$uibModalInstance', 'entity', 'Usuario'];
+    PerfilDeleteController.$inject = ['$uibModalInstance', 'entity', 'UsuariosATI'];
 
-    function UsuarioDeleteController($uibModalInstance, entity, Usuario) {
+    function PerfilDeleteController($uibModalInstance, entity, UsuariosATI) {
         var vm = this;
 
         vm.usuario = entity;
@@ -19,7 +19,7 @@
         }
 
         function confirmDelete (id) {
-            Usuario.delete({id: id},
+        	UsuariosATI.delete({id: id},
                 function () {
                     $uibModalInstance.close(true);
                 });

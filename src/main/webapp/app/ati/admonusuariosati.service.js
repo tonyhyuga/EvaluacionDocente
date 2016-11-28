@@ -2,17 +2,26 @@
     'use strict';
     angular
         .module('campoApp')
-        .factory('Usuario', Usuario);
+        .factory('UsuariosATI', UsuariosATI);
 
-    Usuario.$inject = ['$resource'];
+    UsuariosATI.$inject = ['$resource'];
 
-    function Usuario ($resource) {
-        var resourceUrl =  'api/usuarios/:id';
+    function UsuariosATI ($resource) {
+        var resourceUrl =  'apo/admonusuarios/:id/:tipo';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
+            },
+            'save': {
+                method: 'POST',
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);

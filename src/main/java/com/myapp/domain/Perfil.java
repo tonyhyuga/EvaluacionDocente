@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "perfil")
@@ -39,6 +40,7 @@ public class Perfil implements Serializable{
 	private Rol rol;
 	
 	@Column(name = "activo")
+	@Type(type="true_false")
 	private boolean activo;
 
 	@ManyToOne()

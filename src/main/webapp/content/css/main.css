@@ -698,6 +698,35 @@ ui bootstrap tweaks
     outline: none;
 }
 
+.lista {
+	list-style:none;
+}
+
+.lista li:nth-child(odd) {
+	background-color: #f7f9f9;
+}
+
+.lista li:nth-child(even) {
+	background-color: cadbc0;
+	
+}
+.lista li:hover {
+    background-color: #adaec0;
+}
+/* .lista a:active {
+    background-color: red;
+} */
+
+.selected {
+    background-color: #adaec0 !important;
+}
+.headuady {
+    /* background-color: #ffb60f; */
+     background-color: #3D5A80;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    color: #ffffff;
+}
 
 
 /* jhipster-needle-css-add-main JHipster will add new css style */

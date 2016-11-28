@@ -2,7 +2,9 @@ package com.myapp.repository;
 
 import com.myapp.domain.AnioEscolar;
 import com.myapp.domain.Institucion;
+import com.myapp.domain.Rol;
 import com.myapp.domain.Usuario;
+import com.myapp.domain.UsuarioEmpleado;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,4 +44,14 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 			+ "join pf.rol r "
 			+ "where r.rol=:rol and emp.persona.id=:idpersona ")
 	List<Integer> getInstitucionesByRol(@Param("idpersona") Integer idpersona,@Param("rol") String rol);
+	
+	
+	@Query("Select user from UsuarioEmpleado user "
+			+ "join user.empleado emp "
+			+ "join emp.persona per where per.id=:id ")
+	UsuarioEmpleado getUsuarioEmpleadoByPersona(@Param("id") Integer id);
+	
+	@Query("Select rol from Rol rol "
+			+ "where rol.id=:id ")
+	Rol getRol(@Param("id") Integer id);
 }
