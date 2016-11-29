@@ -2,6 +2,7 @@ package com.myapp.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,11 +25,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
+import com.myapp.domain.AlumnoUADYMatriculado;
 import com.myapp.domain.ClaseUADY;
 import com.myapp.domain.Empleado;
 import com.myapp.domain.Institucion;
 import com.myapp.domain.Usuario;
 import com.myapp.domain.encuestas.Ambito;
+import com.myapp.domain.wrapper.AlumnoCuestionarioContestadoWrapper;
 import com.myapp.domain.wrapper.ClaseUADYDocenteWrapper;
 import com.myapp.service.EvaluacionDocenteService;
 import com.myapp.service.UsuarioService;
@@ -91,4 +95,26 @@ public ResponseEntity<Ambito> createUsuario(@RequestBody Ambito ambito) throws U
       .headers(HeaderUtil.createEntityCreationAlert("usuario", result.getId().toString()))
       .body(result);
 }
+  
+  
+	@RequestMapping(value = "/alumosquecontestaron/{ambito}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<List<AlumnoCuestionarioContestadoWrapper>> getAlumosQueContestaron(@PathVariable Integer ambito,Pageable pageable,HttpSession httpsession)
+			throws URISyntaxException {
+		
+
+		List<AlumnoCuestionarioContestadoWrapper> listaWrappers= evaDoceService.getWrappersForDownloadPage(ambito);
+	
+//		AlumnoCuestionarioContestadoWrapper alumno = new AlumnoCuestionarioContestadoWrapper();
+//		alumno.setMatriculaParteInvariable("05812");
+//		ArrayList<AlumnoUADYMatriculado> listaAlumnos= new ArrayList<AlumnoUADYMatriculado>();
+//		listaAlumnos.add(alumno);
+		
+		Page<AlumnoCuestionarioContestadoWrapper> page = new PageImpl<AlumnoCuestionarioContestadoWrapper>(listaWrappers, pageable,listaWrappers.size());
+		
+		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/apo/docentesgestor");
+		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+	}
 }

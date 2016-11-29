@@ -1,0 +1,18 @@
+
+ 				<br>
+				<a class="btn btn-primary" role="button" ng-click="vm.download()">Descargar reporte de alumnos evaluados</a>
+				<br><br><br>
+                <table class="table table-striped table-hover ">
+                	<tbody>
+                		<tr>
+		                	<th>Matricula</th>
+		   					<th>Nombre</th>
+		   					<th>Cuestionario contestado</th>
+   						</tr>
+                		<tr ng-repeat="alumno in vm.alumosObtenidos">
+		                    <td><h4>{{alumno.matriculaParteInvariable}}</h4></td>
+		                    <td><h4>{{alumno.nombreAlumno}}</h4></td>
+		                    <td><h4>{{alumno.cuestionarioContestado}}</h4></td>
+                  		</tr>
+                   </tbody>
+                </table>

@@ -5,9 +5,9 @@
         .module('campoApp')
         .controller('GestorController', GestorController);
 
-    GestorController.$inject = ['$scope', '$state', 'GestorAcademico', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants', 'GestorAmbitoService','LoginService'];
+    GestorController.$inject = ['$scope', '$state', 'GestorAcademico', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants', 'GestorAmbitoService','LoginService','downloadService'];
 
-    function GestorController ($scope, $state, GestorAcademico, ParseLinks, AlertService, pagingParams, paginationConstants,GestorAmbitoService,LoginService) {
+    function GestorController ($scope, $state, GestorAcademico, ParseLinks, AlertService, pagingParams, paginationConstants,GestorAmbitoService,LoginService,downloadService) {
         var vm = this;
         
         vm.loadPage = loadPage;
@@ -16,6 +16,7 @@
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.openDialog=openDialog;
+        vm.download=download;
        
         loadAll();
         vm.isNew = isNew;
@@ -42,6 +43,15 @@
             function onError(error) {
                 AlertService.error(error.data.message);
             }
+        }
+        
+        function download(idAmbito){
+            downloadService.donwl(idAmbito)
+            .then(function(success) {
+                console.log('success : ' + success);
+            }, function(error) {
+                console.log('error : ' + error);
+            });
         }
 
         function loadPage (page) {

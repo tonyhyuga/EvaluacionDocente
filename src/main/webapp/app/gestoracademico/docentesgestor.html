@@ -63,6 +63,14 @@
                                 <li ng-switch-when="false">
                                     <a >Ver autoevaluación del profesor</a>
                                 </li>
+                                 <li ng-click="vm.download(usuario.evaluacion.id)">
+                                    <a>Descargar reporte de alumnos evaluados</a>
+                                </li>
+                                 <li>
+                                    <a ui-sref="downloadPage({ambito:usuario.evaluacion.id})">Ver resumen de alumnos evaluados.</a>
+                                </li>
+                                
+                                   
                             </ul>
                         </li>
                         <li uib-dropdown class="dropdown pointer">
