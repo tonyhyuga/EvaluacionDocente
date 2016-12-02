@@ -156,11 +156,13 @@ public class FixEliminarAmbito {
 		return amb;
 	}
 	
+	/*
 	public static void main(String[] args){
 		FixEliminarAmbito fix = new FixEliminarAmbito();
 		Ambito a =	fix.getAmbito(1);
 		fix.eliminarAmbito(a);
 	}
+	*/
 	
 	public void eliminarAmbito(Ambito ambito){
 		

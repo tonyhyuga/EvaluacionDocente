@@ -18,7 +18,7 @@ import com.myapp.domain.encuestas.Ambito;
 import com.myapp.domain.encuestas.CuestionarioResuelto;
 
 public class GeneradorReporteCuestionariosResueltos {
-	String pathFile="C:/Users/ivan.leon/Desktop/Reporte de alumnos evaluados.xlsx";
+	String pathFile="/home/christian/opt/apache-tomcat-8.5.5/temp/Reporte de alumnos evaluados.xlsx";
 	
 	public File writeXLSXFile(ArrayList<WrapperAlumnosCuestionariosResueltos> wrappers) throws IOException {
 		
@@ -92,7 +92,7 @@ public class GeneradorReporteCuestionariosResueltos {
 		}
 	}
 	
-	
+	/*
 	public static void main(String[] args){
 		GeneradorReporteCuestionariosResueltos generador = new GeneradorReporteCuestionariosResueltos();
 		try {
@@ -106,6 +106,7 @@ public class GeneradorReporteCuestionariosResueltos {
 			e.printStackTrace();
 		}
 	}
+	*/
 	
 
 }
