@@ -63,8 +63,8 @@ public class FixCrearCuestionariosResueltosFaltantes {
 		try {
 			Properties prop= new Properties();
 			prop.setProperty("hibernate.connection.url", "jdbc:mysql://148.209.12.14:3306/dev2_evaluaciondocente?useOldAliasMetadataBehavior=true");
-			prop.setProperty("hibernate.connection.username", "ileon");
-			prop.setProperty("hibernate.connection.password", "w36b3c4r10");
+			prop.setProperty("hibernate.connection.username", "");
+			prop.setProperty("hibernate.connection.password", "");
 			prop.setProperty("dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
 			prop.setProperty("hibernate.cache.use_second_level_cache", "false");
 			
