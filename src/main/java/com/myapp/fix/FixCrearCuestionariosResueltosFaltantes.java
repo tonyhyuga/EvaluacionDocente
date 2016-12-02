@@ -257,6 +257,7 @@ public class FixCrearCuestionariosResueltosFaltantes {
 			
 			session.close();
 		System.out.println("Finalizado....");
+		System.exit(0);
 	}
 	public void salvar(CuestionarioResuelto cuestionario){
 		Session session=getSession();
