@@ -95,6 +95,8 @@
 	    	<!-- INICIA: Pregunta tipo RADIOBUTTON -->
 	    	<div class="row" ng-switch-when="RadioButton">
 		        <div class="question col-sm-9">
+		        <div ng-class="{'btn-danger btn-sm glyphicon glyphicon-remove-circle':vm.contain(preguntaw.pregunta.id)==true}" > 
+		        </div>
 		        {{ preguntaw.pregunta.preguntaString }}
 		        </div>
 		        <div class="col-sm-3 ">
@@ -109,6 +111,8 @@
 	    	<div class="row" ng-switch-when="Escala">
             	<table class="table table-bordered calificacion type-b">
                 	<tr>
+                <div ng-class="{'btn-danger btn-sm glyphicon glyphicon-remove-circle':vm.contain(preguntaw.pregunta.id)==true}" > 
+		        </div>
                     	<td width="20%">{{ preguntaw.pregunta.preguntaString.split('#@')[0] }}</td>
                     	<td ng-repeat="opcion in preguntaw.respuestasForUI" class="calif-{{$index + 1}}">
                         <label class="radio-label"><input type="radio" ng-model="preguntaw.respuesta.respuestaSeleccionada" name="{{preguntaw.respuesta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required></label>
@@ -121,7 +125,9 @@
 	    	<!-- TERMINA: Pregunta tipo ESCALA -->
 	    	
 	    	<!-- INICIA: Pregunta tipo TEXTAREA -->
-	    	<div class="row" ng-switch-when="TextArea">	    	
+	    	<div class="row" ng-switch-when="TextArea">
+	    		<div ng-class="{'btn-danger btn-sm glyphicon glyphicon-remove-circle':vm.contain(preguntaw.pregunta.id)==true}" > 
+		        </div>	    	
 		        <div class="question col-sm-12"><label>{{ preguntaw.pregunta.preguntaString }}</label></div>
 		        <div class="col-sm-12">
 		            <textarea rows="4" cols="50" class="form-control"  name="{{preguntaw.respuesta.id}}" maxlength="1000" ng-model="preguntaw.respuesta.respuestaSeleccionada" tabindex="-1" required></textarea>
@@ -132,8 +138,9 @@
     </ol>
 	<div class="alert alert-danger text-center" ng-if="$last" ng-show="cuestionario.$invalid"><strong>No has llenado todos los campos.</strong></div>
     <footer>
-		<a class="btn btn-primary next" ng-click="vm.show = $index">Anterior</a>
-		<a class="btn btn-primary next" ng-click="vm.show = $index + 2" ng-if="!$last">Siguiente</a>
+    <div ng-class="{'btn-danger':vm.valido==false}" ng-show="vm.valido==false">{{vm.mensaje}}</div>	
+		<a class="btn btn-primary next" ng-click="vm.anterior($index)">Anterior</a>
+		<a class="btn btn-primary next" ng-click="vm.siguiente($index)" ng-if="!$last">Siguiente</a>
 		<button type="submit"  class="btn btn-primary next" ng-if="$last">Guardar</button>
     </footer>
     
