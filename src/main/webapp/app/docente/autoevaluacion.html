@@ -94,13 +94,13 @@
 			
 
     <ol class="stripped-list container-fluid" >
-	    <li class="form-group" ng-repeat="preguntaw in grupo.preguntasWrapperForUI" ng-switch="preguntaw.pregunta.tipoPregunta.tipoPregunta">
+	    <li class="form-group" ng-repeat="preguntaw in grupo.preguntasWrapperForUI" ng-switch="preguntaw.pregunta.tipoPregunta.tipoPregunta" ng-class="{'invalid':vm.contain(preguntaw.pregunta.id) == true}">
 
 	    	<!-- INICIA: Pregunta tipo RADIOBUTTON -->
 	    	<div class="row" ng-switch-when="RadioButton">
 		        
-		        <div class="question col-sm-9" >
-		        <div ng-class="{'btn-danger btn-sm glyphicon glyphicon-remove-circle':vm.contain(preguntaw.pregunta.id)==true}" > 
+		        <div class="question col-sm-9">
+		        <div  > 
 		        </div>
 		        {{ preguntaw.pregunta.preguntaString }}
 		        
@@ -117,10 +117,8 @@
 	        
 	        <!-- INICIA: Pregunta tipo ESCALA -->
 	    	<div class="row" ng-switch-when="Escala">
-            	<table class="table table-bordered calificacion type-b">
+            	<table class="table calificacion calificacion-pregunta type-b">
                 	<tr>
-                	  <div ng-class="{'btn-danger btn-sm glyphicon glyphicon-remove-circle':vm.contain(preguntaw.pregunta.id)==true}" > 
-		        		</div>
                     	<td width="20%">{{ preguntaw.pregunta.preguntaString.split('#@')[0] }}</td>
                     	<td ng-repeat="opcion in preguntaw.respuestasForUI" class="calif-{{$index + 1}}">
                         <label class="radio-label"><input type="radio" ng-model="preguntaw.respuesta.respuestaSeleccionada" name="{{preguntaw.respuesta.id}}" ng-value="opcion.respuestaString" tabindex="-1" required></label>
@@ -133,8 +131,6 @@
 	    	
 	    	<!-- INICIA: Pregunta tipo TEXTAREA -->
 	    	<div class="row" ng-switch-when="TextArea">
-	    	  <div ng-class="{'btn-danger btn-sm glyphicon glyphicon-remove-circle':vm.contain(preguntaw.pregunta.id)==true}" > 
-		        </div>	    	
 		        <div class="question col-sm-12"><label>{{ preguntaw.pregunta.preguntaString }}</label></div>
 		        <div class="col-sm-12">
 		            <textarea rows="4" cols="50" class="form-control"  name="{{preguntaw.respuesta.id}}" maxlength="1000" ng-model="preguntaw.respuesta.respuestaSeleccionada" tabindex="-1" required></textarea>
@@ -143,9 +139,8 @@
 	        <!-- TERMINA: Pregunta tipo TEXTAREA --> 	
 	    </li>
     </ol>
-	<div class="alert alert-danger text-center" ng-if="$last" ng-show="cuestionario.$invalid"><strong>No has llenado todos los campos.</strong></div>
     <footer>
-   		<div ng-class="{'btn-danger':vm.valido==false}" ng-show="vm.valido==false">{{vm.mensaje}}</div>		
+   		<div ng-class="{'alert alert-danger text-center': vm.valido == false}" ng-show="vm.valido == false && vm.mensaje != null">{{vm.mensaje}}</div>
 		<a class="btn btn-primary next" ng-click="vm.anterior($index)">Anterior</a>
 		<a class="btn btn-primary next" ng-click="vm.siguiente($index)" ng-if="!$last">Siguiente</a>
 		<button type="submit" class="btn btn-primary next" ng-if="$last" ng-disabled="cuestionario.$invalid">Guardar</button>
