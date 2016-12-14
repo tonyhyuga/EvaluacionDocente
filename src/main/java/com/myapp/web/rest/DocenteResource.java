@@ -1,5 +1,10 @@
 package com.myapp.web.rest;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Iterator;
@@ -8,8 +13,11 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -34,6 +42,7 @@ import com.myapp.domain.encuestas.RespuestaPregunta;
 import com.myapp.domain.wrapper.ClaseUADYDocenteWrapper;
 import com.myapp.domain.wrapper.CuestionarioResueltoWrapper;
 import com.myapp.service.EvaluacionDocenteService;
+import com.myapp.web.reportes.GeneradorReporteCuestionariosResueltos;
 import com.myapp.web.rest.util.HeaderUtil;
 import com.myapp.web.rest.util.PaginationUtil;
 
@@ -101,4 +110,29 @@ public class DocenteResource {
 			      .headers(HeaderUtil.createEntityCreationAlert("Cuestionario Resuelto", result.getId().toString()))
 			      .body(result);
 			}
+	 
+	 @RequestMapping(value = "/download/{idAmbito}", 
+	    		method = RequestMethod.GET,
+	    		produces= MediaType.ALL_VALUE)
+	    public void download(@PathVariable int idAmbito, final HttpServletRequest request, final HttpServletResponse response) {
+	    	GeneradorReporteCuestionariosResueltos generadorDeReportes= new GeneradorReporteCuestionariosResueltos();	    	
+	    	File file=evaDoceService.getRelacionAlumnoAmbitosParaReporte(idAmbito);
+	        log.trace("Write response...");
+	        try (InputStream fileInputStream = new FileInputStream(file);
+	                OutputStream output = response.getOutputStream();) {
+
+	            response.reset();
+
+	            response.setContentType("application/octet-stream");
+	            response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
+
+	            IOUtils.copyLarge(fileInputStream, output);
+	            output.flush();
+	            
+	          file.delete();
+	        } catch (IOException e) {
+	            log.error(e.getMessage(), e);
+	        }
+
+	    }
 }
