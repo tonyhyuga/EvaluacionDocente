@@ -16,7 +16,7 @@
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
 
-        loadAll();
+       // loadAll();
 
         function loadAll () {
         	Alumno.query({
