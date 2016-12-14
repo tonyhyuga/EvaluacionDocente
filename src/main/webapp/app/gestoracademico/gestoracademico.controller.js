@@ -3,13 +3,58 @@
 
     angular
         .module('campoApp')
-        .controller('GestorController', GestorController);
+        .controller('GestorController', GestorController)
+//        .filter('makeUppercase', function () {
+//			  return function (item) {
+////			    return item.toUpperCase();
+////			    return item.toLowerCase();
+////				  return "Sustituyendo..";
+//			  };
+//			});
+//         .filter('startsWithA', function () {
+//        	  return function (items) {
+//        		    var filtered = [];
+//        		    for (var i = 0; i < items.length; i++) {
+//        		      var item = items[i];
+//        		      if (/b/i.test(item.clase.asignaturaBase.nombre.substring(0, 1))) {
+//        		        filtered.push(item);
+//        		      }
+//        		    }
+//        		    return filtered;
+//
+//			  };
+//			});
+//              .filter('startsWithA', function () {
+//        	  return function (items) {
+//        		    var filtered = [];
+//        		    var input = "Biogeografía";
+//        		    for (var i = 0; i < items.length; i++) {
+//        		      var item = items[i];
+//        		      var buscador = new RegExp(input);
+//        		      
+//        		      if(buscador.test(item.clase.asignaturaBase.nombre,input)){
+////        		      if (/b/i.test(item.clase.asignaturaBase.nombre.substring(0, 1))) {
+//        		        filtered.push(item);
+//        		      }
+//        		    }
+//        		    return filtered;
+//
+//			  };
+//			});
+         .filter('filtrogestor', function () {
+        	 return function(usuarios, start) {
+        		    return usuarios.slice(start);
+
+			  };
+			});
 
     GestorController.$inject = ['$scope', '$state', 'GestorAcademico', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants', 'GestorAmbitoService','LoginService','downloadService'];
 
     function GestorController ($scope, $state, GestorAcademico, ParseLinks, AlertService, pagingParams, paginationConstants,GestorAmbitoService,LoginService,downloadService) {
         var vm = this;
         
+        vm.ejemplo = 'ejemplo texto';
+        vm.filtrogestores = filtrogestoresdemo();
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
@@ -72,6 +117,10 @@
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
                 search: vm.currentSearch
             });
+        }
+        
+        function filtrogestoresdemo(){
+        	return 'sdfsdf ';
         }
         
         function isNew(){

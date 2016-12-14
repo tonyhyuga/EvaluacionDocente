@@ -29,8 +29,10 @@
                   </tr>
                 </thead>
                 -->
+                <!-- h1>{{vm.ejemplo}}</h1-->
+                <!-- h2>{{vm.filtrogestores}}</h2-->
                 <tbody>
-                	<tr ng-repeat="usuario in vm.usuarios | filter: {hayevaluaciones:busquedagestornoevaluados}| filter: busquedagestor track by usuario.id">
+                	<tr ng-repeat="usuario in vm.usuarios | filter: {hayevaluaciones:busquedagestornoevaluados} | filtrogestor:(vm.page -1 )* vm.itemsPerPage | filter:busquedagestor | limitTo:vm.itemsPerPage track by usuario.id">
                 	<!-- tr ng-repeat="usuario in vm.usuarios | filter: {hayevaluaciones:busquedagestornoevaluados}| filter: busquedagestor:{nombreCompletoAAN,clase:{ asignaturaBase:{ nombre}}} track by usuario.id"-->
                      <!-- tr ng-repeat="usuario in vm.usuarios | filter: {hayevaluaciones:busquedagestornoevaluados}| filter: {clase:{ asignaturaBase:{ nombre:busquedagestor}}} track by usuario.id"-->
                     <!-- tr ng-repeat="usuario in vm.usuarios | filter: {hayevaluaciones:busquedagestornoevaluados} track by usuario.id" -->
@@ -95,5 +97,5 @@
     <div class="text-center">
         <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
     </div>
-    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
+    <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
 </div>
