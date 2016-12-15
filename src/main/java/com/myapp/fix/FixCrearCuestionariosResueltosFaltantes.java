@@ -214,51 +214,51 @@ public class FixCrearCuestionariosResueltosFaltantes {
 		return amb;
 	}
 	
-	public static void main(String[] args){
-		
-		
-		FixCrearCuestionariosResueltosFaltantes fix = new FixCrearCuestionariosResueltosFaltantes();
-		{
-			/*crea los cuestionarios faltantes del alumno 07001514 que son 3*/
-			//El alumno tiene 4 asignaturas pero uno si fue creado por el sieddo, descomentar las lineas //
-			///si esto no es asi.//
-			Persona alumno=fix.getPersona(26277);//id alumno
-			Cuestionario cuestionario=fix.getCuestionario(1);//estudiante oblig y opta
-			//Ambito ambito4=fix.getAmbito(1338);// ambito(claseuady y profesor) ya fue creado.
-			Ambito ambito1=fix.getAmbito(1137);// ambito(claseuady y profesor)
-			Ambito ambito2=fix.getAmbito(1147);// ambito(claseuady y profesor)
-			Ambito ambito3=fix.getAmbito(1154);// ambito(claseuady y profesor)
-			CuestionarioResuelto c1 = fix.crearCuestionarioResuelto(ambito1, alumno, cuestionario);
-			CuestionarioResuelto c2=fix.crearCuestionarioResuelto(ambito2, alumno, cuestionario);
-			CuestionarioResuelto c3=fix.crearCuestionarioResuelto(ambito3, alumno, cuestionario);
-			//CuestionarioResuelto c4 = fix.crearCuestionarioResuelto(ambito4, alumno, cuestionario);// ya esta creado
-			fix.salvar(c1);
-			fix.salvar(c2);
-			fix.salvar(c3);
-			//fix.salvar(c4); ya esta guardado
-		}
-		{
-			/*crea los cuestionarios faltantes del alumno 07003536 que son 3*/
-			Persona alumno=fix.getPersona(27666);//id alumno
-			Cuestionario cuestionario=fix.getCuestionario(1);//estudiante oblig y opta
-			Ambito ambito1=fix.getAmbito(1137);// ambito(claseuady y profesor)
-			Ambito ambito2=fix.getAmbito(1147);// ambito(claseuady y profesor)
-			Ambito ambito3=fix.getAmbito(1154);// ambito(claseuady y profesor)
-			CuestionarioResuelto c1 = fix.crearCuestionarioResuelto(ambito1, alumno, cuestionario);
-			CuestionarioResuelto c2=fix.crearCuestionarioResuelto(ambito2, alumno, cuestionario);
-			CuestionarioResuelto c3=fix.crearCuestionarioResuelto(ambito3, alumno, cuestionario);
-			fix.salvar(c1);
-			fix.salvar(c2);
-			fix.salvar(c3);
-		}
-		
-		Session session = getSession();
-		 session.getTransaction().commit();
-			
-			session.close();
-		System.out.println("Finalizado....");
-		System.exit(0);
-	}
+//	public static void main(String[] args){
+//		
+//		
+//		FixCrearCuestionariosResueltosFaltantes fix = new FixCrearCuestionariosResueltosFaltantes();
+//		{
+//			/*crea los cuestionarios faltantes del alumno 07001514 que son 3*/
+//			//El alumno tiene 4 asignaturas pero uno si fue creado por el sieddo, descomentar las lineas //
+//			///si esto no es asi.//
+//			Persona alumno=fix.getPersona(26277);//id alumno
+//			Cuestionario cuestionario=fix.getCuestionario(1);//estudiante oblig y opta
+//			//Ambito ambito4=fix.getAmbito(1338);// ambito(claseuady y profesor) ya fue creado.
+//			Ambito ambito1=fix.getAmbito(1137);// ambito(claseuady y profesor)
+//			Ambito ambito2=fix.getAmbito(1147);// ambito(claseuady y profesor)
+//			Ambito ambito3=fix.getAmbito(1154);// ambito(claseuady y profesor)
+//			CuestionarioResuelto c1 = fix.crearCuestionarioResuelto(ambito1, alumno, cuestionario);
+//			CuestionarioResuelto c2=fix.crearCuestionarioResuelto(ambito2, alumno, cuestionario);
+//			CuestionarioResuelto c3=fix.crearCuestionarioResuelto(ambito3, alumno, cuestionario);
+//			//CuestionarioResuelto c4 = fix.crearCuestionarioResuelto(ambito4, alumno, cuestionario);// ya esta creado
+//			fix.salvar(c1);
+//			fix.salvar(c2);
+//			fix.salvar(c3);
+//			//fix.salvar(c4); ya esta guardado
+//		}
+//		{
+//			/*crea los cuestionarios faltantes del alumno 07003536 que son 3*/
+//			Persona alumno=fix.getPersona(27666);//id alumno
+//			Cuestionario cuestionario=fix.getCuestionario(1);//estudiante oblig y opta
+//			Ambito ambito1=fix.getAmbito(1137);// ambito(claseuady y profesor)
+//			Ambito ambito2=fix.getAmbito(1147);// ambito(claseuady y profesor)
+//			Ambito ambito3=fix.getAmbito(1154);// ambito(claseuady y profesor)
+//			CuestionarioResuelto c1 = fix.crearCuestionarioResuelto(ambito1, alumno, cuestionario);
+//			CuestionarioResuelto c2=fix.crearCuestionarioResuelto(ambito2, alumno, cuestionario);
+//			CuestionarioResuelto c3=fix.crearCuestionarioResuelto(ambito3, alumno, cuestionario);
+//			fix.salvar(c1);
+//			fix.salvar(c2);
+//			fix.salvar(c3);
+//		}
+//		
+//		Session session = getSession();
+//		 session.getTransaction().commit();
+//			
+//			session.close();
+//		System.out.println("Finalizado....");
+//		System.exit(0);
+//	}
 	public void salvar(CuestionarioResuelto cuestionario){
 		Session session=getSession();
 		if(cuestionario!=null)
