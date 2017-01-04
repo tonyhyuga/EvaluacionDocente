@@ -54,7 +54,7 @@ public class UserDTO {
         this.activated=user.getActivo().equals("T")?true:false;
        // System.out.println(activated);
         this.authorities=
-            user.getPerfiles().stream().map(Perfil::getRolName)
+            user.getPerfilesActivos().stream().map(Perfil::getRolName)
                 .collect(Collectors.toSet());
     }
 

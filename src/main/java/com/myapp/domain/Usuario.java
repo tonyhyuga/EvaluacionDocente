@@ -5,6 +5,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -86,6 +88,17 @@ public class Usuario implements Serializable {
 
     public Set<Perfil> getPerfiles() {
 		return perfiles;
+	}
+    public Set<Perfil> getPerfilesActivos() {
+    	Set<Perfil> perfilesActivos =new HashSet<Perfil>();
+    	Iterator<Perfil> itert = perfiles.iterator();
+    	while(itert.hasNext()){
+    		Perfil perfil=itert.next();
+    		if(perfil.isActivo()){
+    			perfilesActivos.add(perfil);
+    		}
+    	}
+		return perfilesActivos;
 	}
 
 	public void setPerfiles(Set<Perfil> perfiles) {
