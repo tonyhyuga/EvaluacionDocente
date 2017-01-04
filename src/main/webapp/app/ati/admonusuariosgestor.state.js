@@ -24,7 +24,7 @@
                 }
             },
             params: {
-                tipo: 70
+                tipo: 71
                 	,
             	page: {
                     value: '1',

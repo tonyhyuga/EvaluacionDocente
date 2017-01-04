@@ -16,6 +16,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "perfil")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -45,6 +47,7 @@ public class Perfil implements Serializable{
 
 	@ManyToOne()
 	@JoinColumn(name = "idusuarioempleado", nullable = false)
+	@JsonIgnore
 	private Usuario usuario;
 
 	public Integer getId() {
