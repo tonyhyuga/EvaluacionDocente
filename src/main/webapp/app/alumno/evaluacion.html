@@ -90,7 +90,7 @@
 			
 
     <ol class="stripped-list container-fluid">
-	    <li class="form-group" ng-repeat="preguntaw in grupo.preguntasWrapperForUI" ng-switch="preguntaw.pregunta.tipoPregunta.tipoPregunta">
+	    <li class="form-group" ng-repeat="preguntaw in grupo.preguntasWrapperForUI" ng-switch="preguntaw.pregunta.tipoPregunta.tipoPregunta" ng-class="{'invalid':vm.contain(preguntaw.pregunta.id) == true}">
 
 	    	<!-- INICIA: Pregunta tipo RADIOBUTTON -->
 	    	<div class="row" ng-switch-when="RadioButton">
@@ -121,7 +121,7 @@
 	    	<!-- TERMINA: Pregunta tipo ESCALA -->
 	    	
 	    	<!-- INICIA: Pregunta tipo TEXTAREA -->
-	    	<div class="row" ng-switch-when="TextArea">	    	
+	    	<div class="row" ng-switch-when="TextArea">
 		        <div class="question col-sm-12"><label>{{ preguntaw.pregunta.preguntaString }}</label></div>
 		        <div class="col-sm-12">
 		            <textarea rows="4" cols="50" class="form-control"  name="{{preguntaw.respuesta.id}}" maxlength="1000" ng-model="preguntaw.respuesta.respuestaSeleccionada" tabindex="-1" required></textarea>
@@ -130,10 +130,10 @@
 	        <!-- TERMINA: Pregunta tipo TEXTAREA --> 	
 	    </li>
     </ol>
-	<div class="alert alert-danger text-center" ng-if="$last" ng-show="cuestionario.$invalid"><strong>No has llenado todos los campos.</strong></div>
+	<div ng-class="{'alert alert-danger text-center': vm.valido == false}" ng-show="vm.valido == false && vm.mensaje != null">{{vm.mensaje}}</div>
     <footer>
-		<a class="btn btn-primary next" ng-click="vm.show = $index">Anterior</a>
-		<a class="btn btn-primary next" ng-click="vm.show = $index + 2" ng-if="!$last">Siguiente</a>
+		<a class="btn btn-primary next" ng-click="vm.anterior($index)">Anterior</a>
+		<a class="btn btn-primary next" ng-click="vm.siguiente($index)" ng-if="!$last">Siguiente</a>
 		<button type="submit"  class="btn btn-primary next" ng-if="$last">Guardar</button>
     </footer>
     
