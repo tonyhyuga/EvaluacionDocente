@@ -14,6 +14,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "perfil")
@@ -39,10 +42,12 @@ public class Perfil implements Serializable{
 	private Rol rol;
 	
 	@Column(name = "activo")
+	@Type(type="true_false")
 	private boolean activo;
 
 	@ManyToOne()
 	@JoinColumn(name = "idusuarioempleado", nullable = false)
+	@JsonIgnore
 	private Usuario usuario;
 
 	public Integer getId() {

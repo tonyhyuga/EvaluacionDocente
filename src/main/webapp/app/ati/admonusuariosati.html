@@ -1,0 +1,49 @@
+<div>
+    <h2>Usuarios ATI</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 head-button-group">
+              <button class="btn btn-primary" ui-sref="admonati" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span>
+                        Nuevo Usuario ATI
+                    </span>
+               </button> 
+            </div>
+        </div>
+    </div>
+    <br/>
+     <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="usuario.login"><span>Login</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th ><span>Nombre</span> <span ></span></th>
+                    <th jh-sort-by="institucion.nombre"><span>Dependencia</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="usuario in vm.usuarios track by usuario.id">
+                   <!--  <td><a ui-sref="usuario-detail({id:usuario.id})">{{usuario.id}}</a></td> -->
+                    <td>{{usuario.perfil.usuario.login}}</td>
+                     <td>{{usuario.nombreCompletoNAA}}</td>
+                    <td>{{usuario.perfil.institucion.nombre}}</td>
+                    <td class="text-right">
+                      <button type="submit"
+                                    ui-sref="admonati.delete({id:usuario.perfil.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                      </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+    </div>
+    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager> 
+</div>

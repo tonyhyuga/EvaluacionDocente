@@ -46,6 +46,10 @@ public class Institucion implements Serializable{
 	 @JoinColumn (name = "idinstitucionpadre") 
 	private Institucion padre;
 
+	 @OneToOne()
+	 @JoinColumn (name = "idtipoinstitucion") 
+	 private TipoInstitucion tipoInstitucion;
+	 
 	public Integer getId() {
 		return id;
 	}
@@ -85,6 +89,24 @@ public class Institucion implements Serializable{
 	public void setPadre(Institucion padre) {
 		this.padre = padre;
 	}
+
+	public TipoInstitucion getTipoInstitucion() {
+		return tipoInstitucion;
+	}
+
+	public void setTipoInstitucion(TipoInstitucion tipoInstitucion) {
+		this.tipoInstitucion = tipoInstitucion;
+	}
+
+	public Set<Empleado> getEmpleados() {
+		return empleados;
+	}
+
+	public void setEmpleados(Set<Empleado> empleados) {
+		this.empleados = empleados;
+	}
+	
+	
 	
 	
 }
