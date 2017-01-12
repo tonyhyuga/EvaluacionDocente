@@ -8,6 +8,7 @@ public class UsuarioPerfilWrapper {
 	private Perfil perfil;
 	private Persona persona;
 	private Integer id;
+	private String login;
 	
 	public UsuarioPerfilWrapper(Integer id,Perfil perfil,Persona persona){
 		this.id=id;
@@ -41,6 +42,14 @@ public class UsuarioPerfilWrapper {
 				(persona.getApellidoMaterno()!=null?persona.getApellidoMaterno():"");
 	}
 	
-	
+	public String getLogin() {
+		return login;
+	}
+
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
 }
