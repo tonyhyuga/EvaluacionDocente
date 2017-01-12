@@ -42,6 +42,10 @@
         				 has=true;}
         			 if(vm.account.authorities[i]=='ALUMNO'){
         				 has=true;}
+        			 if(vm.account.authorities[i]=='ATI_EVALUACION_DOCENTE'){
+        				 has=true;}
+        			 if(vm.account.authorities[i]=='ADMTVO_EVALUACION_DOCENTE'){
+        				 has=true;}
         		 }
         	}
 

@@ -22,4 +22,10 @@ public interface PerfilRepository extends JpaRepository<Perfil, Integer>{
 			+ "where rol.id=:idRol and perfil.activo='T'")
 	Page<Perfil> getPerfilesPageable(Pageable pageable, @Param("idRol")Integer idrol);
 
+	@Query("Select perfil from Perfil perfil "
+			+ "join perfil.rol rol "
+			+ "where rol.id=:idRol and perfil.usuario.id=:idUser and perfil.institucion.id=:idInstitucion ")
+	Perfil validarUsuario(@Param("idUser")Long id,@Param("idInstitucion") Integer idInstitucion, 
+			@Param("idRol")Integer idRol);
+
 }

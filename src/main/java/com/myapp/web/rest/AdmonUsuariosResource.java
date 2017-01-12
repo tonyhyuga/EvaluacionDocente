@@ -67,10 +67,16 @@ public class AdmonUsuariosResource {
 			  log.debug("REST request to save nuevo Perfil tipo {}",wapper.getRol());
 
 			  Usuario usuario=perfilService.getUsuarioEmpleadobyPersona(wapper.getPersona().getId());
-			  Perfil result = perfilService.crearPerfil(usuario, wapper.getInstitucion(), wapper.getRol());
-			  return ResponseEntity.created(new URI("/apo/gestoracademico/" + result.getId()))
-			      .headers(HeaderUtil.createEntityCreationAlert("usuario", result.getId().toString()))
+			  if(usuario==null)
+				  return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("perfil", "noUser", "El empleado no tiene un Usuario")).body(null);
+			  if (!perfilService.validarNuevoPerfil(usuario, wapper.getInstitucion(), wapper.getRol())) {
+				  return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("perfil", "idexists", "Ya existe ese usuario en la institucion")).body(null);
+			  }else{
+				  Perfil result = perfilService.crearPerfil(usuario, wapper.getInstitucion(), wapper.getRol());
+				  return ResponseEntity.created(new URI("/apo/admonusuarios/" + result.getId()))
+			      .headers(HeaderUtil.createEntityCreationAlert("perfil", result.getId().toString()))
 			      .body(result);
+			  }
 			}
 	  
 	  

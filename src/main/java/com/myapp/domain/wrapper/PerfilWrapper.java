@@ -10,6 +10,7 @@ public class PerfilWrapper {
 	private Institucion institucion;
 	private Integer id;
 	private Integer rol;
+	private String login;
 	
 	public PerfilWrapper(){}
 	
@@ -57,6 +58,18 @@ public class PerfilWrapper {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+
+
+	public String getLogin() {
+		return login;
+	}
+
+
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	
