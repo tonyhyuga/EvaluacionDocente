@@ -8,6 +8,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "anioescolar")
@@ -23,6 +25,7 @@ public class AnioEscolar extends PeriodoTiempo{
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn (name = "idanterior")
+	@JsonIgnore
 	private AnioEscolar anterior;
 
 	public String getDescripcion() {

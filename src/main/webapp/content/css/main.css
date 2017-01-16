@@ -740,6 +740,9 @@ ui bootstrap tweaks
     background-color: #5cb85c !important;
     color: #fff;
 }
+.uib-daypicker .btn-default{
+	background: transparent !important;
+}
 
 
 

@@ -1,0 +1,97 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myUsuarioLabel">Crear/editar Actividad</h4>
+    </div>
+<div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-hide="vm.actividad.id">
+            <label for="id">Tipo Actividad</label>
+             	<select required  class="form-control" ng-model="vm.actividad.tipoActividad" ng-value="tipoActividad.tipo" ng-options="tipoActividad.tipo for tipoActividad in vm.tiposActividades">
+				</select>
+        </div>
+       <div class="form-group" ng-show="vm.actividad.id">
+            <label for="id">Tipo Actividad</label>
+            <input type="text" class="form-control" id="id" name="tipoAct"
+                    ng-model="vm.actividad.tipoActividad.tipo" value="vm.actividad.tipoActividad.tipo" readonly />
+        </div>
+        <div class="form-group" ng-hide="vm.actividad.id">
+            <label class="control-label" for="field_login">A&ntildeo Escolar</label>
+            <select required class="form-control" ng-model="vm.actividad.anioEscolar" ng-value="anioEscolar.descripcion" ng-options="anioEscolar.descripcion for anioEscolar in vm.aniosEscolares">
+			</select>
+        </div>
+        <div class="form-group" ng-show="vm.actividad.id">
+            <label for="id">A&ntildeo Escolar</label>
+            <input type="text" class="form-control" id="idanio" name="anio"
+                  ng-model="vm.actividad.anioEscolar.descripcion" ng-value="anioEscolar.descripcion" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_password">Periodo</label>{{vm.actividad.indicePeriodo}}
+            <label><input type="radio" ng-model="vm.actividad.indicePeriodo" name="indice" value="1" required> 1 (Agos - Dic)</label>
+	        <label><input type="radio" ng-model="vm.actividad.indicePeriodo" name="indice" value="2" required> 2 (Ene - Jul)</label>
+        </div>
+         
+        <div class="form-group" ng-hide="vm.actividad.id">
+            <label class="control-label" for="fiel">Dependencia</label>
+               	<select required class="form-control" ng-model="vm.actividad.institucion" ng-value="vm.actividad.institucion" ng-options="institucion.nombre+' '+institucion.abreviatura for institucion in vm.dependencias">
+				</select>
+        </div>
+       <div class="form-group" ng-show="vm.actividad.id">
+            <label for="id">Dependencia</label>
+            <input type="text" class="form-control" id="iddepen" name="dependenc"
+                   ng-value="vm.actividad.institucion.nombre+' '+vm.actividad.institucion.abreviatura" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_activo">Inicio</label>
+             <div class="input-group">
+                    <input required id="field_birth" type="text" class="form-control" name="birth" uib-datepicker-popup="{{dateformat}}" ng-model="vm.actividad.inicio" is-open="vm.datePickerOpenStatus.birth"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" ng-click="vm.openCalendar('birth')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+              </div>
+        </div><!-- calendar with time-->
+        <!--      <div class="form-group">
+                <div class="input-group">
+                    <input id="field_die" type="text" class="form-control" name="die" datetime-picker="{{dateformat}}" ng-model="vm.author.die" is-open="vm.datePickerOpenStatus.die"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('die')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>    --> 
+         <div class="form-group">
+            <label class="control-label" for="field_activo">Fin</label>
+            <div class="input-group">
+                    <input  required id="field_die" type="text" class="form-control" name="die" uib-datepicker-popup="{{dateformat}}" ng-model="vm.actividad.fin" is-open="vm.datePickerOpenStatus.die"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" ng-click="vm.openCalendar('die')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+              </div>
+      <!--  <div class="form-group">
+                <div class="input-group">
+                    <input id="field_die" type="text" class="form-control" name="die" datetime-picker="{{dateformat}}" ng-model="vm.author.die" is-open="vm.datePickerOpenStatus.die"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('die')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div> -->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancelar</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Guardar</span>
+        </button> 
+    </div>
+</div>
+</form>
+
+

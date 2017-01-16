@@ -24,7 +24,7 @@ import com.myapp.service.UsuarioService;
 @RequestMapping("/apo")
 public class AmbitoResource {
 	
-	private final Logger log = LoggerFactory.getLogger(GestorAcademicoResource.class);
+	private final Logger log = LoggerFactory.getLogger(AmbitoResource.class);
 
 	@Inject
 	private EvaluacionDocenteService evaDoceService;
@@ -38,9 +38,9 @@ public class AmbitoResource {
 	@Timed
 	public ResponseEntity<Usuario> getAmbito(@PathVariable Long clase, @PathVariable Long profesor)
 			throws URISyntaxException {
-		log.debug("REST request to get a page of Asignaturas de la institucion{}", clase,profesor);
+		log.debug("REST request to get Ambito {}", clase,profesor);
 		
-		System.out.println("Ahhhh, si!!!...");
+	
 		Usuario o = usuarioService.findOne(clase);
 		//ClaseUADYDocenteWrapper claseUADYDocenteWrapper=
 		return Optional.ofNullable(o)
