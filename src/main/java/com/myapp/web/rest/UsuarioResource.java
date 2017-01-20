@@ -86,17 +86,17 @@ public class UsuarioResource {
      * @return the ResponseEntity with status 200 (OK) and the list of usuarios in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
-    @RequestMapping(value = "/usuarios",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<List<Usuario>> getAllUsuarios(Pageable pageable)
-        throws URISyntaxException {
-        log.debug("REST request to get a page of Usuarios");
-        Page<Usuario> page = usuarioService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/usuarios");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/usuarios",
+//        method = RequestMethod.GET,
+//        produces = MediaType.APPLICATION_JSON_VALUE)
+//    @Timed
+//    public ResponseEntity<List<Usuario>> getAllUsuarios(Pageable pageable)
+//        throws URISyntaxException {
+//        log.debug("REST request to get a page of Usuarios");
+//        Page<Usuario> page = usuarioService.findAll(pageable);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/usuarios");
+//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+//    }
 
     /**
      * GET  /usuarios/:id : get the "id" usuario.

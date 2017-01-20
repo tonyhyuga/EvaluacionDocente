@@ -27,7 +27,9 @@ import com.myapp.domain.AlumnoUADYMatriculado;
 import com.myapp.domain.ClaseUADY;
 import com.myapp.domain.PeriodoCurso;
 import com.myapp.domain.PlanDeEstudios;
+import com.myapp.domain.calendarizacion.TipoActividadEvaluacionDocente;
 import com.myapp.domain.encuestas.CuestionarioResuelto;
+import com.myapp.domain.wrapper.ClaseUADYAlumnoWrapper;
 import com.myapp.domain.wrapper.ClaseUADYDocenteWrapper;
 import com.myapp.domain.wrapper.CuestionarioResueltoWrapper;
 import com.myapp.service.EvaluacionDocenteService;
@@ -52,15 +54,19 @@ public class AlumnoResource {
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	public ResponseEntity<List<ClaseUADYDocenteWrapper>> getclasesAlumno(Pageable pageable, HttpSession session)
+	public ResponseEntity<List<ClaseUADYAlumnoWrapper>> getclasesAlumno(Pageable pageable, HttpSession session)
 			throws URISyntaxException {
 		log.debug("REST request to get a page of Clases Alumno");
 
 		AlumnoUADYMatriculado alumno = (AlumnoUADYMatriculado)session.getAttribute("Alumno");
 		PlanDeEstudios plan = (PlanDeEstudios)session.getAttribute("PlanDeEstudios");
 		if(alumno!=null && plan!=null){
-			PeriodoCurso pc = pcService.getPeriodoCursoActualPlanDeEstudios(plan.getId());
-			Page<ClaseUADYDocenteWrapper> page = evaDoceService.findClasesByAlumno(pageable,alumno.getPersona().getId(),pc.getId());
+			//PeriodoCurso pc = pcService.getPeriodoCursoActualPlanDeEstudios(plan.getId());
+			Page<ClaseUADYAlumnoWrapper> page = evaDoceService.findClasesByAlumno(pageable,alumno.getPersona().getId());
+			if(page==null){
+				return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("clases", "noActividad", "No hay Actividad "
+						+TipoActividadEvaluacionDocente.EVALUAR_PROFESORES.getTipo()+ " vigente.")).body(null);
+			}
 			HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/apo/clasesalumno");
 			return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 		}else{

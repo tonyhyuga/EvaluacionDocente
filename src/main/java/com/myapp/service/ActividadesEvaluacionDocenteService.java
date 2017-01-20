@@ -48,18 +48,33 @@ public class ActividadesEvaluacionDocenteService {
 	        ActividadesEvaluacionDocente result = actividadesEvaDoceRepository.save(actividad);
 	        return result;
 	    }
-
+	 @Transactional(readOnly = true) 
 	public ActividadesEvaluacionDocente findOne(Integer id) {
 		return actividadesEvaDoceRepository.findOne(id);
 	}
-
+	@Transactional(readOnly = true) 
 	public List<TipoActividadEvaluacionDocente> getTiposActividades() {
 		
 		return actividadesEvaDoceRepository.getTipoActividades();
 	}
-
+	@Transactional(readOnly = true) 
 	public List<AnioEscolar> getAniosEscolares() {
 		// TODO Auto-generated method stub
 		return anioEscolarRepository.getAllDesc();
 	}
+
+	@Transactional(readOnly = true) 
+	public ActividadesEvaluacionDocente getActividadActualByTipo(Integer idClase, Integer idTipoActividadEva) {
+		
+		return actividadesEvaDoceRepository.getActividadActualByTipo(idClase,idTipoActividadEva);
+		
+	}
+	@Transactional(readOnly = true) 
+	public boolean validarNuevaActividad(ActividadesEvaluacionDocente actividad) {
+		
+		ActividadesEvaluacionDocente aux=actividadesEvaDoceRepository.existActividad(actividad.getAnioEscolar().getId(),
+				actividad.getIndicePeriodo(),actividad.getInstitucion().getId(),actividad.getTipoActividad().getId());
+		return aux!=null;
+	}
+
 }

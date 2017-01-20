@@ -5,9 +5,9 @@
         .module('campoApp')
         .controller('DocenteController', DocenteController);
 
-    DocenteController.$inject = ['$scope', '$state', 'Docente', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    DocenteController.$inject = ['$scope', '$state', 'Docente', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants','AniosEscolares'];
 
-    function DocenteController ($scope, $state, Docente, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function DocenteController ($scope, $state, Docente, ParseLinks, AlertService, pagingParams, paginationConstants,AniosEscolares) {
         var vm = this;
         
         vm.loadPage = loadPage;
@@ -15,6 +15,11 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.anioSeleccionado=pagingParams.anio;
+        vm.indicePeriodo=pagingParams.indice;
+        vm.search=search;
+
+        cargarDropdrown();
 
         loadAll();
 
@@ -22,7 +27,9 @@
         	Docente.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
-                sort: sort()
+                sort: sort(),
+                anio: vm.anioSeleccionado,
+                indice: vm.indicePeriodo
             }, onSuccess, onError);
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
@@ -53,8 +60,39 @@
             $state.transitionTo($state.$current, {
                 page: vm.page,
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
-                search: vm.currentSearch
+                search: vm.currentSearch,
+                anio: vm.anioSeleccionado,
+                indice: vm.indicePeriodo
             });
         }
+        
+        function cargarDropdrown(){
+        	vm.aniosEscolares=AniosEscolares.query();
+        }
+        
+
+        
+        function search(){
+        	
+        	if(vm.anioSeleccionado==null )
+        		return ;
+        	$state.transitionTo($state.$current, {
+                page: 0,
+                sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
+                search: vm.currentSearch,
+//                type: vm.type,
+                anio: vm.anioSeleccionado,
+                indice: vm.indicePeriodo
+            },onSuccess);
+        	 function onSuccess(data, headers) {
+                 vm.links = ParseLinks.parse(headers('link'));
+                 vm.totalItems = headers('X-Total-Count');
+                 vm.queryCount = vm.totalItems;
+                 vm.usuarios = data;
+                 vm.page = pagingParams.page;
+             }
+        	
+        }
+        
     }
 })();

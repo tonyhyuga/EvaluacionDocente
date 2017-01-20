@@ -5,6 +5,7 @@ import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -18,7 +19,7 @@ import com.myapp.domain.Institucion;
 public class ActividadesEvaluacionDocente {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
 	@Column(name="inicio")
@@ -28,7 +29,7 @@ public class ActividadesEvaluacionDocente {
 	private Calendar fin;
 	
 	@Column(name="indiceperiodo")
-	private int indicePeriodo;
+	private Integer indicePeriodo;
 	
 	@OneToOne
 	@JoinColumn(name="idanioescolar")
@@ -66,11 +67,11 @@ public class ActividadesEvaluacionDocente {
 		this.fin = fin;
 	}
 
-	public int getIndicePeriodo() {
+	public Integer getIndicePeriodo() {
 		return indicePeriodo;
 	}
 
-	public void setIndicePeriodo(int indicePeriodo) {
+	public void setIndicePeriodo(Integer indicePeriodo) {
 		this.indicePeriodo = indicePeriodo;
 	}
 

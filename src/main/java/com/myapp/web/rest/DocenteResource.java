@@ -36,6 +36,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.myapp.domain.ClaseUADY;
 import com.myapp.domain.Empleado;
 import com.myapp.domain.UsuarioEmpleado;
+import com.myapp.domain.calendarizacion.TipoActividadEvaluacionDocente;
 import com.myapp.domain.encuestas.Ambito;
 import com.myapp.domain.encuestas.CuestionarioResuelto;
 import com.myapp.domain.encuestas.RespuestaPregunta;
@@ -56,16 +57,16 @@ public class DocenteResource {
 	@Inject
 	private EvaluacionDocenteService evaDoceService; 
 
-	@RequestMapping(value = "/clasesdocente",
+	@RequestMapping(value = "/clasesdocente{anio},{indice}",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	public ResponseEntity<List<ClaseUADYDocenteWrapper>> getclasesDocente(Pageable pageable,HttpSession session)
+	public ResponseEntity<List<ClaseUADYDocenteWrapper>> getclasesDocente(Pageable pageable,HttpSession session,@PathVariable Integer anio,@PathVariable Short indice)
 			throws URISyntaxException {
-		log.debug("REST request to get a page of Usuarios");
-		int id=89774;
+		log.debug("REST request to get a page of Clases Docente {}",anio,indice);
+		
 		Empleado docente = (Empleado)session.getAttribute("Empleado");
-		Page<ClaseUADYDocenteWrapper> page = evaDoceService.findClasesByDocente(pageable,docente.getPersona().getId());
+		Page<ClaseUADYDocenteWrapper> page = evaDoceService.findClasesByDocente(pageable,docente.getPersona().getId(),anio,indice);
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/apo/clasesdocente");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}
@@ -78,7 +79,10 @@ public class DocenteResource {
 	public ResponseEntity<CuestionarioResueltoWrapper> getQuestionarie(@PathVariable Integer ambito, @PathVariable Integer profesor)
 			throws URISyntaxException {
 		log.debug("REST request to get a Cuestionario para crear {}", ambito, profesor);
-
+		if(!evaDoceService.validarActividadAutoEvaluacion(ambito)){
+			return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("ambito", "noActividad", "No hay Actividad "
+					+TipoActividadEvaluacionDocente.AUTOEVALUAR_PROFESORES.getTipo()+ " vigente.")).body(null);
+		}
 		CuestionarioResueltoWrapper resuelto = evaDoceService.findCuestionarioResuelto(ambito, profesor);
 		return Optional.ofNullable(resuelto)
 	            .map(result -> new ResponseEntity<>(

@@ -32,7 +32,6 @@
 
         function save () {
             vm.isSaving = true;
-            alert(vm.actividad.id);
             if (vm.actividad.id !== null) {
             	ActividadesEvaluacion.update(vm.actividad, onSaveSuccess, onSaveError);
             } else {

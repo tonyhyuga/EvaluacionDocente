@@ -60,9 +60,9 @@ public class ActividadEvaluacionDocenteResource {
 @Timed
 public ResponseEntity<ActividadesEvaluacionDocente> createActividad(@RequestBody ActividadesEvaluacionDocente actividad) throws URISyntaxException {
   log.debug("REST request to save ActividadesEvaluacionDocente : {}", actividad.getId());
-//  if (actividad.getId() != null && actividad.getId()==0) {
-//      return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("actividad", "idexists", "A new usuario cannot already have an ID")).body(null);
-//  }
+  if(actividadesEvaluacionDocenteService.validarNuevaActividad(actividad)){
+	  return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("actividad", "idexists", "Ya existe una actividad similar en el año")).body(null);
+  }
   if (actividad.getId()==0 || actividad.getId() == null ){ 
 	  ActividadesEvaluacionDocente result = actividadesEvaluacionDocenteService.save(actividad);
 	  return ResponseEntity.created(new URI("/apo/actividades/" + result.getId()))

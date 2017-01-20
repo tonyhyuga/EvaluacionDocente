@@ -29,7 +29,7 @@
                    <!--  <td><a ui-sref="usuario-detail({id:usuario.id})">{{usuario.id}}</a></td> -->
                     <td>{{usuario.login}}</td>
                      <td>{{usuario.nombreCompletoNAA}}</td>
-                    <td>{{usuario.perfil.institucion.nombre}}</td>
+                    <td>{{usuario.perfil.institucion.nombre}} {{usuario.perfil.institucion.abreviatura}}</td>
                     <td class="text-right">
                       <button type="submit"
                                     ui-sref="admgestor.delete({id:usuario.perfil.id})"

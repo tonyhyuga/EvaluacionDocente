@@ -50,27 +50,6 @@ public class UsuarioService {
         return result;
     }
 
-    /**
-     *  Get all the usuarios.
-     *  
-     *  @param pageable the pagination information
-     *  @return the list of entities
-     */
-    @Transactional(readOnly = true) 
-    public Page<Usuario> findAll(Pageable pageable) {
-        log.debug("Request to get all Usuarios");
-        Page<Usuario> result = usuarioRepository.findAll(pageable);
-        //AnioEscolar result2 = anioEscolarRepository.getAnioActual();
-       // PlanDeEstudios result2= planRepository.getPlanDeEstudios(7221);
-        List<ClaseUADY> result2 = claseRepository.getClasesUADYByProfesor(89774);
-        if(result2!=null){
-        	//System.out.println(result2.getNombre());
-        	System.out.println("Wiii!! " +result2.size());
-        	//System.out.println(result2.getCalendarInicio().getTime());
-        }else
-        	System.out.println("B A D, Don´t work!!");
-        return result;
-    }
 
     /**
      *  Get one usuario by id.

@@ -26,5 +26,16 @@ public interface ActividadesEvaluacionDocenteRepository extends JpaRepository<Ac
 	@Query("select distinct tipo from TipoActividadEvaluacionDocente tipo ")
 	List<TipoActividadEvaluacionDocente> getTipoActividades();
 
-	
+	@Query("select distinct actividad from ActividadesEvaluacionDocente actividad "
+			+ "join actividad.tipoActividad tipo "
+			+ "where actividad.institucion.id=:idinstitucion and tipo.id=:idTipoActividadEva "
+			+ "and actividad.inicio <= now() and now() <= actividad.fin ")
+	ActividadesEvaluacionDocente getActividadActualByTipo(@Param("idinstitucion")int idinstitucion,@Param("idTipoActividadEva") Integer idTipoActividadEva);
+
+	@Query("select distinct actividad from ActividadesEvaluacionDocente actividad "
+			+ "join actividad.tipoActividad tipo "
+			+ "where actividad.institucion.id=:idinstitucion and tipo.id=:idTipoActividadEva "
+			+ "and actividad.anioEscolar.id=:idAnio and actividad.indicePeriodo= :indicePeriodo ")
+	ActividadesEvaluacionDocente  existActividad(@Param("idAnio")int idAnio, @Param("indicePeriodo") Integer indicePeriodo,
+			@Param("idinstitucion")int idinstitucion,@Param("idTipoActividadEva") Integer idTipoActividadEva);
 }

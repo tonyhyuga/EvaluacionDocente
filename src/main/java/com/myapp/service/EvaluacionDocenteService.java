@@ -28,6 +28,8 @@ import com.myapp.domain.MovimientoInscripcionGrupo;
 import com.myapp.domain.PeriodoCurso;
 import com.myapp.domain.PeriodoTiempo;
 import com.myapp.domain.Persona;
+import com.myapp.domain.calendarizacion.ActividadesEvaluacionDocente;
+import com.myapp.domain.calendarizacion.TipoActividadEvaluacionDocente;
 import com.myapp.domain.encuestas.Ambito;
 import com.myapp.domain.encuestas.Cuestionario;
 import com.myapp.domain.encuestas.CuestionarioResuelto;
@@ -37,6 +39,7 @@ import com.myapp.domain.encuestas.PreguntaHecha;
 import com.myapp.domain.encuestas.RespuestaPregunta;
 import com.myapp.domain.encuestas.TipoAmbito;
 import com.myapp.domain.wrapper.AlumnoCuestionarioContestadoWrapper;
+import com.myapp.domain.wrapper.ClaseUADYAlumnoWrapper;
 import com.myapp.domain.wrapper.ClaseUADYDocenteWrapper;
 import com.myapp.domain.wrapper.CuestionarioResueltoWrapper;
 import com.myapp.domain.wrapper.GrupoPreguntasWrapper;
@@ -68,22 +71,21 @@ public class EvaluacionDocenteService {
 	private PeridoCursoService pcService;
 	
 	@Inject
+	private ActividadesEvaluacionDocenteService actividadesService;
+	
+	@Inject
 	private AmbitoRepository ambitoRepository;
 	
 	@Inject
 	private CuestionarioRepository cuestionarioRepository;
 
-	@Transactional(readOnly = true) 
-	public List<ClaseUADY> findClasesByDocente(Integer iddocente){
-		log.debug("Request to get all clases sin paginacion ");
-		return  claseRepository.getClasesUADYByProfesor(iddocente);
-	}
+
 	@Transactional(readOnly = true) 	
-	public Page<ClaseUADYDocenteWrapper> findClasesByDocente(Pageable pageable, int id) {
+	public Page<ClaseUADYDocenteWrapper> findClasesByDocente(Pageable pageable, int id,Integer anio, Short indice) {
 		log.debug("Request to get all clases con paginacion");
 		//PeriodoCurso pc = pcService.getPeriodoCursoActualPlanDeEstudios(plan.getId());
-		Calendar fechaBD=Calendar.getInstance();
-		Page<Object[]> clasestotal = claseRepository.getClasesUADYOfDocente(pageable, id, fechaBD);
+		//Calendar fechaBD=Calendar.getInstance();
+		Page<Object[]> clasestotal = claseRepository.getClasesUADYOfDocente(pageable, id, anio,indice);
 		//return claseRepository.getClasesUADYByProfesor(pageable,id);
 
 		List<ClaseUADYDocenteWrapper> wrappers = new ArrayList<ClaseUADYDocenteWrapper>();
@@ -148,49 +150,41 @@ public class EvaluacionDocenteService {
 	
 	
 	@Transactional(readOnly = true) 	
-	public Page<ClaseUADYDocenteWrapper> findClasesByAlumno(Pageable pageable, int idAlumno,int idPeriodocurso) {
+	public Page<ClaseUADYAlumnoWrapper> findClasesByAlumno(Pageable pageable, int idAlumno) {
 		log.debug("Request to get all clases con paginacion");
 
-		Page<Object[]> clasest= claseRepository.getClasesConCuestionariosNoResueltosByAlumno(pageable,idAlumno);
+		List<Integer> ids = cuestionarioRepository.getIdsCuestionariosActuales(idAlumno);
+		if(ids==null || ids.size()==0){
+			return null;
+		}
+		Page<CuestionarioResuelto> cuestionarios= claseRepository.getClasesConCuestionariosNoResueltosByAlumno(pageable,idAlumno,ids);
 
-		System.out.println("clases total sin sinodos: "+clasest.getTotalElements());
 
-		List<ClaseUADYDocenteWrapper> wrappers= new ArrayList<ClaseUADYDocenteWrapper>();
-		List<Object[]> clases = clasest.getContent();
+		List<ClaseUADYAlumnoWrapper> wrappers= new ArrayList<ClaseUADYAlumnoWrapper>();
+		List<CuestionarioResuelto> cuestionario = cuestionarios.getContent();
 		int idwrapper=0;
-		for(int i=0;i<clases.size();i++){
+		for(int i=0;i<cuestionario.size();i++){
 			idwrapper++;
-			ClaseUADY clase=(ClaseUADY)clases.get(i)[0];
-			Empleado sinodo = (Empleado)clases.get(i)[1];
-			ClaseUADYDocenteWrapper wraper= new ClaseUADYDocenteWrapper(clase,sinodo,idwrapper);
-		
-			Ambito ambitoObservaciones=ambitoRepository.getAmbito(clase.getId(), sinodo.getPersona().getId(),"Observaciones");
-			Ambito ambitoEvaluacion=ambitoRepository.getAmbito(clase.getId(), sinodo.getPersona().getId(),"Evaluaciones");
-			Ambito ambitoEvidencias=ambitoRepository.getAmbito(clase.getId(), sinodo.getPersona().getId(),"Evidencias");;
-			wraper.setObservaciones(ambitoObservaciones);
+			Ambito ambitoEvaluacion = cuestionario.get(i).getAmbito();
+			ClaseUADY clase=ambitoEvaluacion.getClaseUady();
+			Persona sinodo = ambitoEvaluacion.getPersona();
+			ClaseUADYAlumnoWrapper wraper= new ClaseUADYAlumnoWrapper(clase,sinodo,idwrapper);
 			wraper.setEvaluacion(ambitoEvaluacion);
-			wraper.setEvidencias(ambitoEvidencias);
 			wrappers.add(wraper);
 		}
-		Page<ClaseUADYDocenteWrapper> page = new PageImpl<ClaseUADYDocenteWrapper>(wrappers, pageable,clasest.getTotalElements());
+		Page<ClaseUADYAlumnoWrapper> page = new PageImpl<ClaseUADYAlumnoWrapper>(wrappers, pageable,cuestionarios.getTotalElements());
 		
 		return page;
 	
 	
 	}
 	
-	@Transactional(readOnly = true) 	
-	public List<ClaseUADY> findClasesByAlumno(int id) {
-		log.debug("Request to get all clases con paginacion");
-		List<ClaseUADY> result = claseRepository.getClaseUADYByAlumno("");
-		return result;
 
-	}
-	public Page<ClaseUADYDocenteWrapper> findDocentesByInstitucion(Pageable pageable, List<Integer> ids) {
+	public Page<ClaseUADYDocenteWrapper> findDocentesByInstitucion(Pageable pageable, List<Integer> ids,Integer idAnio,Short indicePeriodo) {
 		log.debug("Request to get all emeplados con paginacion");
 		
-		Calendar fecha = Calendar.getInstance();
-		Page<Object[]> clasest= claseRepository.getClasesUADYPorInstitucion(pageable,ids,fecha);
+		//Calendar fecha = Calendar.getInstance();
+		Page<Object[]> clasest= claseRepository.getClasesUADYPorInstitucion(pageable,ids,idAnio,indicePeriodo);
 
 		System.out.println("clases total sin sinodos: "+clasest.getTotalElements());
 
@@ -430,6 +424,19 @@ public class EvaluacionDocenteService {
 		}
 		GeneradorReporteCuestionariosResueltos generador = new GeneradorReporteCuestionariosResueltos();
 		return generador.createExcelFile(wrapperAlumnos);
+	}
+
+
+	public boolean validarActividad(Integer idclase,Integer idTipoActividadEva) {
+		ClaseUADY clase=claseRepository.findOne(idclase);
+		ActividadesEvaluacionDocente actividad =actividadesService.getActividadActualByTipo(clase.getInstitucion().getId(),idTipoActividadEva);
+		return actividad!=null;
+	}
+	
+	public boolean validarActividadAutoEvaluacion(Integer idAmbito) {
+		Ambito ambito=ambitoRepository.findOne(idAmbito);
+		ActividadesEvaluacionDocente actividad =actividadesService.getActividadActualByTipo(ambito.getInstitucion().getId(),TipoActividadEvaluacionDocente.AUTOEVALUAR_PROFESORES.getId());
+		return actividad!=null;
 	}
 	
 	

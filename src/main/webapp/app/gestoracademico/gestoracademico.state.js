@@ -11,7 +11,7 @@
         $stateProvider
         .state('gestor', {
             parent: 'app',
-            url: '/gestoracademico?page&sort&search',
+            url: '/gestoracademico?page&sort&search&type',
             data: {
             	authorities: ['GESTOR_ACADEMICO'],
                 pageTitle: 'Portal Gestor Academico'
@@ -32,7 +32,12 @@
                     value: 'id,asc',
                     squash: true
                 },
-                search: null
+                search: null,
+                type: '1',
+                indice : '1',
+                anio: '0',
+                aniostr: ''
+                
             },
             resolve: {
                 pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
@@ -41,7 +46,11 @@
                         sort: $stateParams.sort,
                         predicate: PaginationUtil.parsePredicate($stateParams.sort),
                         ascending: PaginationUtil.parseAscending($stateParams.sort),
-                        search: $stateParams.search
+                        search: $stateParams.search,
+                        type: $stateParams.type,
+                        indice: $stateParams.indice,
+                        anio: $stateParams.anio,
+                        aniostr: $stateParams.aniostr
                     };
                 }]
             }
@@ -60,8 +69,8 @@
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['GestorAcademico', function(GestorAcademico) {
-                        	return GestorAcademico.obtener({id : $stateParams.id , idp : $stateParams.idp}).$promise;
+                        entity: ['GestorAmbitoService', function(GestorAmbitoService) {
+                        	return GestorAmbitoService.obtener({id : $stateParams.id , idp : $stateParams.idp}).$promise;
                 
                         }]
                     }

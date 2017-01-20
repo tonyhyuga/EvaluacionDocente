@@ -19,6 +19,7 @@
     	vm.mensaje = null;
     	vm.preguntainvalida = [];
     	vm.contain = contain;
+        vm.menu=menu;
     	
         CuestionarioService.obtener({
     		ambito : $state.params.ambito, 
@@ -123,6 +124,9 @@
         			
         	}
         	return invalido;
+        }
+        function menu(){
+        	$state.go("docente");
         }
     }
 })();

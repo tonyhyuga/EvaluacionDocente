@@ -5,26 +5,35 @@
         .module('campoApp')
         .controller('GestorController', GestorController);
 
-    GestorController.$inject = ['$scope', '$state', 'GestorAcademico', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants', 'GestorAmbitoService','LoginService','downloadService'];
+    GestorController.$inject = ['$scope', '$state', 'GestorAcademico', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants', 'GestorAmbitoService','LoginService','downloadService','AniosEscolares'];
 
-    function GestorController ($scope, $state, GestorAcademico, ParseLinks, AlertService, pagingParams, paginationConstants,GestorAmbitoService,LoginService,downloadService) {
+    function GestorController ($scope, $state, GestorAcademico, ParseLinks, AlertService, pagingParams, paginationConstants,GestorAmbitoService,LoginService,downloadService,AniosEscolares) {
         var vm = this;
         
-        vm.loadPage = loadPage;
+       // vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
-        vm.openDialog=openDialog;
+        //vm.openDialog=openDialog;
         vm.download=download;
-       
+        vm.indicePeriodo=pagingParams.indice;
+        vm.search=search;
+        vm.type=pagingParams.type;
+        vm.currentSearch=pagingParams.search;
+        vm.anioSeleccionado=pagingParams.anio;
+        cargarDropdrown();
         loadAll();
         vm.isNew = isNew;
         function loadAll () {
         	GestorAcademico.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
-                sort: sort()
+                sort: sort(),
+                search:  vm.currentSearch,
+                type: vm.type,
+                indice: vm.indicePeriodo,
+                anio: vm.anioSeleccionado
             }, onSuccess, onError);
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
@@ -54,32 +63,67 @@
             });
         }
 
-        function loadPage (page) {
-            vm.page = page;
-            vm.transition();
-        }
+//        function loadPage (page) {
+//            vm.page = page;
+//            vm.transition();
+//        }
         
-        function openDialog () {
-        	var entity={tipo:null
-        	}
-        	GestorAmbitoService.open(entity);
-        	//LoginService.open();
-        }
+//        function openDialog () {
+//        	var entity={tipo:null
+//        	}
+//        	GestorAmbitoService.open(entity);
+//        }
 
         function transition () {
             $state.transitionTo($state.$current, {
                 page: vm.page,
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
-                search: vm.currentSearch
-            });
+                search: vm.currentSearch,
+                type: vm.type,
+                indice: vm.indicePeriodo,
+                anio: vm.anioSeleccionado,
+            },onSuccess,{reload:false});
+       	 function onSuccess(data, headers) {
+             vm.links = ParseLinks.parse(headers('link'));
+             vm.totalItems = headers('X-Total-Count');
+             vm.queryCount = vm.totalItems;
+             vm.usuarios = data;
+             vm.page = pagingParams.page;
+         }
         }
         
         function isNew(){
-        	//alert(vm.usuarios.evaluacion ==null)
         	if( vm.usuarios.evaluacion.id ==null )
         		return true;
         	else
         		return false;
+        }
+        
+        function cargarDropdrown(){
+        	vm.aniosEscolares=AniosEscolares.query();
+        }
+        
+        function search(){
+        	
+        	if(vm.anioSeleccionado==null )
+        		return ;
+        	$state.transitionTo($state.$current, {
+                page: 0,
+                sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
+                search: vm.currentSearch,
+                type: vm.type,
+                indice: vm.indicePeriodo,
+                anio: vm.anioSeleccionado,
+                aniostr: vm.anioSeleccionado
+            },onSuccess);
+        	 function onSuccess(data, headers) {
+                 vm.links = ParseLinks.parse(headers('link'));
+                 vm.totalItems = headers('X-Total-Count');
+                 vm.queryCount = vm.totalItems;
+                 vm.usuarios = data;
+                 vm.page = pagingParams.page;
+             }
+        	
         }
 
     }

@@ -7,7 +7,7 @@
     Docente.$inject = ['$resource'];
 
     function Docente ($resource) {
-        var resourceUrl =  'apo/clasesdocente/:id';
+        var resourceUrl =  'apo/clasesdocente:anio,:indice/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

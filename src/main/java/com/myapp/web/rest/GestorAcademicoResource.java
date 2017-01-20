@@ -30,9 +30,12 @@ import com.myapp.domain.ClaseUADY;
 import com.myapp.domain.Empleado;
 import com.myapp.domain.Institucion;
 import com.myapp.domain.Usuario;
+import com.myapp.domain.calendarizacion.ActividadesEvaluacionDocente;
+import com.myapp.domain.calendarizacion.TipoActividadEvaluacionDocente;
 import com.myapp.domain.encuestas.Ambito;
 import com.myapp.domain.wrapper.AlumnoCuestionarioContestadoWrapper;
 import com.myapp.domain.wrapper.ClaseUADYDocenteWrapper;
+import com.myapp.service.ActividadesEvaluacionDocenteService;
 import com.myapp.service.EvaluacionDocenteService;
 import com.myapp.service.UsuarioService;
 import com.myapp.web.rest.util.HeaderUtil;
@@ -48,18 +51,23 @@ public class GestorAcademicoResource {
 	private EvaluacionDocenteService evaDoceService;
 	
 	@Inject
+	private ActividadesEvaluacionDocenteService actividadesService;
+	
+	@Inject
 	private UsuarioService usuarioService; 
 
-	@RequestMapping(value = "/profesores",
+	@RequestMapping(value = "/profesores{search},{type},{indice},{anio}",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	public ResponseEntity<List<ClaseUADYDocenteWrapper>> getDocentes(Pageable pageable,HttpSession httpsession)
+	public ResponseEntity<List<ClaseUADYDocenteWrapper>> getDocentes(Pageable pageable,HttpSession httpsession,
+			@PathVariable String search,@PathVariable Integer type,@PathVariable Short indice,@PathVariable Integer anio)
 			throws URISyntaxException {
-		log.debug("REST request to get a page of Asignaturas de la institucion");
+		log.debug("REST request to get a page of Asignaturas de la institucion {}",type,search,indice,anio);
+		
 		Empleado empleado = (Empleado)httpsession.getAttribute("Empleado");
 		List<Integer> inst=usuarioService.getInstitucionByRol(empleado.getPersona().getId(),"GESTOR ACADEMICO");
-		Page<ClaseUADYDocenteWrapper> page = evaDoceService.findDocentesByInstitucion(pageable,inst);
+		Page<ClaseUADYDocenteWrapper> page = evaDoceService.findDocentesByInstitucion(pageable,inst,anio,indice);
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/apo/docentesgestor");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}
@@ -71,7 +79,11 @@ public class GestorAcademicoResource {
 	public ResponseEntity<Ambito> getAmbito(@PathVariable Integer id, @PathVariable Integer idp)
 			throws URISyntaxException {
 		log.debug("REST request to get a Ambito para crear {}", id,idp);
-
+		
+		if(!evaDoceService.validarActividad(id,TipoActividadEvaluacionDocente.REGISTRAR_EVALUACION.getId())){
+			return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("ambito", "noActividad", "No hay Actividad "
+					+TipoActividadEvaluacionDocente.REGISTRAR_EVALUACION.getTipo()+ " vigente.")).body(null);
+		}
 		Ambito ambito=evaDoceService.findAmbito(id, idp);
 		//return new ResponseEntity<>(ambito, HttpStatus.OK);
 		return Optional.ofNullable(ambito)

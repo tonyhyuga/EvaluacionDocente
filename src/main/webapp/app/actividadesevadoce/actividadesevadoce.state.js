@@ -62,13 +62,14 @@
                     resolve: {
                         entity: function () {
                             return {
-                                tipoActividad: null,
+                            	id: null,
+                            	tipoActividad: null,
                                 institucion: null,
                                 indicePeriodo: null,
                                 anioEscolar: null,
                                 inicio: null,
-                                fin: null,
-                                id: null
+                                fin: null
+                               
                             };
                         }
                     }
