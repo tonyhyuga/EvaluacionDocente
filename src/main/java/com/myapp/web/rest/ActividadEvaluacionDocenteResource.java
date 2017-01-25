@@ -60,6 +60,9 @@ public class ActividadEvaluacionDocenteResource {
 @Timed
 public ResponseEntity<ActividadesEvaluacionDocente> createActividad(@RequestBody ActividadesEvaluacionDocente actividad) throws URISyntaxException {
   log.debug("REST request to save ActividadesEvaluacionDocente : {}", actividad.getId());
+  if(actividad.getInicio().after(actividad.getFin())){
+	  return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("actividad", "noValid", "La fecha inicial debe ser menor a la fecha final")).body(null);
+  } 
   if(actividadesEvaluacionDocenteService.validarNuevaActividad(actividad)){
 	  return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("actividad", "idexists", "Ya existe una actividad similar en el año")).body(null);
   }
@@ -91,6 +94,9 @@ public ResponseEntity<ActividadesEvaluacionDocente> updateActividad(@RequestBody
   if (actividad.getId() == null) {
       return createActividad(actividad);
   }
+  if(actividad.getInicio().after(actividad.getFin())){
+	  return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("actividad", "noValid", "La fecha inicial debe ser menor a la fecha final")).body(null);
+  } 
   ActividadesEvaluacionDocente result = actividadesEvaluacionDocenteService.save(actividad);
   return ResponseEntity.ok()
       .headers(HeaderUtil.createEntityUpdateAlert("ActividadesEvaluacionDocente", actividad.getId().toString()))
