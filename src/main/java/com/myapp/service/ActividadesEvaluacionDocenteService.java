@@ -1,5 +1,6 @@
 package com.myapp.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,6 +46,10 @@ public class ActividadesEvaluacionDocenteService {
 	
 	 public ActividadesEvaluacionDocente save(ActividadesEvaluacionDocente actividad) {
 	        log.debug("Request to save actividad : {}", actividad);
+	        Calendar fin=actividad.getFin();
+	        fin.add(Calendar.HOUR_OF_DAY, 23);
+	        fin.add(Calendar.MINUTE, 59);
+	        fin.add(Calendar.SECOND, 59);
 	        ActividadesEvaluacionDocente result = actividadesEvaDoceRepository.save(actividad);
 	        return result;
 	    }
