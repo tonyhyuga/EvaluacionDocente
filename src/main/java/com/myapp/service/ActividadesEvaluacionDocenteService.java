@@ -1,7 +1,10 @@
 package com.myapp.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -46,10 +49,18 @@ public class ActividadesEvaluacionDocenteService {
 	
 	 public ActividadesEvaluacionDocente save(ActividadesEvaluacionDocente actividad) {
 	        log.debug("Request to save actividad : {}", actividad);
+	        
+	        Calendar now = Calendar.getInstance();
 	        Calendar fin=actividad.getFin();
-	        fin.add(Calendar.HOUR_OF_DAY, 23);
-	        fin.add(Calendar.MINUTE, 59);
-	        fin.add(Calendar.SECOND, 59);
+	        now.set(Calendar.DAY_OF_MONTH,fin.get(Calendar.DAY_OF_MONTH));
+	        now.set(Calendar.MONTH,fin.get(Calendar.MONTH));
+	        now.set(Calendar.YEAR,fin.get(Calendar.YEAR));
+	        now.set(Calendar.HOUR_OF_DAY,23);
+	        now.set(Calendar.MINUTE,59);
+	        now.set(Calendar.SECOND,58);
+	        now.set(Calendar.MILLISECOND,0);
+	        actividad.setFin(now);	
+	                
 	        ActividadesEvaluacionDocente result = actividadesEvaDoceRepository.save(actividad);
 	        return result;
 	    }
