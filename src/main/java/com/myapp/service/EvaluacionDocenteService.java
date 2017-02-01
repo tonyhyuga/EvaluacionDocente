@@ -429,13 +429,18 @@ public class EvaluacionDocenteService {
 
 	public boolean validarActividad(Integer idclase,Integer idTipoActividadEva) {
 		ClaseUADY clase=claseRepository.findOne(idclase);
-		ActividadesEvaluacionDocente actividad =actividadesService.getActividadActualByTipo(clase.getInstitucion().getId(),idTipoActividadEva);
+		Integer indicePeriodo=new Integer(clase.getPeriodoCurso().getIndice());
+		ActividadesEvaluacionDocente actividad =actividadesService.getActividadActualByTipo(clase.getInstitucion().getId(),
+				idTipoActividadEva,indicePeriodo,clase.getPeriodoCurso().getAnioEscolar().getId());
 		return actividad!=null;
 	}
 	
 	public boolean validarActividadAutoEvaluacion(Integer idAmbito) {
 		Ambito ambito=ambitoRepository.findOne(idAmbito);
-		ActividadesEvaluacionDocente actividad =actividadesService.getActividadActualByTipo(ambito.getInstitucion().getId(),TipoActividadEvaluacionDocente.AUTOEVALUAR_PROFESORES.getId());
+		Integer indicePeriodo=new Integer(ambito.getClaseUady().getPeriodoCurso().getIndice());
+		ActividadesEvaluacionDocente actividad =actividadesService.getActividadActualByTipo(ambito.getInstitucion().getId(),
+				TipoActividadEvaluacionDocente.AUTOEVALUAR_PROFESORES.getId(),indicePeriodo,
+				ambito.getClaseUady().getPeriodoCurso().getAnioEscolar().getId());
 		return actividad!=null;
 	}
 	

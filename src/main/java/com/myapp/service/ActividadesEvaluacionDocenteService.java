@@ -80,9 +80,11 @@ public class ActividadesEvaluacionDocenteService {
 	}
 
 	@Transactional(readOnly = true) 
-	public ActividadesEvaluacionDocente getActividadActualByTipo(Integer idClase, Integer idTipoActividadEva) {
+	public ActividadesEvaluacionDocente getActividadActualByTipo(Integer idClase, Integer idTipoActividadEva,
+			Integer indicePeriodo,Integer idAnioEscolar) {
 		
-		return actividadesEvaDoceRepository.getActividadActualByTipo(idClase,idTipoActividadEva);
+		return actividadesEvaDoceRepository.getActividadActualByTipo(idClase,idTipoActividadEva,
+				indicePeriodo,idAnioEscolar);
 		
 	}
 	@Transactional(readOnly = true) 
