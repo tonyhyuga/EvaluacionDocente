@@ -188,9 +188,49 @@ public class EvaluacionDocenteService {
 	}
 	public Page<ClaseUADYDocenteWrapper> findDocentesByInstitucion(Pageable pageable, List<Integer> ids) {
 		log.debug("Request to get all emeplados con paginacion");
+		String filtro ="";
 		
 		Calendar fecha = Calendar.getInstance();
-		Page<Object[]> clasest= claseRepository.getClasesUADYPorInstitucion(pageable,ids,fecha);
+		Page<Object[]> clasest= claseRepository.getClasesUADYPorInstitucionFiltro(pageable,ids,fecha,filtro);
+
+		System.out.println("clases total sin sinodos: "+clasest.getTotalElements());
+
+		List<ClaseUADYDocenteWrapper> wrappers= new ArrayList<ClaseUADYDocenteWrapper>();
+		List<Object[]> clases = clasest.getContent();
+		int idwrapper=0;
+		for(int i=0;i<clases.size();i++){
+			idwrapper++;
+			ClaseUADY clase=(ClaseUADY)clases.get(i)[0];
+			Empleado sinodo = (Empleado)clases.get(i)[1];
+			ClaseUADYDocenteWrapper wraper= new ClaseUADYDocenteWrapper(clase,sinodo,idwrapper);
+		
+			Ambito ambitoObservaciones=ambitoRepository.getAmbito(clase.getId(), sinodo.getPersona().getId(),"Observaciones");
+			Ambito ambitoEvaluacion=ambitoRepository.getAmbito(clase.getId(), sinodo.getPersona().getId(),"Evaluaciones");
+			if(ambitoEvaluacion==null)
+			{
+				wraper.setHayevaluaciones(false);
+			}
+			else
+			{
+				wraper.setHayevaluaciones(true);
+			}
+			Ambito ambitoEvidencias=ambitoRepository.getAmbito(clase.getId(), sinodo.getPersona().getId(),"Evidencias");;
+			wraper.setObservaciones(ambitoObservaciones);
+			wraper.setEvaluacion(ambitoEvaluacion);
+			wraper.setEvidencias(ambitoEvidencias);
+			wrappers.add(wraper);
+		}
+		Page<ClaseUADYDocenteWrapper> page = new PageImpl<ClaseUADYDocenteWrapper>(wrappers, pageable,clasest.getTotalElements());
+		
+		return page;
+	}
+	
+	public Page<ClaseUADYDocenteWrapper> findDocentesByInstitucionFiltro(String criterio, Pageable pageable, List<Integer> ids) {
+		log.debug("Request to get all empleados con paginacion");
+		System.out.println(criterio);
+		
+		Calendar fecha = Calendar.getInstance();
+		Page<Object[]> clasest= claseRepository.getClasesUADYPorInstitucionFiltro(pageable,ids,fecha,criterio);
 
 		System.out.println("clases total sin sinodos: "+clasest.getTotalElements());
 

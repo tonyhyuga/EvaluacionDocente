@@ -23,7 +23,7 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://148.209.12.14:3306/dev2_evaluaciondocente?useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        url: jdbc:mysql://148.209.12.14:3306/dev2_mantenimiento?useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf8&useSSL=false
         name: dev2_evaluaciondocente
         username: rdenis
         password: N3ws3rv1ci05

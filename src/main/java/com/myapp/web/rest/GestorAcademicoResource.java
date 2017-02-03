@@ -64,6 +64,20 @@ public class GestorAcademicoResource {
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/profesores/{criterio}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<List<ClaseUADYDocenteWrapper>> getDocentesFiltro(@PathVariable String criterio,Pageable pageable,HttpSession httpsession)
+			throws URISyntaxException {
+		log.debug("REST request to get a page of Asignaturas de la institucion");
+		Empleado empleado = (Empleado)httpsession.getAttribute("Empleado");
+		List<Integer> inst=usuarioService.getInstitucionByRol(empleado.getPersona().getId(),"GESTOR ACADEMICO");
+		Page<ClaseUADYDocenteWrapper> page = evaDoceService.findDocentesByInstitucionFiltro(criterio,pageable,inst);
+		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/apo/docentesgestor");
+		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/profesores/{id}/{idp}",
 			method = RequestMethod.GET,
 			produces = MediaType.ALL_VALUE)

@@ -8,15 +8,24 @@
 
                 <form class="form-horizontal form-search">
                   <div class="form-group">                  	
-                   	<div class="col-sm-5">
-                        <input type="text" ng-model="busquedagestor" class="form-control" placeholder="Buscar por asignatura o profesor">
-                  	</div>
+                   	<!-- div class="col-sm-5" -->
+                        <!-- input type="text" ng-model="busquedagestor" class="form-control" placeholder="Buscar por asignatura, profesor o grupo" -->
+                  	<!-- /div -->
 				  <!-- button type="submit" class="btn btn-default">Buscar</button -->
+				  <!-- input type="button" value="Buscar" ng-click="vm.buscargestor()" / -->
+				  <div class="col-sm-5">
+						<input type="text"  ng-model="vm.criterio" class="form-control" placeholder="Buscar ...">
+				    </div>
+				    <div class="col-sm-5">
+						<button type="button" ng-click="vm.filtro()" class="btn btn-primary">Buscar</button>
+					</div>
                   </div>
 				  <div class="checkbox">
 				    <label>
 						<input type="checkbox" ng-model="busquedagestornoevaluados" ng-true-value=false ng-false-value="" > Por evaluar    
 					</label>
+					<br>
+					<!-- span> Total : {{vm.total}}</span -->
 				  </div>
                 </form>
 

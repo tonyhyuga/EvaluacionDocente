@@ -48,9 +48,9 @@
 			  };
 			});
 
-    GestorController.$inject = ['$scope', '$state', 'GestorAcademico', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants', 'GestorAmbitoService','LoginService','downloadService'];
+    GestorController.$inject = ['$scope', '$state', 'GestorAcademico', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants', 'GestorAmbitoService','LoginService','downloadService','GestorClasesFiltroService'];
 
-    function GestorController ($scope, $state, GestorAcademico, ParseLinks, AlertService, pagingParams, paginationConstants,GestorAmbitoService,LoginService,downloadService) {
+    function GestorController ($scope, $state, GestorAcademico, ParseLinks, AlertService, pagingParams, paginationConstants,GestorAmbitoService,LoginService,downloadService,GestorClasesFiltroService) {//le tengo que inyectar el servicio
         var vm = this;
         
         vm.ejemplo = 'ejemplo texto';
@@ -62,6 +62,15 @@
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.openDialog=openDialog;
         vm.download=download;
+//        vm.gestoresbusqueda;// NEWWWWWW tengo que inicializarlo vdd
+//        vm.total=0;
+        vm.criterio;
+        vm.filtro = filtro;
+        
+//        function(){
+//        	//Operaciones de buscar gestor
+//        	vm.total = vm.total + 1;
+//        }
        
         loadAll();
         vm.isNew = isNew;
@@ -89,6 +98,10 @@
                 AlertService.error(error.data.message);
             }
         }
+        function filtro()
+        {
+        	vm.usuarios = GestorClasesFiltroService.query({criterio : vm.criterio});
+        }
         
         function download(idAmbito){
             downloadService.donwl(idAmbito)
@@ -112,11 +125,12 @@
         }
 
         function transition () {
-            $state.transitionTo($state.$current, {
-                page: vm.page,
-                sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
-                search: vm.currentSearch
-            });
+//            $state.transitionTo($state.$current, {
+//                page: vm.page,
+//                sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
+//                search: vm.currentSearch
+//            });
+        	vm.usuarios = GestorClasesFiltroService.query({criterio : vm.criterio});
         }
         
         function filtrogestoresdemo(){

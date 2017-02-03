@@ -116,7 +116,7 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 			+ "join clase.sinodo prof "
 			+ "join clase.institucion inst "
 			+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 "
-			+ "and pc.calendarInicio <= :fecha and :fecha <= pc.calendarFin  order by asig.nombre ", countQuery=
+			+ "and pc.calendarInicio <= :fecha and :fecha <= pc.calendarFin order by asig.nombre", countQuery=
 			"select count(clase.id) from ClaseUADY clase "
 					+ "join clase.movimientosInscripcionGrupo grupo "
 					+ "join clase.asignaturaBase asig "
@@ -127,9 +127,45 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 					+ "join clase.sinodo prof "
 					+ "join clase.institucion inst "
 					+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 "
-					+ "and pc.calendarInicio <= :fecha and :fecha  <= pc.calendarFin  group by clase.id,prof.id order by asig.nombre" )
+					+ "and pc.calendarInicio <= :fecha and :fecha  <= pc.calendarFin  and asig.nombre like '%an%' group by clase.id,prof.id order by asig.nombre" )
 	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") List<Integer> id,@Param("fecha") Calendar fecha);
 
+/////////////////////////////////////////////////////////////////////
+	@Query(value="select  distinct clase, prof from ClaseUADY clase "
+			+ "join clase.movimientosInscripcionGrupo grupo  "
+			+ "join clase.asignaturaBase asig "
+			+ "join clase.grupo g "
+			+ "join grupo.planDeEstudios pl "
+			+ "join pl.programaEducativo pr "
+			+ "join pr.tipoNivel nivel "
+			+ "join clase.periodoCurso pc "
+			+ "join clase.sinodo prof "
+			+ "join prof.persona persona "
+			+ "join clase.institucion inst "
+			+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 "
+			+ "and pc.calendarInicio <= :fecha and :fecha <= pc.calendarFin "
+			+ "and ( "
+			+ "asig.nombre like CONCAT('%',:filtro,'%') "
+			+ "or persona.apellidoPaterno like CONCAT('%',:filtro,'%') "
+			+ "or persona.apellidoMaterno like CONCAT('%',:filtro,'%') "
+			+ "or persona.nombres like CONCAT('%',:filtro,'%')"
+			+ "or g.grupo like CONCAT('%',:filtro,'%') "
+			+ ") "
+			+ "order by asig.nombre", countQuery=
+			"select count(clase.id) from ClaseUADY clase "
+					+ "join clase.movimientosInscripcionGrupo grupo "
+					+ "join clase.asignaturaBase asig "
+					+ "join clase.grupo g "
+					+ "join grupo.planDeEstudios pl "
+					+ "join pl.programaEducativo pr "
+					+ "join pr.tipoNivel nivel "
+					+ "join clase.periodoCurso pc "
+					+ "join clase.sinodo prof "
+					+ "join prof.persona persona "
+					+ "join clase.institucion inst "
+					+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 "
+					+ "and pc.calendarInicio <= :fecha and :fecha  <= pc.calendarFin  and ( asig.nombre like CONCAT('%',:filtro,'%') or persona.apellidoPaterno like CONCAT('%',:filtro,'%') or persona.apellidoMaterno like CONCAT('%',:filtro,'%') or persona.nombres like CONCAT('%',:filtro,'%') or g.grupo like CONCAT('%',:filtro,'%') ) group by clase.id,prof.id order by asig.nombre" )
+	Page<Object[]> getClasesUADYPorInstitucionFiltro(Pageable pageable,@Param("id") List<Integer> id,@Param("fecha") Calendar fecha,@Param("filtro") String filtro);
 	
 	
 	/////////////////////////////////////////////////////////////////////
