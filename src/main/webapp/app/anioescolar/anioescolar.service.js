@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('campoApp')
-        .factory('Usuario', Usuario);
+        .factory('AniosEscolares', AniosEscolares);
 
-    Usuario.$inject = ['$resource'];
+    AniosEscolares.$inject = ['$resource'];
 
-    function Usuario ($resource) {
-        var resourceUrl =  'apo/usuarios/:id';
+    function AniosEscolares ($resource) {
+        var resourceUrl =  'apo/aniosEscolares/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

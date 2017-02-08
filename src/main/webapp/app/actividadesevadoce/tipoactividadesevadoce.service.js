@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('campoApp')
-        .factory('Docente', Docente);
+        .factory('TipoActividadesEvaluacion', TipoActividadesEvaluacion);
 
-    Docente.$inject = ['$resource'];
+    TipoActividadesEvaluacion.$inject = ['$resource'];
 
-    function Docente ($resource) {
-        var resourceUrl =  'apo/clasesdocente:anio,:indice/:id';
+    function TipoActividadesEvaluacion ($resource) {
+        var resourceUrl =  'apo/tiposActividades/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

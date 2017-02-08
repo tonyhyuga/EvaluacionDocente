@@ -5,34 +5,41 @@
         .module('campoApp')
         .factory('GestorAmbitoService', GestorAmbitoService);
 
-    GestorAmbitoService.$inject = ['$uibModal'];
+    GestorAmbitoService.$inject = ['$resource'];
 
-    function GestorAmbitoService ($uibModal) {
-        var service = {
-            open: open
-        };
+    function GestorAmbitoService ($resource) {
+    	   var resourceUrl =  'apo/profesores/:id/:idp';
 
-        var modalInstance = null;
-        var resetModal = function () {
-            modalInstance = null;
-        };
-
-        return service;
-
-        function open (entity) {
-        	//alert(modalInstance!==null);
-        
-            if (modalInstance !== null) return;
-            modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'app/gestoracademico/crearambito.html',
-                controller: 'AmbitoController',
-                controllerAs: 'vm'
-            });
-//            modalInstance.result.then(
-//                resetModal,
-//                resetModal
-//            );
-        }
-    }
+           return $resource(resourceUrl, {}, {
+               'query': { method: 'GET', isArray: true},
+               'get': {
+                   method: 'GET',
+                   transformResponse: function (data) {
+                       if (data) {
+                           data = angular.fromJson(data);
+                       }
+                       return data;
+                   }
+               },
+               'obtener': {
+                   method: 'GET',
+                   transformResponse: function (data) {
+                       if (data) {
+                           data = angular.fromJson(data);
+                       }
+                       return data;
+                   }
+               },
+               'save': {
+                   method: 'POST',
+                   transformResponse: function (data) {
+                       if (data) {
+                           data = angular.fromJson(data);
+                       }
+                       return data;
+                   }
+               },
+               'update': { method:'PUT' }
+           });
+       }
 })();

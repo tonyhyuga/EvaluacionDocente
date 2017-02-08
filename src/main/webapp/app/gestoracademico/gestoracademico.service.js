@@ -7,7 +7,7 @@
     GestorAcademico.$inject = ['$resource'];
 
     function GestorAcademico ($resource) {
-        var resourceUrl =  'apo/profesores/:id/:idp';
+        var resourceUrl =  'apo/profesores:search,:type,:indice,:anio/:id/:idp';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

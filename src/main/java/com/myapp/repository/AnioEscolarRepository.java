@@ -1,6 +1,7 @@
 package com.myapp.repository;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +19,7 @@ public interface AnioEscolarRepository extends JpaRepository<AnioEscolar, Long>{
 	@Query("Select anioEsc from AnioEscolar anioEsc where anioEsc.calendarInicio<=:fecha "
 			+ "and anioEsc.calendarFin >=:fecha ")
 	AnioEscolar getAnioActual(@Param("fecha")Calendar fecha);
-
+	
+	@Query("Select anioEsc from AnioEscolar anioEsc order by id desc ")
+	List<AnioEscolar> getAllDesc();
 }

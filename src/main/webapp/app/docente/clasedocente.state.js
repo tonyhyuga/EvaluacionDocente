@@ -32,7 +32,9 @@
                     value: 'id,asc',
                     squash: true
                 },
-                search: null
+                search: null,
+                anio: '',
+                indice: '1'
             },
             resolve: {
                 pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
@@ -41,7 +43,9 @@
                         sort: $stateParams.sort,
                         predicate: PaginationUtil.parsePredicate($stateParams.sort),
                         ascending: PaginationUtil.parseAscending($stateParams.sort),
-                        search: $stateParams.search
+                        search: $stateParams.search,
+                        anio: $stateParams.anio,
+                        indice: $stateParams.indice,
                     };
                 }]
             }

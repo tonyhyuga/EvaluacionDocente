@@ -5,9 +5,9 @@
         .module('campoApp')
         .controller('AmbitoController', AmbitoController);
 
-    AmbitoController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance','entity','GestorAcademico' ];
+    AmbitoController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance','entity','GestorAmbitoService' ];
 
-    function AmbitoController ($timeout, $scope, $stateParams, $uibModalInstance,entity,GestorAcademico) {
+    function AmbitoController ($timeout, $scope, $stateParams, $uibModalInstance,entity,GestorAmbitoService) {
         var vm = this;
 
         vm.ambito = entity;
@@ -26,9 +26,9 @@
         function save () {
             vm.isSaving = true;
             if (vm.ambito.id !== null) {
-            	GestorAcademico.update(vm.ambito, onSaveSuccess, onSaveError);
+            	GestorAmbitoService.update(vm.ambito, onSaveSuccess, onSaveError);
             } else {
-            	GestorAcademico.save(vm.ambito, onSaveSuccess, onSaveError);
+            	GestorAmbitoService.save(vm.ambito, onSaveSuccess, onSaveError);
             }
         }
 

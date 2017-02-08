@@ -1,4 +1,4 @@
-<div>
+<div ng-show="vm.resuelto">
         <div class="row">
             <div class="col-lg-12">
             
@@ -153,4 +153,16 @@
             </div>
         </div>
         <!-- /.row -->
+</div>
+<div ng-hide="vm.resuelto">
+<div class="alert alert-danger text-center">
+ No hay Actividad de Autoevaluaci&oacuten vigente.<br/>
+ Favor de comunicarse con el Gestor Academico de su Dependencia.
+</div>
+
+  <footer>
+  <div class="text-center">
+ <a class="btn btn-primary next text-center" ng-click="vm.menu()">Regresar</a>
+</div>
+</footer>
 </div>

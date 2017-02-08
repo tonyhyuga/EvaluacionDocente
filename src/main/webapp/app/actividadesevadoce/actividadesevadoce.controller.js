@@ -3,11 +3,11 @@
 
     angular
         .module('campoApp')
-        .controller('AlumnoController', AlumnoController);
+        .controller('ActividadesEvaDoceController', ActividadesEvaDoceController);
 
-    AlumnoController.$inject = ['$scope', '$state', 'Alumno', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    ActividadesEvaDoceController.$inject = ['$scope', '$state', 'ActividadesEvaluacion', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function AlumnoController ($scope, $state, Alumno, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function ActividadesEvaDoceController ($scope, $state, ActividadesEvaluacion, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
         
         vm.loadPage = loadPage;
@@ -19,7 +19,7 @@
         loadAll();
 
         function loadAll () {
-        	Alumno.query({
+        	ActividadesEvaluacion.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
                 sort: sort()
@@ -35,7 +35,7 @@
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
                 vm.queryCount = vm.totalItems;
-                vm.clases = data;
+                vm.actividades = data;
                 vm.page = pagingParams.page;
             }
             function onError(error) {
@@ -55,5 +55,7 @@
                 search: vm.currentSearch
             });
         }
+        
+
     }
 })();

@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('campoApp')
-        .factory('Docente', Docente);
+        .factory('ActividadesEvaluacion', ActividadesEvaluacion);
 
-    Docente.$inject = ['$resource'];
+    ActividadesEvaluacion.$inject = ['$resource','DateUtils'];
 
-    function Docente ($resource) {
-        var resourceUrl =  'apo/clasesdocente:anio,:indice/:id';
+    function ActividadesEvaluacion ($resource,DateUtils) {
+        var resourceUrl =  'apo/actividades/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -16,6 +16,7 @@
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);
+                        data.fin=DateUtils.convertLocalDateFromServer(data.fin);
                     }
                     return data;
                 }
