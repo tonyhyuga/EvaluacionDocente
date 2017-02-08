@@ -7,11 +7,11 @@
     	.factory('ReporteAlumnoService',ReporteAlumnoService);
     
 
-    ReporteAlumnoService.$inject = ['$q', '$timeout', '$window','$http','$state','$resource'];
+    ReporteAlumnoService.$inject = ['$q', '$timeout', '$window','$http','$state','$resource','AlertService'];
     //var downloadModule = angular.module('components.donwload', []);
 
 
-        function ReporteAlumnoService($q, $timeout, $window,$http,$state,$resource) {
+        function ReporteAlumnoService($q, $timeout, $window,$http,$state,$resource,AlertService) {
             var down ={
                 	donwl:download,
                 //	showDownloadPage:showDownloadPage
@@ -30,9 +30,11 @@
                         }, 1000)
                         .then(function() {                        	
                             defer.resolve('success');
+                            AlertService.info("Es posible que haya alumnos que no hayan contestado aún su evaluación.\n");
 //                            $state.go('gestor', null,{reload:false});
                         }, function() {
                             defer.reject('error');
+                            AlertService.error("No se pudo generar el archivo.");
                         });
                     return defer.promise;
                 }
