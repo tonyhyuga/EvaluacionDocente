@@ -1,5 +1,6 @@
 package com.myapp.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,4 +30,12 @@ public interface CuestionarioRepository extends JpaRepository<Cuestionario, Inte
 			"pc.intercurso='F' and act.idtipoactividadevaluaciondocente=2 and "+
 			"cu.idpersonaencuestada=:id ",nativeQuery=true)
 	List<Integer> getIdsCuestionariosActuales(@Param("id")Integer id);
+	
+	@Query(value="select pr.id,pr.clave from cuestionario cu "
+			+ "inner join liga_cuestionario_grupopreguntas lcg on lcg.idcuestionario=cu.id "
+			+ "inner join grupopreguntas gp on gp.id=lcg.idgrupopreguntas "
+			+ "inner join liga_grupopreguntas_pregunta lgp on lgp.idgrupopreguntas=gp.id "
+			+ "inner join pregunta pr on pr.id=lgp.idpregunta "
+			+ "where cu.tipo_cuestionario=:id ",nativeQuery=true)
+	ArrayList<Object[]> getIdsPreguntas(@Param("id")Integer id);
 }

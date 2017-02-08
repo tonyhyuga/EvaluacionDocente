@@ -119,7 +119,7 @@ public class DocenteResource {
 	    		method = RequestMethod.GET,
 	    		produces= MediaType.ALL_VALUE)
 	    public void download(@PathVariable int idAmbito, final HttpServletRequest request, final HttpServletResponse response) {
-	    	GeneradorReporteCuestionariosResueltos generadorDeReportes= new GeneradorReporteCuestionariosResueltos();	    	
+	    	    	
 	    	File file=evaDoceService.getRelacionAlumnoAmbitosParaReporte(idAmbito);
 	        log.trace("Write response...");
 	        try (InputStream fileInputStream = new FileInputStream(file);

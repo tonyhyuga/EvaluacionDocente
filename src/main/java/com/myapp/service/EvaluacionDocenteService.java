@@ -2,8 +2,6 @@ package com.myapp.service;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -16,17 +14,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myapp.domain.AlumnoUADYMatriculado;
-import com.myapp.domain.AnioEscolar;
 import com.myapp.domain.ClaseUADY;
 import com.myapp.domain.Empleado;
-import com.myapp.domain.MovimientoInscripcionGrupo;
-import com.myapp.domain.PeriodoCurso;
-import com.myapp.domain.PeriodoTiempo;
 import com.myapp.domain.Persona;
 import com.myapp.domain.calendarizacion.ActividadesEvaluacionDocente;
 import com.myapp.domain.calendarizacion.TipoActividadEvaluacionDocente;
@@ -45,12 +38,12 @@ import com.myapp.domain.wrapper.CuestionarioResueltoWrapper;
 import com.myapp.domain.wrapper.GrupoPreguntasWrapper;
 import com.myapp.domain.wrapper.PreguntaWrapper;
 import com.myapp.repository.AmbitoRepository;
-import com.myapp.repository.AnioEscolarRepository;
 import com.myapp.repository.ClaseUADYRepository;
 import com.myapp.repository.CuestionarioRepository;
 import com.myapp.repository.CuestionarioResueltoRepository;
 import com.myapp.repository.EmpleadoRepository;
 import com.myapp.web.reportes.GeneradorReporteCuestionariosResueltos;
+import com.myapp.web.reportes.ReporteCuestionarios;
 import com.myapp.web.reportes.WrapperAlumnosCuestionariosResueltos;
 
 @Service
@@ -442,6 +435,50 @@ public class EvaluacionDocenteService {
 				TipoActividadEvaluacionDocente.AUTOEVALUAR_PROFESORES.getId(),indicePeriodo,
 				ambito.getClaseUady().getPeriodoCurso().getAnioEscolar().getId());
 		return actividad!=null;
+	}
+
+	public File getReporteAlumnos(Ambito ambito) {
+		//Ambito ambito = ambitoRepository.findOne(idAmbito);
+		ArrayList<Object[]> preguntas=null;
+		if(ambito.getFormaDeEvaluar().equals("Libre")){
+			preguntas=cuestionarioRepository.getIdsPreguntas(5);
+		}
+		if(ambito.getFormaDeEvaluar().equals("Optativa")||ambito.getFormaDeEvaluar().equals("Obligatoria")){
+			preguntas=cuestionarioRepository.getIdsPreguntas(4);
+		}
+		if(ambito.getFormaDeEvaluar().equals("Profesionalizante")){
+			
+		}
+		ArrayList<Object[]> listaR = cuestionarioResueltoRepository.getCuestionariosAlumnosReporte(ambito.getId());
+		ReporteCuestionarios reporte=new ReporteCuestionarios();
+		return reporte.createExcelFile(ambito.getClaseUady(), ambito.getPersona(), listaR, preguntas,"Evaluacion");
+		
+
+	}
+
+	public File getReporteProfesor(Ambito ambito) {
+		//Ambito ambito = ambitoRepository.findOne(idAmbito);
+		ArrayList<Object[]> preguntas=null;
+		if(ambito.getFormaDeEvaluar().equals("Libre")){
+			preguntas=cuestionarioRepository.getIdsPreguntas(8);
+		}
+		if(ambito.getFormaDeEvaluar().equals("Optativa")||ambito.getFormaDeEvaluar().equals("Obligatoria")){
+			preguntas=cuestionarioRepository.getIdsPreguntas(7);
+		}
+		if(ambito.getFormaDeEvaluar().equals("Profesionalizante")){
+			
+		}
+		ArrayList<Object[]> listaR =cuestionarioResueltoRepository.getCuestionariosProfesorReporte(ambito.getId());
+		ReporteCuestionarios reporte=new ReporteCuestionarios();
+		return reporte.createExcelFile(ambito.getClaseUady(), ambito.getPersona(), listaR, preguntas,"Autoevaluacion");
+		
+	}
+	
+	public Ambito getAmbito(int idAmbito) {
+			Ambito ambito = ambitoRepository.findOne(idAmbito);
+		
+		return ambito;
+		
 	}
 	
 	

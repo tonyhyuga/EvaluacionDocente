@@ -5,9 +5,9 @@
         .module('campoApp')
         .controller('GestorController', GestorController);
 
-    GestorController.$inject = ['$scope', '$state', 'GestorAcademico', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants', 'GestorAmbitoService','LoginService','downloadService','AniosEscolares'];
+    GestorController.$inject = ['$scope', '$state', 'GestorAcademico', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants', 'GestorAmbitoService','LoginService','downloadService','AniosEscolares','ReporteProfesorService','ReporteAlumnoService'];
 
-    function GestorController ($scope, $state, GestorAcademico, ParseLinks, AlertService, pagingParams, paginationConstants,GestorAmbitoService,LoginService,downloadService,AniosEscolares) {
+    function GestorController ($scope, $state, GestorAcademico, ParseLinks, AlertService, pagingParams, paginationConstants,GestorAmbitoService,LoginService,downloadService,AniosEscolares,ReporteProfesorService,ReporteAlumnoService) {
         var vm = this;
         
        // vm.loadPage = loadPage;
@@ -17,6 +17,8 @@
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         //vm.openDialog=openDialog;
         vm.download=download;
+        vm.descargarReporteAlumnos=descargarReporteAlumnos;
+        vm.descargarReporteProfesor=descargarReporteProfesor;
         vm.indicePeriodo=pagingParams.indice;
         vm.search=search;
         vm.type=pagingParams.type;
@@ -56,6 +58,24 @@
         
         function download(idAmbito){
             downloadService.donwl(idAmbito)
+            .then(function(success) {
+                console.log('success : ' + success);
+            }, function(error) {
+                console.log('error : ' + error);
+            });
+        }
+        
+        function descargarReporteAlumnos(idAmbito){
+        	ReporteAlumnoService.donwl(idAmbito)
+            .then(function(success) {
+                console.log('success : ' + success);
+            }, function(error) {
+                console.log('error : ' + error);
+            });
+        }
+        
+        function descargarReporteProfesor(idAmbito){
+        	ReporteProfesorService.donwl(idAmbito)
             .then(function(success) {
                 console.log('success : ' + success);
             }, function(error) {

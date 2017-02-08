@@ -1,5 +1,10 @@
 package com.myapp.web.rest;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -7,8 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -29,6 +37,7 @@ import com.myapp.domain.AlumnoUADYMatriculado;
 import com.myapp.domain.ClaseUADY;
 import com.myapp.domain.Empleado;
 import com.myapp.domain.Institucion;
+import com.myapp.domain.Persona;
 import com.myapp.domain.Usuario;
 import com.myapp.domain.calendarizacion.ActividadesEvaluacionDocente;
 import com.myapp.domain.calendarizacion.TipoActividadEvaluacionDocente;
@@ -118,15 +127,84 @@ public ResponseEntity<Ambito> createUsuario(@RequestBody Ambito ambito) throws U
 		
 
 		List<AlumnoCuestionarioContestadoWrapper> listaWrappers= evaDoceService.getWrappersForDownloadPage(ambito);
-	
-//		AlumnoCuestionarioContestadoWrapper alumno = new AlumnoCuestionarioContestadoWrapper();
-//		alumno.setMatriculaParteInvariable("05812");
-//		ArrayList<AlumnoUADYMatriculado> listaAlumnos= new ArrayList<AlumnoUADYMatriculado>();
-//		listaAlumnos.add(alumno);
 		
 		Page<AlumnoCuestionarioContestadoWrapper> page = new PageImpl<AlumnoCuestionarioContestadoWrapper>(listaWrappers, pageable,listaWrappers.size());
 		
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/apo/docentesgestor");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}
+	
+	 @RequestMapping(value = "/reporteclasealumno/{idAmbito}", 
+	    		method = RequestMethod.GET,
+	    		produces= MediaType.ALL_VALUE)
+	 public void reporteAlumnos(@PathVariable int idAmbito, final HttpServletRequest request, final HttpServletResponse response) {
+	    	    	
+		 	Ambito ambito=evaDoceService.getAmbito(idAmbito);
+	    	File file=evaDoceService.getReporteAlumnos(ambito);
+	        log.trace("Write response...");
+	        try (InputStream fileInputStream = new FileInputStream(file);
+	                OutputStream output = response.getOutputStream();) {
+
+	            response.reset();
+
+	            response.setContentType("application/octet-stream");
+	            response.setHeader("Content-Disposition", "attachment; filename=\"" + createPath(ambito,"Evaluacion") + "\"");
+
+	            IOUtils.copyLarge(fileInputStream, output);
+	            output.flush();
+	            
+	            if(file.delete()){
+		        	  System.out.println("borrado");
+		          }else{
+		        	  System.out.println("No borrado");
+		          }
+	            file.deleteOnExit();
+	        } catch (IOException e) {
+	            log.error(e.getMessage(), e);
+	        }
+
+	    }
+	 
+	 @RequestMapping(value = "/reporteclaseprofesor/{idAmbito}", 
+	    		method = RequestMethod.GET,
+	    		produces= MediaType.ALL_VALUE)
+	    public void reporteProfesor(@PathVariable int idAmbito, final HttpServletRequest request, final HttpServletResponse response) {
+	    	    	
+		 Ambito ambito=evaDoceService.getAmbito(idAmbito);
+	    	File file=evaDoceService.getReporteProfesor(ambito);
+	        log.trace("Write response...");
+	        try (InputStream fileInputStream = new FileInputStream(file);
+	                OutputStream output = response.getOutputStream();) {
+
+	            response.reset();
+
+	            response.setContentType("application/octet-stream");
+	            response.setHeader("Content-Disposition", "attachment; filename=\"" + createPath(ambito,"Autoevaluacion") + "\"");
+
+	            IOUtils.copyLarge(fileInputStream, output);
+	            output.flush();
+	            
+	          if(file.delete()){
+	        	  System.out.println("borrado");
+	          }else{
+	        	  System.out.println("No borrado");
+	          }
+	        } catch (IOException e) {
+	            log.error(e.getMessage(), e);
+	        }
+
+	    }
+	 
+	 private String createPath(Ambito ambito,String tipo){
+		 String name=tipo;
+		 Persona profesor=ambito.getPersona();
+		 ClaseUADY clase=ambito.getClaseUady();
+		 name+="-"+clase.getAsignaturaBase().getNombre();
+		 name+="-"+(profesor.getNombres()!=null?profesor.getNombres()+" ":"")+""+
+						(profesor.getApellidoPaterno()!=null?profesor.getApellidoPaterno()+" ":"")+" "+
+						(profesor.getApellidoMaterno()!=null?profesor.getApellidoMaterno():"");
+			
+		 name+=".xlsx";
+		 return name;
+	 }
 }
