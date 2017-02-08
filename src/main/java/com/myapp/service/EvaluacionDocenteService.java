@@ -180,11 +180,19 @@ public class EvaluacionDocenteService {
 	}
 	
 
-	public Page<ClaseUADYDocenteWrapper> findDocentesByInstitucion(Pageable pageable, List<Integer> ids,Integer idAnio,Short indicePeriodo) {
+	public Page<ClaseUADYDocenteWrapper> findDocentesByInstitucion(Pageable pageable, List<Integer> ids,Integer idAnio,Short indicePeriodo,String search,boolean ep) {
 		log.debug("Request to get all emeplados con paginacion");
 		
 		//Calendar fecha = Calendar.getInstance();
-		Page<Object[]> clasest= claseRepository.getClasesUADYPorInstitucion(pageable,ids,idAnio,indicePeriodo);
+		Page<Object[]> clasest = null;
+		if(ep)
+		{
+			clasest= claseRepository.getClasesUADYPorInstitucionEP(pageable,ids,idAnio,indicePeriodo,search);
+		}
+		else
+		{
+			clasest= claseRepository.getClasesUADYPorInstitucion(pageable,ids,idAnio,indicePeriodo,search);
+		}	
 
 		System.out.println("clases total sin sinodos: "+clasest.getTotalElements());
 

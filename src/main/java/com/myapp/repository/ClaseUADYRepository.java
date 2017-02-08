@@ -78,31 +78,6 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 	@Query(value="select  distinct clase, prof from ClaseUADY clase "
 			+ "join clase.movimientosInscripcionGrupo grupo  "
 			+ "join clase.asignaturaBase asig "
-			+ "join grupo.planDeEstudios pl "
-			+ "join pl.programaEducativo pr "
-			+ "join pr.tipoNivel nivel "
-			+ "join clase.periodoCurso pc "
-			+ "join clase.sinodo prof "
-			+ "join clase.institucion inst "
-			+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 and pc.interCurso='F' "
-			+ "and pc.anioEscolar.id = :idAnio and pc.indice=:indicePeriodo  order by asig.nombre ", countQuery=
-			"select count(clase.id) from ClaseUADY clase "
-					+ "join clase.movimientosInscripcionGrupo grupo "
-					+ "join clase.asignaturaBase asig "
-					+ "join grupo.planDeEstudios pl "
-					+ "join pl.programaEducativo pr "
-					+ "join pr.tipoNivel nivel "
-					+ "join clase.periodoCurso pc "
-					+ "join clase.sinodo prof "
-					+ "join clase.institucion inst "
-					+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 and pc.interCurso='F' "
-					+ "and pc.anioEscolar.id = :idAnio and pc.indice=:indicePeriodo  group by clase.id,prof.id order by asig.nombre" )
-	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") List<Integer> id,@Param("idAnio") Integer idAnio,@Param("indicePeriodo") Short indicePeriodo);
-
-/////////////////////////////////////////////////////////////////////
-	@Query(value="select  distinct clase, prof from ClaseUADY clase "
-			+ "join clase.movimientosInscripcionGrupo grupo  "
-			+ "join clase.asignaturaBase asig "
 			+ "join clase.grupo g "
 			+ "join grupo.planDeEstudios pl "
 			+ "join pl.programaEducativo pr "
@@ -111,8 +86,8 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 			+ "join clase.sinodo prof "
 			+ "join prof.persona persona "
 			+ "join clase.institucion inst "
-			+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 "
-			+ "and pc.calendarInicio <= :fecha and :fecha <= pc.calendarFin "
+			+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 and pc.interCurso='F' "
+			+ "and pc.anioEscolar.id = :idAnio and pc.indice=:indicePeriodo "
 			+ "and ( "
 			+ "asig.nombre like CONCAT('%',:filtro,'%') "
 			+ "or persona.apellidoPaterno like CONCAT('%',:filtro,'%') "
@@ -120,7 +95,7 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 			+ "or persona.nombres like CONCAT('%',:filtro,'%')"
 			+ "or g.grupo like CONCAT('%',:filtro,'%') "
 			+ ") "
-			+ "order by asig.nombre", countQuery=
+			+ "order by asig.nombre", countQuery= 
 			"select count(clase.id) from ClaseUADY clase "
 					+ "join clase.movimientosInscripcionGrupo grupo "
 					+ "join clase.asignaturaBase asig "
@@ -132,10 +107,53 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 					+ "join clase.sinodo prof "
 					+ "join prof.persona persona "
 					+ "join clase.institucion inst "
-					+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 "
-					+ "and pc.calendarInicio <= :fecha and :fecha  <= pc.calendarFin  and ( asig.nombre like CONCAT('%',:filtro,'%') or persona.apellidoPaterno like CONCAT('%',:filtro,'%') or persona.apellidoMaterno like CONCAT('%',:filtro,'%') or persona.nombres like CONCAT('%',:filtro,'%') or g.grupo like CONCAT('%',:filtro,'%') ) group by clase.id,prof.id order by asig.nombre" )
-	Page<Object[]> getClasesUADYPorInstitucionFiltro(Pageable pageable,@Param("id") List<Integer> id,@Param("fecha") Calendar fecha,@Param("filtro") String filtro);
+					+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 and pc.interCurso='F' "
+					+ "and pc.anioEscolar.id = :idAnio and pc.indice=:indicePeriodo and ( asig.nombre like CONCAT('%',:filtro,'%') or persona.apellidoPaterno like CONCAT('%',:filtro,'%') or persona.apellidoMaterno like CONCAT('%',:filtro,'%') or persona.nombres like CONCAT('%',:filtro,'%') or g.grupo like CONCAT('%',:filtro,'%') ) group by clase.id,prof.id order by asig.nombre" )
+	Page<Object[]> getClasesUADYPorInstitucion(Pageable pageable,@Param("id") List<Integer> id,@Param("idAnio") Integer idAnio,@Param("indicePeriodo") Short indicePeriodo,@Param("filtro") String filtro);
 	
+	
+	////////////////////////////////////////////////////////////////////
+	@Query(value="select  distinct clase, prof from ClaseUADY clase "
+			+ "join clase.movimientosInscripcionGrupo grupo  "
+			+ "join clase.asignaturaBase asig "
+			+ "join clase.grupo g "
+			+ "join grupo.planDeEstudios pl "
+			+ "join pl.programaEducativo pr "
+			+ "join pr.tipoNivel nivel "
+			+ "join clase.periodoCurso pc "
+			+ "join clase.sinodo prof "
+			+ "join prof.persona persona "
+			+ "join clase.institucion inst "
+			+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 and pc.interCurso='F' "
+			+ "and pc.anioEscolar.id = :idAnio and pc.indice=:indicePeriodo "
+			+ "and ( "
+			+ "asig.nombre like CONCAT('%',:filtro,'%') "
+			+ "or persona.apellidoPaterno like CONCAT('%',:filtro,'%') "
+			+ "or persona.apellidoMaterno like CONCAT('%',:filtro,'%') "
+			+ "or persona.nombres like CONCAT('%',:filtro,'%') "
+			+ "or g.grupo like CONCAT('%',:filtro,'%') "
+			+ ") "
+			//una subquery
+			//+ "and clase =( select a.claseUady from Ambito a) "
+			//+ "and persona=( select a.persona from Ambito a) "
+			+ "and null=(select ta.tipo from Ambito a join a.tipoAmbito ta where ta.tipo ='Evaluaciones' and a.claseUady = clase and a.persona=persona ) "
+			//
+			+ "order by asig.nombre", countQuery= 
+			"select count(clase.id) from ClaseUADY clase "
+					+ "join clase.movimientosInscripcionGrupo grupo "
+					+ "join clase.asignaturaBase asig "
+					+ "join clase.grupo g "
+					+ "join grupo.planDeEstudios pl "
+					+ "join pl.programaEducativo pr "
+					+ "join pr.tipoNivel nivel "
+					+ "join clase.periodoCurso pc "
+					+ "join clase.sinodo prof "
+					+ "join prof.persona persona "
+					+ "join clase.institucion inst "
+					+ "where  inst.id in (:id) and clase.mefi='T' and nivel.id=2 and pc.interCurso='F' "
+					+ "and pc.anioEscolar.id = :idAnio and pc.indice=:indicePeriodo and ( asig.nombre like CONCAT('%',:filtro,'%') or persona.apellidoPaterno like CONCAT('%',:filtro,'%') or persona.apellidoMaterno like CONCAT('%',:filtro,'%') or persona.nombres like CONCAT('%',:filtro,'%') or g.grupo like CONCAT('%',:filtro,'%') ) and null=(select ta.tipo from Ambito a join a.tipoAmbito ta where ta.tipo ='Evaluaciones' and a.claseUady = clase and a.persona=persona ) group by clase.id,prof.id order by asig.nombre" )
+	Page<Object[]> getClasesUADYPorInstitucionEP(Pageable pageable,@Param("id") List<Integer> id,@Param("idAnio") Integer idAnio,@Param("indicePeriodo") Short indicePeriodo,@Param("filtro") String filtro);
+
 	
 	/////////////////////////////////////////////////////////////////////
 	@Query("select distinct cu, titular from ClaseUADY cu " +

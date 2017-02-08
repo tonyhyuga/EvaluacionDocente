@@ -36,7 +36,8 @@
                 type: '1',
                 indice : '1',
                 anio: '0',
-                aniostr: ''
+                aniostr: '',
+                ep: false
                 
             },
             resolve: {
@@ -50,7 +51,8 @@
                         type: $stateParams.type,
                         indice: $stateParams.indice,
                         anio: $stateParams.anio,
-                        aniostr: $stateParams.aniostr
+                        aniostr: $stateParams.aniostr,
+                        ep: $stateParams.ep
                     };
                 }]
             }
