@@ -65,18 +65,18 @@ public class GestorAcademicoResource {
 	@Inject
 	private UsuarioService usuarioService; 
 
-	@RequestMapping(value = "/profesores{search},{type},{indice},{anio}",
+	@RequestMapping(value = "/profesores{search},{type},{indice},{anio},{ep}",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	public ResponseEntity<List<ClaseUADYDocenteWrapper>> getDocentes(Pageable pageable,HttpSession httpsession,
-			@PathVariable String search,@PathVariable Integer type,@PathVariable Short indice,@PathVariable Integer anio)
+			@PathVariable String search,@PathVariable Integer type,@PathVariable Short indice,@PathVariable Integer anio,@PathVariable boolean ep)
 			throws URISyntaxException {
-		log.debug("REST request to get a page of Asignaturas de la institucion {}",type,search,indice,anio);
+		log.debug("REST request to get a page of Asignaturas de la institucion {}",type,search,indice,anio,search,ep);
 		
 		Empleado empleado = (Empleado)httpsession.getAttribute("Empleado");
 		List<Integer> inst=usuarioService.getInstitucionByRol(empleado.getPersona().getId(),"GESTOR ACADEMICO");
-		Page<ClaseUADYDocenteWrapper> page = evaDoceService.findDocentesByInstitucion(pageable,inst,anio,indice);
+		Page<ClaseUADYDocenteWrapper> page = evaDoceService.findDocentesByInstitucion(pageable,inst,anio,indice,search,ep);
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/apo/docentesgestor");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}

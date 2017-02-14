@@ -31,15 +31,16 @@
  				 </div>
                   <div class="form-group">                  	
                    	<div class="col-sm-5">
-                        <input type="text" ng-model=vm.currentSearch class="form-control" placeholder="Buscar por asignatura o profesor">
+                        <input type="text" ng-model=vm.currentSearch class="form-control" placeholder="Buscar por asignatura, profesor o grupo">
                   	</div>
-				  <button type="button" class="btn btn-primary" ng-click="vm.search()">Buscar</button>
+                  	
+				    	<label>
+							<input type="checkbox" ng-model="vm.evaluacionesPendientes" > Por evaluar   
+						</label>
+				  	
+				  &nbsp;&nbsp;<button type="button" class="btn btn-primary" ng-click="vm.search()">Buscar</button>
                   </div>
-				  <div class="checkbox">
-				    <label>
-						<input type="checkbox" ng-model="busquedagestornoevaluados" ng-true-value=false ng-false-value="" > Por evaluar    
-					</label>
-				  </div>
+				  
 				   
                 </form>
 

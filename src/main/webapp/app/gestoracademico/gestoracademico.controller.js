@@ -24,6 +24,7 @@
         vm.type=pagingParams.type;
         vm.currentSearch=pagingParams.search;
         vm.anioSeleccionado=pagingParams.anio;
+        vm.evaluacionesPendientes=pagingParams.ep;
         cargarDropdrown();
         loadAll();
         vm.isNew = isNew;
@@ -35,7 +36,8 @@
                 search:  vm.currentSearch,
                 type: vm.type,
                 indice: vm.indicePeriodo,
-                anio: vm.anioSeleccionado
+                anio: vm.anioSeleccionado,
+                ep: vm.evaluacionesPendientes,
             }, onSuccess, onError);
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
@@ -102,6 +104,7 @@
                 type: vm.type,
                 indice: vm.indicePeriodo,
                 anio: vm.anioSeleccionado,
+                ep: vm.evaluacionesPendientes,
             },onSuccess,{reload:false});
        	 function onSuccess(data, headers) {
              vm.links = ParseLinks.parse(headers('link'));
@@ -134,7 +137,8 @@
                 type: vm.type,
                 indice: vm.indicePeriodo,
                 anio: vm.anioSeleccionado,
-                aniostr: vm.anioSeleccionado
+                aniostr: vm.anioSeleccionado,
+                ep: vm.evaluacionesPendientes,
             },onSuccess);
         	 function onSuccess(data, headers) {
                  vm.links = ParseLinks.parse(headers('link'));
