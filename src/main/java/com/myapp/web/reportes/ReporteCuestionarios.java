@@ -16,8 +16,8 @@ import com.myapp.domain.ClaseUADY;
 import com.myapp.domain.Persona;
 
 public class ReporteCuestionarios {
-	//String pathFile="/usr/local/tomcat8/temp/";//servidor
-	String pathFile="C:/Users/rodrigo.denis/Desktop/respaldos/";//local
+	String pathFile="/usr/local/tomcat8/temp/";//servidor
+	
 	private XSSFFont fontEncabezado;
 	private XSSFCellStyle styleTitulo;
 	
