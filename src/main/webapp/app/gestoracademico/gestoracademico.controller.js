@@ -17,8 +17,8 @@
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         //vm.openDialog=openDialog;
         vm.download=download;
-        vm.descargarReporteAlumnos=descargarReporteAlumnos;
-        vm.descargarReporteProfesor=descargarReporteProfesor;
+//        vm.descargarReporteAlumnos=descargarReporteAlumnos;
+//        vm.descargarReporteProfesor=descargarReporteProfesor;
         vm.indicePeriodo=pagingParams.indice;
         vm.search=search;
         vm.type=pagingParams.type;
@@ -67,23 +67,23 @@
             });
         }
         
-        function descargarReporteAlumnos(idAmbito){
-        	ReporteAlumnoService.donwl(idAmbito)
-            .then(function(success) {
-                console.log('success : ' + success);
-            }, function(error) {
-                console.log('error : ' + error);
-            });
-        }
-        
-        function descargarReporteProfesor(idAmbito){
-        	ReporteProfesorService.donwl(idAmbito)
-            .then(function(success) {
-                console.log('success : ' + success);
-            }, function(error) {
-                console.log('error : ' + error);
-            });
-        }
+//        function descargarReporteAlumnos(idAmbito){
+//        	ReporteAlumnoService.donwl(idAmbito)
+//            .then(function(success) {
+//                console.log('success : ' + success);
+//            }, function(error) {
+//                console.log('error : ' + error);
+//            });
+//        }
+//        
+//        function descargarReporteProfesor(idAmbito){
+//        	ReporteProfesorService.donwl(idAmbito)
+//            .then(function(success) {
+//                console.log('success : ' + success);
+//            }, function(error) {
+//                console.log('error : ' + error);
+//            });
+//        }
 
 //        function loadPage (page) {
 //            vm.page = page;

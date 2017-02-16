@@ -7,7 +7,7 @@
     Diie.$inject = ['$resource'];
 
     function Diie ($resource) {
-        var resourceUrl =  'apo/clasesdocente/:id';
+        var resourceUrl =  'apo/diie:search,:type,:indice,:anio,:centro,:ep';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

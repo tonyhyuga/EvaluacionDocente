@@ -11,7 +11,7 @@
         $stateProvider
         .state('diie', {
             parent: 'app',
-            url: '/?page&sort&search',
+            url: '/diie?page&sort&search',
             data: {
             	authorities: [],
                 pageTitle: 'Portal Docente'
@@ -19,7 +19,7 @@
             views: {
                 'content@': {
                     templateUrl: 'app/diie/diieportal.html',
-                    controller: 'DiieController',
+                    controller: 'DIIEController',
                     controllerAs: 'vm'
                 }
             },
@@ -32,7 +32,13 @@
                     value: 'id,asc',
                     squash: true
                 },
-                search: null
+                search: null,
+                type: '1',
+                indice : '1',
+                anio: '0',
+                aniostr: '',
+                centro: '0',
+                ep: false
             },
             resolve: {
                 pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
@@ -41,7 +47,13 @@
                         sort: $stateParams.sort,
                         predicate: PaginationUtil.parsePredicate($stateParams.sort),
                         ascending: PaginationUtil.parseAscending($stateParams.sort),
-                        search: $stateParams.search
+                        search: $stateParams.search,
+                        type: $stateParams.type,
+                        indice: $stateParams.indice,
+                        anio: $stateParams.anio,
+                        aniostr: $stateParams.aniostr,
+                        centro: $stateParams.centro,
+                        ep: $stateParams.ep
                     };
                 }]
             }
