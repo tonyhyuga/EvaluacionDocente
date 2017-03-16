@@ -13,7 +13,7 @@
             parent: 'app',
             url: '/diie?page&sort&search',
             data: {
-            	authorities: [],
+            	authorities: ['ADMTVO_EVALUACION_DOCENTE'],
                 pageTitle: 'Portal Docente'
             },
             views: {
@@ -57,6 +57,121 @@
                     };
                 }]
             }
+        })
+        .state('diiereporteevaluativo', {
+            parent: 'app',
+            url: '/reporteEvaluativo?page&sort&search',
+            data: {
+            	authorities: ['ADMTVO_EVALUACION_DOCENTE'],
+                pageTitle: 'Reporte Evaluativo'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/reportes/reporteevaluativo.html',
+                    controller: 'ReporteEvaluativoController',
+                    controllerAs: 'vm'
+                }
+            },
+            params: {
+                page: {
+                    value: '1',
+                    squash: true
+                },
+                sort: {
+                    value: 'id,asc',
+                    squash: true
+                },
+                search: null,
+                type: '1',
+                indice : '1',
+                anio: '0',
+                aniostr: '',
+                centro: '0',
+                ep: false
+            },
+            resolve: {
+                pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
+                    return {
+                        page: PaginationUtil.parsePage($stateParams.page),
+                        sort: $stateParams.sort,
+                        predicate: PaginationUtil.parsePredicate($stateParams.sort),
+                        ascending: PaginationUtil.parseAscending($stateParams.sort),
+                        search: $stateParams.search,
+                        type: $stateParams.type,
+                        indice: $stateParams.indice,
+                        anio: $stateParams.anio,
+                        aniostr: $stateParams.aniostr,
+                        centro: $stateParams.centro,
+                        ep: $stateParams.ep
+                    };
+                }]
+            }
+        })
+         .state('generarReporteOO', {
+            parent: 'diiereporteevaluativo',
+            url: '/reporte/{idA},{idP},{idAnio},{idIndice},{tipoEvaluacion},{idDependencia}',
+            data: {
+            	authorities: ['ADMTVO_EVALUACION_DOCENTE'],
+                pageTitle: 'Reporte Evaluativo'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/reportes/reporteevaluativoOO.html',
+                    controller: 'ReporteEvaluativoOOController',
+                    controllerAs: 'vm'
+                }
+            },
+          resolve: {
+          entity: ['$stateParams', 'ReporteEvaluativoOOService','$state', function($stateParams, ReporteEvaluativoOOService,$state) {
+        	  return ReporteEvaluativoOOService.get({idA: $stateParams.idA,
+                  idP: $stateParams.idP,
+                  idAnio: $stateParams.idAnio,
+                  idIndice: $stateParams.idIndice,
+                  tipoEvaluacion: $stateParams.tipoEvaluacion,
+                  idDependencia: $stateParams.idDependencia}).$promise;
+          }]
+      },
+//            params: {
+//            	idA: '$stateParams.idA',
+//            	idP: '$stateParams.idP',
+//            	idAnio: '$stateParams.idAnio' ,
+//            	idIndice: '$stateParams.idIndice' ,
+//            	tipoEvaluacion: '$stateParams.tipoEvaluacion',
+//            	idDependencia: '$stateParams.idDependencia' 
+//            }
+        })
+        .state('generarReporteLI', {
+            parent: 'diiereporteevaluativo',
+            url: '/reporteli/{idA},{idP},{idAnio},{idIndice},{tipoEvaluacion},{idDependencia}',
+            data: {
+            	authorities: ['ADMTVO_EVALUACION_DOCENTE'],
+                pageTitle: 'Reporte Evaluativo'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/reportes/reporteevaluativoLI.html',
+                    controller: 'ReporteEvaluativoLIController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                entity: ['$stateParams', 'ReporteEvaluativoLIService','$state', function($stateParams, ReporteEvaluativoLIService,$state) {
+              	  return ReporteEvaluativoLIService.get({idA: $stateParams.idA,
+                        idP: $stateParams.idP,
+                        idAnio: $stateParams.idAnio,
+                        idIndice: $stateParams.idIndice,
+                        tipoEvaluacion: $stateParams.tipoEvaluacion,
+                        idDependencia: $stateParams.idDependencia}).$promise;
+                }]
+            },
+//            params: {
+//            	idA: '$stateParams.idA',
+//            	idP: '$stateParams.idP',
+//            	idAnio: '$stateParams.idAnio' ,
+//            	idIndice: '$stateParams.idIndice' ,
+//            	tipoEvaluacion: '$stateParams.tipoEvaluacion' ,
+//            	idDependencia: '$stateParams.idDependencia' 
+//            }
         })
 //        .state('usuario-detail', {
 //            parent: 'entity',

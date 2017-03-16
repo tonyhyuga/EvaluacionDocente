@@ -279,6 +279,37 @@ public interface ClaseUADYRepository extends JpaRepository<ClaseUADY,Integer>{
 
 	
 	
+	///////////////// reporte evaluativo
+	
+	@Query(value="select  distinct asig, persona, ambito.formaDeEvaluar from Ambito ambito "
+			+ "join ambito.tipoAmbito tipo "
+			+ "join ambito.claseUady clase "
+			+ "join clase.asignaturaBase asig "
+			+ "join clase.periodoCurso pc "
+			+ "join ambito.persona persona "
+			+ "join ambito.institucion inst "
+			+ "where  inst.id = :id and clase.mefi='T' and pc.interCurso=:intercurso and pc.indiceIntercurso=:indiceintercurso "
+			+ "and pc.anioEscolar.id = :idAnio and pc.indice=:indicePeriodo and tipo.id=2 "
+			+ "and ( "
+			+ "asig.nombre like CONCAT('%',:filtro,'%') "
+			+ "or persona.apellidoPaterno like CONCAT('%',:filtro,'%') "
+			+ "or persona.apellidoMaterno like CONCAT('%',:filtro,'%') "
+			+ "or persona.nombres like CONCAT('%',:filtro,'%')"
+			+ ") "
+			+ "order by asig.nombre", countQuery= 
+			"select count(asig.id) from Ambito ambito "
+					+ "join ambito.claseUady clase "
+					+ "join ambito.tipoAmbito tipo "
+					+ "join clase.asignaturaBase asig "
+					+ "join clase.periodoCurso pc "
+					+ "join ambito.persona persona "
+					+ "join ambito.institucion inst "
+					+ "where  inst.id =:id and clase.mefi='T' and pc.interCurso=:intercurso and pc.indiceIntercurso=:indiceintercurso "
+					+ "and pc.anioEscolar.id = :idAnio and pc.indice=:indicePeriodo and tipo.id=2 and ( asig.nombre like CONCAT('%',:filtro,'%') or persona.apellidoPaterno like CONCAT('%',:filtro,'%') or persona.apellidoMaterno like CONCAT('%',:filtro,'%') or persona.nombres like CONCAT('%',:filtro,'%') ) "
+					+ "group by asig.id,persona.id,ambito.formaDeEvaluar order by asig.nombre" )
+	Page<Object[]> getAsignaturasPorInstitucion(Pageable pageable,@Param("id") Integer idCentro,@Param("idAnio") Integer idAnio,
+			@Param("indicePeriodo") Short indicePeriodo,@Param("intercurso") Boolean intercurso,@Param("indiceintercurso") Short indiceIntercurso,
+			@Param("filtro") String filtro);
 	
 	
 	

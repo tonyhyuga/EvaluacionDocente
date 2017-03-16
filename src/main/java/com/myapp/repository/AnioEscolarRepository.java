@@ -11,7 +11,7 @@ import com.myapp.domain.AnioEscolar;
 import com.myapp.domain.Usuario;
 
 @SuppressWarnings("unused")
-public interface AnioEscolarRepository extends JpaRepository<AnioEscolar, Long>{
+public interface AnioEscolarRepository extends JpaRepository<AnioEscolar, Integer>{
 	
 	@Query("Select anioEsc from AnioEscolar anioEsc where anioEsc.id=18025")
 	AnioEscolar getAnioActual();

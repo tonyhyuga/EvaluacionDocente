@@ -743,7 +743,34 @@ ui bootstrap tweaks
 .uib-daypicker .btn-default{
 	background: transparent !important;
 }
+.reportebody{
+	min-width: 310px; 
+	max-width: 800px; 
+	margin: 0 auto;
+}
+.reportebody th{
+	background: #002e5f;
+	color: #fff;
+	text-align: center;
+}
+.reportetable{
+	min-width: 310px; 
+	max-width: 800px; 
+	margin: 0 auto;
+}
+.reportetable th{
+	background: #002e5f;
+	color: #fff;
+}
 
-
+.title{
+	background: #002e5f;
+	color: #fff;
+	border-radius: 6px;
+}
+.mydropdown{
+ color: #002e5f;
+	
+}
 
 /* jhipster-needle-css-add-main JHipster will add new css style */

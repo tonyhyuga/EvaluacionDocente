@@ -22,4 +22,8 @@ public interface InstitucionRepository extends JpaRepository<Institucion,Integer
 	@Query("Select distinct inst from ProgramaEducativo prog "
 			+ "join prog.centroDocente inst where inst.tipoInstitucion.id=3 and prog.tipoNivel.id=2  ")
 	List<Institucion> getDependencias();
+	
+	@Query("Select distinct inst from Institucion inst "
+			+ "where inst.id in (:id)  ")
+	List<Institucion> getDependencias(@Param("id") List<Integer> id);
 }

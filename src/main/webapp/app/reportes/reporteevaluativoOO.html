@@ -1,0 +1,314 @@
+<div>
+     <!-- Page Content -->
+                <div class="page-header">
+                   <!--  <h2 id="navbar">Reporte Asignaturas Obligatorias y Optativas</h2> -->
+                      <div class="text-center">
+<div class="title hidden-print" ng-show="{{vm.wrapper.tipoUser =='2' || vm.wrapper.tipoUser =='1'}}">Fase del Reporte
+
+<select required class="mydropdown hidden-print" ng-model="vm.reporte.status" ng-show="{{vm.wrapper.tipoUser =='2' || vm.wrapper.tipoUser =='1'}}" >
+					<option value="editar" ng-show="{{vm.wrapper.tipoUser =='1'}}" >Edici&oacuten</option>
+					<option value="revisar" ng-show="{{vm.wrapper.tipoUser =='2' || vm.wrapper.tipoUser =='1'}}">Revisi&oacuten</option>
+					<option value="liberar" ng-show="{{vm.wrapper.tipoUser =='2' || vm.wrapper.tipoUser =='1'}}">Liberaci&oacuten</option>
+					</select>
+ <button ng-click="vm.save()" class="btn btn-primary hidden-print"  type="submit" ng-show="{{vm.wrapper.tipoUser =='2' || vm.wrapper.tipoUser =='1'}}">
+            <span class="glyphicon"></span>&nbsp;<span>Guardar/Actualizar</span>
+        </button> 
+</div>
+<div>
+  <a class="btn btn-primary next text-center hidden-print" ng-click="vm.print()">Imprimir Reporte</a>
+</div>     
+</div>
+
+                </div>
+				<jhi-alert-error></jhi-alert-error>
+<section style="text-align:center">
+	<h4><div >UNIVERSIDAD AUT&OacuteNOMA DE YUCAT&AacuteN</div>
+	<div>Direcci&oacuten General de Desarrollo Acad&eacutemico</div>
+	<div> Departamento de Innovaci&oacuten e Investigaci&oacuten Educativa</div>
+	<div>PROGRAMA INSTITUCIONAL DE EVALUACI&OacuteN DEL DESEMPE&NtildeO DOCENTE</div>
+	<br/><br/>
+	<div>{{vm.reporte.institucion.padre.nombre}}</div>
+	<div> {{vm.reporte.institucion.nombre}}</div></h4>
+</section>
+<br/>
+<br/>
+<table  class="table table-bordered  type-a reportetable">
+<tr>
+<th>Profesor</th><td>{{vm.reporte.profesor.nombres}} {{vm.reporte.profesor.apellidoPaterno}} {{vm.reporte.profesor.apellidoMaterno}}</td>
+</tr>
+<tr>
+<th>Asignatura</th><td>{{vm.reporte.asignatura.nombre}}</td>
+</tr>
+<tr>
+<th>No.Estudiantes que evaluaron</th><td>{{vm.reporte.numEstudiantes}}</td>
+</tr>
+</table>
+<br/>
+<br/>
+<div class="reportebody"><strong>CONTENIDO DE LAS SECCIONES</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;El documento reporta la opini&oacuten proveniente de los estudiantes y del mismo profesor ante su desempe&ntildeo docente.  
+	Los resultados corresponden al per&iacuteodo se&ntildealado, distribuidos en 4 secciones:
+	 <br/>
+	 <div class="title">I. Dimension de desempe&ntildeo</div>
+	 * Resultados cuantitativos presentados en dos dimensiones que manifiestan las competencias seleccionadas para evaluar el desempe&ntildeo docente frente a grupo.  
+	 <br/>
+	 <div class="title">II. Valores Universitarios</div>
+	 * Resultados cuantitativos obtenidos de un diferencial sem&aacutentico para cada uno de los valores establecidos en el Plan de Desarrollo Institucional (PDI, 2014-2022).
+	 <br/>
+	 <div class="title">III. Satisfacci&oacuten </div>
+	 * Resultados cuantitativos a partir de la conformidad ante el desempe&ntildeo del profesor en la asignatura.
+	 <br/>
+	 <div class="title">IV. Comentarios </div>
+	 * Resultados cualitativos que describen fortalezas y sugerencias para la mejora del desempe&ntildeo del profesor.
+	 
+</div>
+<br/>
+<div class="reportebody">
+<strong>I.	RESULTADOS POR DIMENSIONES.</strong><br/><br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A partir de las 32 competencias declaradas en el perfil del Profesor UADY (UADY, 2012), se realiz&oacute una selecci&oacuten de ocho competencias que evidencian el trabajo docente frente a grupo en las Asignaturas Obligatorias y Optativas.  Con ello se han establecido dos dimensiones a trav&eacutes de las cu&aacuteles se evaluar&aacute el desempe&ntildeo del profesor (Ver Anexo A).
+<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Los resultados se obtienen con la Media de una escala de 4 opciones (1=Casi nunca a 4= Casi siempre) y se realiza una conversi&oacuten a 100.
+
+</div>
+<br/><br/>
+<div class="reportebody" style="text-decoration: underline;"><strong>DIMENSI&OacuteN: INTERACCI&OacuteN</strong></div><br/>
+<div id="iteraccion" style="min-width: 310px; max-width: 800px; height: 500px; margin: 0 auto">
+
+</div>
+<br/>
+<div class="reportebody">
+	<div>Desde la perspectiva de los estudiantes:</div>
+	<br/>
+	<table class="table table-bordered  type-a">
+		<tr>
+		<th> </th><th>Estudiante</th>
+		</tr>
+		<tr>
+		<td>Es respetuoso cuando se expresa de otros docentes o compa&ntildeeros de trabajo </td>
+		<td> {{ vm.round(vm.reporte.respetuosoOtrosDocentes)}} %</td>
+		</tr>
+		<tr>
+		<td>Est&aacute comprometido con sus actividades como docente </td>
+		<td> {{ vm.round(vm.reporte.comprometido)}} %</td>
+		</tr>
+	</table>
+</div>
+<br/>
+<div id="tic" style="min-width: 310px; max-width: 800px; height: 200px; margin: 0 auto"></div>
+<div id="estrategias" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+<div id="tecnicas" style="min-width: 310px; max-width: 800px; height: 300px; margin: 0 auto"></div>
+<div id="evaluacion" style="min-width: 310px; max-width: 800px; height: 300px; margin: 0 auto"></div>
+<br/>
+<br/>
+<div class="reportebody">
+<strong>II.	VALORES UNIVERSITARIOS.</strong><br/><br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;La Universidad, como parte de los fundamentos de su quehacer cotidiano, declara en el Plan de Desarrollo Institucional (2014 - 2022) los valores que caracterizan el desempe&ntildeo de quienes la conforman (Ver Anexo B).
+<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Los resultados que a continuaci&oacuten se presentan se obtuvieron a trav&eacutes de un diferencial sem&aacutentico de 7 niveles y con la Media se presenta un comparativo entre lo se&ntildealado por el profesor, el estudiante y el grupo de profesores del semestre, a trav&eacutes de una conversi&oacuten a 100.
+
+</div>
+<br/>
+<div class="reportebody" style="text-decoration: underline;"><strong>DIMENSI&OacuteN: PROCESO DE ENSE&NtildeANZA Y APRENDIZAJE</strong></div><br/>
+<div id="valores" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+<div class="reportebody">
+	<table  class="table table-bordered  type-a reportebody">
+		<tr>
+		<td> </td><td> Rigor Academico</td><td>Equitativo</td><td>Humilde</td><td>Respetuoso</td><td>Legal</td><td>Tolerante</td><td> Responsable social</td><td>Honesto</td><td> Etico</td>
+		</tr>
+		<tr>
+		<td>Estudiantes</td><td> {{ vm.round(vm.reporte.rigoerAcademicoEstudiantes)}}</td>
+		<td>{{ vm.round(vm.reporte.equitativoEstudiantes)}}</td>
+		<td>{{ vm.round(vm.reporte.humildeEstudiantes)}}</td>
+		<td>{{ vm.round(vm.reporte.respetuosoEstudiantes)}}</td>
+		<td>{{ vm.round(vm.reporte.legalEstudiantes)}}</td>
+		<td>{{ vm.round(vm.reporte.toleranteEstudiantes)}}</td>
+		<td>{{ vm.round(vm.reporte.responsableSocialEstudiantes)}}</td>
+		<td>{{ vm.round(vm.reporte.honestoEstudiantes)}}</td>
+		<td>{{ vm.round(vm.reporte.eticoEstudiantes)}}</td>
+		</tr>
+		<tr>
+		<td>Autoevaluaci&oacuten</td><td> {{ vm.round(vm.reporte.rigorAcademicoProfesor)}}</td>
+		<td>{{ vm.round(vm.reporte.equitativoProfesor)}}</td>
+		<td>{{ vm.round(vm.reporte.humildeProfesor)}}</td>
+		<td>{{ vm.round(vm.reporte.respetuosoProfesor)}}</td>
+		<td>{{ vm.round(vm.reporte.legalProfesor)}}</td>
+		<td>{{ vm.round(vm.reporte.toleranteProfesor)}}</td>
+		<td>{{ vm.round(vm.reporte.responsableSocialProfesor)}} </td>
+		<td>{{ vm.round(vm.reporte.honestoProfesor)}}</td>
+		<td>{{ vm.round(vm.reporte.eticoProfesor)}}</td>
+		</tr>
+	</table>
+</div>
+<br/><br/>
+<div class="reportebody">
+<strong>III. SATISFACCI&OacuteN</strong><br/><br/>
+	<div style="text-align: center;">INS = Insatisfecho  SAT = Satisfecho  MSA = Muy Satisfecho</div>
+	<br/>
+	<table class="table table-bordered  type-a">
+		<tr>
+		<th> Items</th><th>INS</th><th>SAT</th><th>MSA</th><th>Profesor</th>
+		</tr>
+		<tr>
+		<td>1.	Con las competencias que se han desarrollado en esta asignatura</td>
+		<td>{{ vm.round(vm.reporte.insatisfechoCompetencias)}} </td>
+		<td>{{ vm.round(vm.reporte.satisfechoCompetencias)}}</td>
+		<td>{{ vm.round(vm.reporte.muySatisfechoCompetencias)}}</td>
+		<td>{{ vm.reporte.valorCompetenciasProfesor}}</td>
+		</tr>
+		<tr>
+		<td>2.	Con el desempe&ntildeo del profesor</td>
+		<td>{{ vm.round(vm.reporte.insatisfechoDesempenio)}}</td>
+		<td>{{ vm.round(vm.reporte.satisfechoDesempenio)}}</td>
+		<td>{{ vm.round(vm.reporte.muySatisfechoDesempenio)}}</td>
+		<td>{{ vm.reporte.valorDesempenioProfesor}}</td>
+		</tr>
+		<tr>
+		<td>3.	Con las actividades como docentes</td><td>  </td><td> </td><td> </td><td>{{vm.reporte.valorActividadesDocente}}</td>
+		</tr>
+	</table>
+	<br/>
+	<table class="table table-bordered  type-a">
+		<tr>
+		<th> </th><th>Si</th><th>No</th>
+		</tr>
+		<tr>
+		<td>4.	Recomendar a otro estudiante, tomar la asignatura con este profesor</td>
+		<td>{{ vm.round(vm.reporte.recomendarProfesorSi)}} %</td>
+		<td>{{ vm.round(vm.reporte.recomendarProfesorNo)}} %</td>
+		</tr>
+		<tr>
+		<td colspan="3">Razones Si<br/>
+		     <textarea rows="{{vm.wrapper.comentario1.length==0?0:vm.wrapper.comentario1.split('\n').length + 8}}" cols="50" class="form-control"  name="comentario1"  ng-model="vm.wrapper.comentario1" tabindex="-1" 
+		    ng-readonly="{{vm.reporte.status!='editar'?true:false}}" required> {{vm.wrapper.comentario1}}</textarea>
+ 		    
+		</td>
+		</tr>
+		<tr>
+		<td colspan="3">Razones No <br/>
+		<textarea rows="{{vm.wrapper.comentario2.length==0?0:vm.wrapper.comentario2.split('\n').length + 2}}" cols="50" class="form-control"  name="comentario2"  ng-model="vm.wrapper.comentario2" tabindex="-1"
+		 ng-readonly="{{vm.reporte.status!='editar'?true:false}}" required> {{vm.wrapper.comentario2}}</textarea>
+ 		     </td>
+		</tr>
+	</table>
+</div>
+<br/>
+<div class="reportebody">
+<strong>IV.	COMENTARIOS.</strong><br/><br/>
+	<div class="title" style="text-align: center;">Profesor
+	<br/>
+	<br/>
+		<div class="title" style="text-align: left;">Fortalezas:</div>
+		<div><textarea rows="{{vm.wrapper.comentario3.length==0?0:vm.wrapper.comentario3.split('\n').length + 2}}" cols="50" class="form-control"  name="fortalezaProfesor"  ng-model="vm.wrapper.comentario3" tabindex="-1" 
+		 ng-readonly="{{vm.reporte.status!='editar'?true:false}}" required> {{vm.wrapper.comentario3}}</textarea></div>
+		<div class="title"style="text-align: left;">Sugerecias:</div>
+		<div><textarea rows="{{vm.wrapper.comentario4.length==0?0:vm.wrapper.comentario4.split('\n').length + 2}}" cols="50" class="form-control"  name="comentario4"  ng-model="vm.wrapper.comentario4" tabindex="-1" 
+		 ng-readonly="{{vm.reporte.status!='editar'?true:false}}" required> {{vm.wrapper.comentario4}}</textarea></div>
+	</div>
+
+	<div class="title" style="text-align: center;">Estudiantes<br/><br/>
+		<div class="title" style="text-align: left;">Fortalezas:</div>
+		<div><textarea rows="{{vm.wrapper.comentario5.length==0?0:vm.wrapper.comentario5.split('\n').length + 6}}" cols="50" class="form-control"  name="fortalezaEstudiante"  ng-model="vm.wrapper.comentario5" tabindex="-1" 
+		 ng-readonly="{{vm.reporte.status!='editar'?true:false}}" required> {{vm.wrapper.comentario5}}</textarea></div>
+		<div class="title" style="text-align: left;">Sugerecias:</div>
+		<div><textarea rows="{{vm.wrapper.comentario6.length==0?0:vm.wrapper.comentario6.split('\n').length + 6}}" cols="50" class="form-control"  name="sugerenciasEstudiante"  ng-model="vm.wrapper.comentario6" tabindex="-1" 
+		 ng-readonly="{{vm.reporte.status!='editar'?true:false}}" required> {{vm.wrapper.comentario6}}</textarea></div>
+		<div class="title" style="text-align: left;">Comentarios:</div>
+		<div><textarea rows="{{vm.wrapper.comentario7.length==0?0:vm.wrapper.comentario7.split('\n').length + 6}}" cols="50" class="form-control"  name="comentario7"  ng-model="vm.wrapper.comentario7" tabindex="-1" 
+		 ng-readonly="{{vm.reporte.status!='editar'?true:false}}" required> {{vm.wrapper.comentario7}}</textarea></div>
+	</div>
+</div>
+<br/>
+<br/>
+<div class="reportebody">
+<h4 style="text-align: center;">Anexo A.</h4><br/><br/>
+*Competencias consideradas para evaluar el desempe&ntildeo docente.
+<table class="table table-bordered">
+		<tr>
+		<th> Criterios</th><th>Competencias del Perfil del profesor UADY</th><th>Dimensiones</th>
+		</tr>
+		<tr>
+		<td>Respeto</td><td><strong>Competencia 2.</strong> Manifiesta un comportamiento hacia las personas con &eacutetica y tolerancia.</td><td rowspan="2">Interacci&oacuten</td>
+		</tr>
+		<tr>
+		<td>Relaci&oacuten</td>
+		<td><strong>Competencia 4.</strong> Manifiesta identidad institucional hacia las personas en congruencia con la filosof&iacutea de la Universidad.<br/>
+		<strong>Competencia 6.</strong> Crea ambientes de aprendizaje en su pr&aacutectica docente, adecuados con las necesidades de sus estudiantes. <br/>
+		<strong>Competencia 11.</strong> Promueve el aprendizaje aut&oacutenomo en el estudiante de manera continua.<br/>
+		</td>
+		</tr>
+		<tr>
+		<td>TIC</td><td><strong>Competencia 14.</strong> Utiliza las tecnolog&iacuteas de informaci&oacuten y comunicaci&oacuten como recurso did&aacutectico en su ejercicio docente de manera pertinente.</td><td rowspan="4">Proceso de Ense&ntildeanza y aprendizaje</td>
+		</tr>
+		<tr>
+		<td>Estrategias</td>
+		<td><strong>Competencia 12.</strong> Organiza secuencias did&aacutecticas en el proceso de ense&ntildeanza y aprendizaje, congruentes con las competencias a desarrollar y sus contenidos.<br/>
+		<strong>Competencia 6.</strong> Crea ambientes de aprendizaje en su pr&aacutectica docente, adecuados con las necesidades de sus estudiantes. <br/>
+		</td>
+		</tr>
+		<tr>
+		<td>T&eacutecnicas y medios de calificaci&oacuten</td><td><strong>Competencia 20.</strong> Incorpora diferentes t&eacutecnicas y medios en la evaluaci&oacuten del proceso para el desarrollo adecuado de las competencias.</td>
+		</tr>
+		<tr>
+		<td>Evaluaci&oacuten</td><td><strong>Competencia 21.</strong> Utiliza la evaluaci&oacuten de producto en el desarrollo de las competencias del estudiantado, de manera objetiva, como evidencia de su nivel de dominio</td>
+		</tr>
+		<tr style="text-align: center;">
+		<td><strong>6 CRITERIOS</strong></td><td><strong>8 COMPETENCIAS</strong></td><td><strong>2 DIMENSIONES</strong></td>
+		</tr>
+	</table>
+</div>
+<br/>
+<div class="reportebody">
+<h4 style="text-align: center;">Anexo B.</h4><br/><br/>
+<div>*Los valores que en la Universidad Aut&oacutenoma de Yucat&aacuten se declaran como fundamento<br/>
+- <strong>Competencia 2.</strong> Manifiesta un comportamiento hacia las personas con &eacutetica y tolerancia.<br/>
+- <strong>Competencia 3.</strong> Promueve los valores universitarios en el ejercicio de su pr&aacutectica de manera constante.<br/>
+- <strong>Competencia 4.</strong> Manifiesta identidad institucional hacia las personas en congruencia con la filosof&iacutea de la Universidad. 
+</div>
+<br/>
+(PDI 2014 - 2022 / UADY, 2012).
+<table class="table table-bordered">
+		<tr>
+		<th> Valores</th><th>Descripci&oacuten establecida en el PDI</th>
+		</tr>
+		<tr>
+		<td>Equidad y calidad</td><td>Conforman un binomio indisoluble de valores de la responsabilidad social de la UADY. Implican ofrecer igualdad de oportunidades educativas socialmente relevantes y de buena calidad para la formaci&oacuten de los j&oacutevenes y promover acciones que mejoren las condiciones de bienestar y limiten las situaciones de exclusi&oacuten social.</td>
+		</tr>
+		<tr>
+		<td>La responsabilidad social Universitaria</td>
+		<td>Como un modo permanente de operar de todas las funciones universitarias. Promueve el desarrollo de competencias centradas en el desarrollo sostenible, cuidado ambiental y participaci&oacuten social. 
+		</td>
+		</tr>
+		<tr>
+		<td>Rigor acad&eacutemico</td><td>Representa para los universitarios el compromiso con la precisi&oacuten y seriedad en el desarrollo de todas las tareas en la b&uacutesqueda permanente de lo verdadero.</td>
+		</tr>
+		<tr>
+		<td>legalidad</td>
+		<td>Como el marco irrenunciable de comportamiento, en el cual la comunidad universitaria desarrolla sus actividades en estricto apego a la normativa institucional y a las leyes aplicables.
+		</td>
+		</tr>
+		<tr>
+		<td>Etica y respeto</td><td>Como premisas de la actitud de los universitarios en el desempe&ntildeo de sus actividades. Es en un ambiente de respeto y &eacutetica en el que se pueden formar ciudadanos socialmente comprometidos.</td>
+		</tr>
+		<tr>
+		<td>Honestidad</td><td>Entendida como el soporte institucional fundamental de las virtudes que deben distinguir a la Instituci&oacuten.</td>
+		</tr>
+		<tr>
+		<td>Humildad</td><td>La actitud de los universitarios para no presumir de sus logros y reconocer sus fracasos y debilidades en el cumplimiento de sus funciones.</td>
+		</tr>
+		<tr>
+		<td>Tolerancia</td><td>Constituye el s&oacutelido fundamento de toda comunidad que se desarrolla arm&oacutenicamente y en paz. Significa el reconocimiento y apreciaci&oacuten de los dem&aacutes, la capacidad de convivir con otros y de escucharlos.</td>
+		</tr>
+	</table>
+</div>
+
+
+<footer style="text-align:right" class="reportebody">
+UADY (2012). Modelo Educativo para la Formaci&oacuten Integral. Universidad Aut&oacutenoma de Yucat&aacuten.<br/>
+PDI (2014-2022). Plan de Desarrollo Institucional. Universidad Aut&oacutenoma de Yucat&aacuten.
+		
+</footer>
+</div>
+
+

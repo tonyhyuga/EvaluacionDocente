@@ -51,18 +51,55 @@
                         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                     </ul>
                 </li>
+                <li  has-any-authority="GESTOR_ACADEMICO, ADMTVO_EVALUACION_DOCENTE, PROFESOR" uib-dropdown class="dropdown pointer">
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="entity-menu">
+                        <span>
+                            <span class="glyphicon glyphicon-th-list"></span>
+                            <span class="hidden-sm">
+                                Reportes
+                            </span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ui-sref-active="active">
+                            <a ui-sref="diiereporteevaluativo" ng-click="vm.collapseNavbar()" has-authority="ADMTVO_EVALUACION_DOCENTE">
+                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span >Reporte Evaluativo</span>
+                            </a>
+                        </li>
+                         <li>
+                 	<a ui-sref="diie" ng-click="vm.collapseNavbar()" has-authority="ADMTVO_EVALUACION_DOCENTE">
+                    	<span class="glyphicon glyphicon-calendar"></span>&nbsp;
+                    	<span>Extracci&oacuten de Datos</span>
+                    </a>
+                     <li>
+                 	<a ui-sref="reporteprofesor" ng-click="vm.collapseNavbar()" has-authority="PROFESOR">
+                    	<span class="glyphicon glyphicon-calendar"></span>&nbsp;
+                    	<span>Mis Evaluaciones</span>
+                    </a>
+                 </li>
+                   <li>
+                 	<a ui-sref="revision" ng-click="vm.collapseNavbar()" has-authority="GESTOR_ACADEMICO">
+                    	<span class="glyphicon glyphicon-calendar"></span>&nbsp;
+                    	<span>Revisar Evaluaciones</span>
+                    </a>
+                 </li>
+                        <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+                    </ul>
+                </li>
                  <li>
                  	<a ui-sref="adminactividades" ng-click="vm.collapseNavbar()" has-any-authority="ATI_EVALUACION_DOCENTE, ADMTVO_EVALUACION_DOCENTE">
                     	<span class="glyphicon glyphicon-calendar"></span>&nbsp;
                     	<span>Administrar Actividades</span>
                     </a>
                  </li>
-                  <li>
+                <!--   <li>
                  	<a ui-sref="diie" ng-click="vm.collapseNavbar()" has-authority="ADMTVO_EVALUACION_DOCENTE">
                     	<span class="glyphicon glyphicon-calendar"></span>&nbsp;
                     	<span>Extracci&oacuten de Datos</span>
                     </a>
-                 </li>
+                 </li> -->
                  <li>
                  	<a ui-sref="gestor" ng-click="vm.collapseNavbar()" has-authority="GESTOR_ACADEMICO">
                     	<span class="glyphicon glyphicon-user"></span>&nbsp;

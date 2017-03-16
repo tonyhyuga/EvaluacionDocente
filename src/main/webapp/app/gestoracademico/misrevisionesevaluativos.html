@@ -1,0 +1,136 @@
+<div>
+     <!-- Page Content -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h2 id="navbar">Reportes Evaluativos</h2>
+                    
+                </div>
+				<jhi-alert-error></jhi-alert-error>
+
+				
+                <form class="form-horizontal form-search">
+                  <div><h4>Buscar por:
+                  	<br/>
+                  
+            <div >
+            <label class="control-label" for="fiel">Dependencia</label>
+               	<!-- <select required class="dropdown" ng-model="vm.institucionSelected" value="{{vm.institucionSelected}}" ng-options="institucion.nombre+' '+institucion.abreviatura for institucion in vm.dependencias">
+				</select> -->
+				<select required class="dropdown" ng-model="vm.institucionSelected" >
+					<option ng-repeat=" institucion in vm.dependencias"  value="{{institucion.id}}" >{{institucion.nombre}} {{institucion.abreviatura}}</option>
+					</select>
+            </div>
+                  <div>
+		            <label class="control-label" > A&ntildeo Escolar</label>
+		          <!--   <select required class="" ng-model="vm.anioSelected" ng-options="anioEscolar.descripcion for anioEscolar in vm.aniosEscolares">
+					</select> -->
+					 
+					<select required class="dropdown" ng-model="vm.anioSeleccionado" >
+					<option ng-repeat="anioEscolar in vm.aniosEscolares"  value="{{anioEscolar.id}}" >{{anioEscolar.descripcion}}</option>
+					</select>
+					<label class="control-label" > Periodo: </label>
+					<!-- <input type="radio" name="type"  ng-model="vm.indicePeriodo" value="1"  required > Agosto - Diciembre
+ 					 <input type="radio" name="type"   ng-model="vm.indicePeriodo"  value="2" required> Enero - julio
+      			   -->
+      			   <select required class="dropdown" ng-model="vm.indicePeriodo" >
+					<option value="1" >Primer Periodo</option>
+					<option value="2" >Segundo Periodo</option>
+					<option value="3" >Verano</option>
+					<option value="4" >Invierno</option>
+					</select>
+					<button type="button" class="btn btn-primary" ng-click="vm.search()">Buscar</button>	
+      			   </div>
+                     			
+ 					 </h4>
+ 					   
+ 				 </div>
+                  <div class="form-group">                  	
+                  <!--  	<div class="col-sm-5">
+                        <input type="text" ng-model=vm.currentSearch class="form-control" placeholder="Buscar por asignatura o profesor">
+                  	</div> -->
+                  <!-- 	<label>
+							<input type="checkbox" ng-model="vm.evaluacionesPendientes" > Por evaluar   
+						</label> -->
+				
+                  </div>
+
+				   
+                </form>
+
+                <table class="table table-striped table-hover ">
+                <!--
+                <thead>
+                  <tr>
+                    <th>Asignatura</th>
+                    <th>Opciones</th>
+                  </tr>
+                </thead>
+                -->
+                <tbody>
+                	<tr ng-repeat="wrapper in vm.wrappers | filter: {hayevaluaciones:busquedagestornoevaluados}| filter: busquedagestor track by wrapper.id">
+                	 <td><h4>{{wrapper.asignatura.nombre}}</h4><h6> {{ wrapper.formaDeEvaluar}}</h6></td>
+					<td class="vcenter">
+                      <ul class="btn-group opciones-menu">
+
+                  
+                        
+                        <li uib-dropdown class="dropdown pointer" ng-switch="wrapper.hasReporte">
+	                        
+                            <a class="dropdown-toggle" uib-dropdown-toggle ui-sref="revisionReporteLI({id:wrapper.id})" id="eval-menu" 
+                             ng-show="{{ wrapper.formaDeEvaluar == 'Libre'}}">
+	                            <span ng-switch-when="true" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Ver Reporte 
+                                <!-- <b class="caret"></b> -->
+                            </a>
+                             <a class="dropdown-toggle" uib-dropdown-toggle ui-sref="revisionReporteOO({id:wrapper.id})" id="eval-menu" 
+                             ng-show="{{ wrapper.formaDeEvaluar == 'Optativa'}}">
+	                            <span ng-switch-when="true" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Ver Reporte 
+                                <!-- <b class="caret"></b> -->
+                            </a>
+                             <a class="dropdown-toggle" uib-dropdown-toggle ui-sref="revisionReporteOO({id:wrapper.id})" id="eval-menu" 
+                             ng-show="{{ wrapper.formaDeEvaluar == 'Obligatoria'}}">
+	                            <span ng-switch-when="true" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Ver Reporte 
+                                <!-- <b class="caret"></b> -->
+                            </a>
+                            <!-- <ul class="dropdown-menu multi-level" uib-dropdown-menu id="eval-menu">
+                                <li ng-switch-when="false">
+                                   <a ui-sref="generarReporteOO({idA:wrapper.asignatura.id,idP:wrapper.profesor.id,idAnio:vm.anioSeleccionado,idIndice:vm.indicePeriodo,tipoEvaluacion:wrapper.formaEvaluacion,idDependencia:vm.institucionSelected})" ng-show="{{ wrapper.formaEvaluacion == 'Obligatoria'}}">
+                                    Generar Reporte Evaluativo OB</a>
+                                   <a ui-sref="generarReporteOO({idA:wrapper.asignatura.id,idP:wrapper.profesor.id,idAnio:vm.anioSeleccionado,idIndice:vm.indicePeriodo,tipoEvaluacion:wrapper.formaEvaluacion,idDependencia:vm.institucionSelected})" ng-show="{{ wrapper.formaEvaluacion == 'Optativa'}}">
+                                  Generar Reporte Evaluativo OP</a>
+                                   <a ui-sref="generarReporteLI({idA:wrapper.asignatura.id,idP:wrapper.profesor.id,idAnio:vm.anioSeleccionado,idIndice:vm.indicePeriodo,tipoEvaluacion:wrapper.formaEvaluacion,idDependencia:vm.institucionSelected})" ng-show="{{ wrapper.formaEvaluacion == 'Libre'}}">
+                                   Generar Reporte Evaluativo LI</a>
+                                <a >Evaluaciones cerradas</a>
+                                </li>
+                                <li ng-switch-when="true">
+                                   <a ui-sref="generarReporteOO({idA:wrapper.asignatura.id,idP:wrapper.profesor.id,idAnio:vm.anioSeleccionado,idIndice:vm.indicePeriodo,tipoEvaluacion:wrapper.formaEvaluacion,idDependencia:vm.institucionSelected})" ng-show="{{ wrapper.formaEvaluacion == 'Obligatoria'}}">
+                                    Ver Reporte Evaluativo</a>
+                                   <a ui-sref="generarReporteOO({idA:wrapper.asignatura.id,idP:wrapper.profesor.id,idAnio:vm.anioSeleccionado,idIndice:vm.indicePeriodo,tipoEvaluacion:wrapper.formaEvaluacion,idDependencia:vm.institucionSelected})" ng-show="{{ wrapper.formaEvaluacion == 'Optativa'}}">
+                                  Ver Reporte Evaluativo </a>
+                                   <a ui-sref="generarReporteLI({idA:wrapper.asignatura.id,idP:wrapper.profesor.id,idAnio:vm.anioSeleccionado,idIndice:vm.indicePeriodo,tipoEvaluacion:wrapper.formaEvaluacion,idDependencia:vm.institucionSelected})" ng-show="{{ wrapper.formaEvaluacion == 'Libre'}}">
+                                   Ver Reporte Evaluativo</a>
+                                </li>
+                            
+                   -->
+                        
+                    </ul>
+                    </td>
+                    <jhi-alert></jhi-alert>
+                  </tr>
+                
+                </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!-- /.row -->
+
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+    </div>
+    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
+</div>
+

@@ -84,5 +84,10 @@ public class InstitucionService {
        return institucionRepository.getDependencias();
     }
     
+    public List<Institucion> getDependencias(List<Integer> idInst) {
+        log.debug("Request to get  Institucion : {}");
+       return institucionRepository.getDependencias(idInst);
+    }
+    
 
 }
